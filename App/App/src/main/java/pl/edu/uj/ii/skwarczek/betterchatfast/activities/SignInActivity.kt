@@ -3,6 +3,7 @@ package pl.edu.uj.ii.skwarczek.betterchatfast.activities
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +31,8 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var signInEmailField: EditText
     private lateinit var signInPasswordField: EditText
     private lateinit var googleActionButton: FloatingActionButton
+    private lateinit var signInButton: Button
+    private lateinit var signUpButton: Button
 
     private lateinit var auth: FirebaseAuth
     private companion object{
@@ -130,6 +133,8 @@ class SignInActivity : AppCompatActivity() {
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = tabTitles[position]
         }.attach()
+
+
     }
 
 }
