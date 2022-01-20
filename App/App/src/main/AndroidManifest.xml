@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BetterChatFast">
         <activity
+            android:name=".activities.MainScreenActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.SignInActivity"
             android:exported="true">
             <intent-filter>
