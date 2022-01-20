@@ -26,7 +26,6 @@ class SignInActivity : AppCompatActivity() {
         setContentView(R.layout.activity_signin)
 
         initView()
-
     }
 
     private fun initView() {
