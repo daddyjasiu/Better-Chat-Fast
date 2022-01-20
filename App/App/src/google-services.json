@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "216448691370",
+    "project_id": "better-chat-fast",
+    "storage_bucket": "better-chat-fast.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:216448691370:android:1906f42eea1af4617f34d3",
+        "android_client_info": {
+          "package_name": "pl.edu.uj.ii.skwarczek.betterchatfast"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "216448691370-h39qunnujhv2qvu6ob4nce0d9abstp15.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.edu.uj.ii.skwarczek.betterchatfast",
+            "certificate_hash": "2a951c1dc0701651fcbda5f4d0ad292d40abe53e"
+          }
+        },
+        {
+          "client_id": "216448691370-5cogf89337imc7udkg5ftmkaike9d6od.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMOdTjX_WEt3y6w-aaAaUfHGpe2CgyAeY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "216448691370-5cogf89337imc7udkg5ftmkaike9d6od.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

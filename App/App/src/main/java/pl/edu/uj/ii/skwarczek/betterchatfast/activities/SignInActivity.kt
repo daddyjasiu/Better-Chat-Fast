@@ -1,16 +1,15 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.activities
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.adapters.SignInAdapter
-import kotlin.random.Random
 
 class SignInActivity : AppCompatActivity() {
 
@@ -20,15 +19,26 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var signUpPasswordField: EditText
     private lateinit var signInEmailField: EditText
     private lateinit var signInPasswordField: EditText
+    private lateinit var googleActionButton: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signin)
 
         initView()
+
+        googleActionButton.setOnClickListener{
+            googleButtonClicked()
+        }
+    }
+
+    private fun googleButtonClicked(){
+        println("SWAGGERS")
     }
 
     private fun initView() {
+
+        googleActionButton = findViewById(R.id.fab_google)
 
         tabLayout = findViewById(R.id.tab_layout)
         viewPager = findViewById(R.id.view_pager)
