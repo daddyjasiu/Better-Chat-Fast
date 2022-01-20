@@ -19,20 +19,18 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.fragment_signin_tab.*
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.adapters.SignInAdapter
+import kotlinx.android.synthetic.main.fragment_signin_tab.view.*
+import kotlinx.android.synthetic.main.fragment_signup_tab.view.*
+
 
 class SignInActivity : AppCompatActivity() {
 
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager2
-    private lateinit var signUpEmailField: EditText
-    private lateinit var signUpPasswordField: EditText
-    private lateinit var signInEmailField: EditText
-    private lateinit var signInPasswordField: EditText
     private lateinit var googleActionButton: FloatingActionButton
-    private lateinit var signInButton: Button
-    private lateinit var signUpButton: Button
 
     private lateinit var auth: FirebaseAuth
     private companion object{
@@ -59,6 +57,7 @@ class SignInActivity : AppCompatActivity() {
             startActivityForResult(signInIntent, RC_GOOGLE_SIGN_IN)
         }
     }
+
 
     override fun onStart() {
         super.onStart()

@@ -3,18 +3,20 @@ package pl.edu.uj.ii.skwarczek.betterchatfast.activities
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import org.w3c.dom.Text
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import kotlin.math.sign
 
 class MainScreenActivity : AppCompatActivity() {
 
-    private lateinit var signOutButton: Button
-
     private lateinit var auth: FirebaseAuth
+    private lateinit var signOutButton: Button
+    private lateinit var testTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,10 +30,14 @@ class MainScreenActivity : AppCompatActivity() {
             signOutIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(signOutIntent)
         }
+
+        testTextView.text = auth.currentUser!!.uid
+
     }
 
     private fun initView(){
         auth = Firebase.auth
         signOutButton = findViewById(R.id.signout_button)
+        testTextView = findViewById(R.id.test_main_screen_text_view)
     }
 }
