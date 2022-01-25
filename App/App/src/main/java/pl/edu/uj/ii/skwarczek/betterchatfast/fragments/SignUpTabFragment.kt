@@ -22,6 +22,7 @@ class SignUpTabFragment : Fragment(){
 
     private lateinit var auth: FirebaseAuth
     private lateinit var signUpButton: Button
+
     private lateinit var signUpEmailField: EditText
     private lateinit var signUpPasswordField: EditText
 
