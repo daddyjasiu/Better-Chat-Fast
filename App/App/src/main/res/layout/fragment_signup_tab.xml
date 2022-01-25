@@ -24,11 +24,11 @@
         tools:ignore="RtlSymmetry" />
 
     <EditText
-        android:id="@+id/sign_up_surname_edit_text"
+        android:id="@+id/sign_up_last_name_edit_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/edit_text_bg"
-        android:hint="Surname"
+        android:hint="Last name"
         android:layout_marginTop="20dp"
         android:paddingStart="20dp"
         android:paddingTop="10dp"
@@ -57,7 +57,7 @@
         app:layout_constraintHorizontal_bias=".5"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_surname_edit_text"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_last_name_edit_text"
         app:layout_constraintWidth_percent=".8"
         tools:ignore="RtlSymmetry" />
 

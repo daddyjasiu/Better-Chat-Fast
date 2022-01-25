@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -25,10 +26,20 @@ class MainScreenActivity : AppCompatActivity() {
         initView()
 
         signOutButton.setOnClickListener {
-            auth.signOut()
-            val signOutIntent = Intent(this, SignInActivity::class.java)
-            signOutIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(signOutIntent)
+
+            AlertDialog.Builder(this)
+                .setTitle("Sign out")
+                .setMessage("Do you really want to sign out?")
+                .setNegativeButton("No") { dialogInterface, _ ->
+                    dialogInterface.dismiss()
+                }
+                .setPositiveButton("Yes") { _, _ ->
+                    auth.signOut()
+                    val signOutIntent = Intent(this, SignInActivity::class.java)
+                    signOutIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(signOutIntent)
+                }
+                .show()
         }
 
         testTextView.text = auth.currentUser!!.uid
