@@ -12,9 +12,10 @@ object FirestoreHelper {
         val db = Firebase.firestore
 
         db.collection("users")
-            .add(user)
-            .addOnSuccessListener { documentReference ->
-                Log.d(ContentValues.TAG, "User added with ID: ${documentReference.id}")
+            .document(user.userId)
+            .set(user)
+            .addOnSuccessListener {
+                Log.d(ContentValues.TAG, "User added with ID: ${user.userId}")
             }
             .addOnFailureListener { e ->
                 Log.w(ContentValues.TAG, "Error adding user", e)
