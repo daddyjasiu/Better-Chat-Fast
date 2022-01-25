@@ -69,7 +69,7 @@ class SignInTabFragment : Fragment(){
         auth = Firebase.auth
         signInButton = view.findViewById(R.id.sign_in_button)
         forgotPasswordTextView = view.findViewById(R.id.forgot_password_text_view)
-        signInEmailField = view.findViewById(R.id.sign_in_email)
-        signInPasswordField = view.findViewById(R.id.sign_in_password)
+        signInEmailField = view.findViewById(R.id.sign_in_email_edit_text)
+        signInPasswordField = view.findViewById(R.id.sign_in_password_edit_text)
     }
 }

@@ -64,7 +64,7 @@ class SignUpTabFragment : Fragment(){
     private fun initView(view: View){
         auth = Firebase.auth
         signUpButton = view.findViewById(R.id.sign_up_button)
-        signUpEmailField = view.findViewById(R.id.sign_up_email)
-        signUpPasswordField = view.findViewById(R.id.sign_up_password)
+        signUpEmailField = view.findViewById(R.id.sign_up_email_edit_text)
+        signUpPasswordField = view.findViewById(R.id.sign_up_password_edit_text)
     }
 }

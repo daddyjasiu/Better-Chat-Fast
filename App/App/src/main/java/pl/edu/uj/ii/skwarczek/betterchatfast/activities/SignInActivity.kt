@@ -117,8 +117,8 @@ class SignInActivity : AppCompatActivity() {
         auth = Firebase.auth
         googleActionButton = findViewById(R.id.fab_google)
 
-        tabLayout = findViewById(R.id.tab_layout)
-        viewPager = findViewById(R.id.view_pager)
+        tabLayout = findViewById(R.id.sign_in_tab_layout)
+        viewPager = findViewById(R.id.sign_in_view_pager)
 
         val tabTitles = arrayOf("Sign in", "Sign up")
 

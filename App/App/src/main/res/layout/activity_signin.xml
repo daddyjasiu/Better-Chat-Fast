@@ -8,43 +8,43 @@
     tools:context=".activities.SignInActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/sign_in_image_view"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/login_silk_bg"
+        android:src="@drawable/yellow_paint_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent=".27"
+        app:layout_constraintHeight_percent=".34"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/sign_in_constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/view_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent=".78"
+        app:layout_constraintHeight_percent=".72"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1">
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager"
+            android:id="@+id/sign_in_view_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent=".7"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tab_layout"
+            app:layout_constraintTop_toBottomOf="@id/sign_in_tab_layout"
             app:layout_constraintVertical_bias="0"/>
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
+            android:id="@+id/sign_in_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/view_bg"
@@ -68,7 +68,7 @@
             app:layout_constraintEnd_toStartOf="@+id/fab_facebook"
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view_pager" />
+            app:layout_constraintTop_toBottomOf="@id/sign_in_view_pager" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_facebook"
@@ -82,7 +82,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view_pager" />
+            app:layout_constraintTop_toBottomOf="@id/sign_in_view_pager" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_twitter"
@@ -98,7 +98,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/fab_facebook"
-            app:layout_constraintTop_toBottomOf="@id/view_pager" />
+            app:layout_constraintTop_toBottomOf="@id/sign_in_view_pager" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -107,9 +107,9 @@
         android:layout_height="wrap_content"
         android:text="Better Chat Fast"
         android:textColor="@color/white"
-        android:textSize="45sp"
+        android:textSize="50sp"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintBottom_toTopOf="@+id/sign_in_constraint_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -6,26 +6,64 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/sign_up_email"
+        android:id="@+id/sign_up_first_name_edit_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintWidth_percent=".8"
-        app:layout_constraintVertical_bias=".3"
-        app:layout_constraintHorizontal_bias=".5"
-        android:hint="E-mail"
+        android:background="@drawable/edit_text_bg"
+        android:hint="First name"
         android:paddingStart="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:background="@drawable/edit_text_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintVertical_bias=".1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent=".8"
+        tools:ignore="RtlSymmetry" />
+
+    <EditText
+        android:id="@+id/sign_up_surname_edit_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_bg"
+        android:hint="Surname"
+        android:layout_marginTop="20dp"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_first_name_edit_text"
+        app:layout_constraintWidth_percent=".8"
+        tools:ignore="RtlSymmetry" />
+
+    <EditText
+        android:id="@+id/sign_up_email_edit_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_bg"
+        android:hint="E-mail"
+        android:layout_marginTop="20dp"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_surname_edit_text"
+        app:layout_constraintWidth_percent=".8"
         tools:ignore="RtlSymmetry" />
 
     <EditText
         android:inputType="textPassword"
-        android:id="@+id/sign_up_password"
+        android:id="@+id/sign_up_password_edit_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Password"
@@ -39,12 +77,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_email"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_email_edit_text"
         app:layout_constraintWidth_percent=".8"
         tools:ignore="RtlSymmetry" />
 
     <Button
-        android:onClick="signUpClicked"
         android:id="@+id/sign_up_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -56,8 +93,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_password"
-        app:layout_constraintWidth_percent=".8" />
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_password_edit_text"
+        app:layout_constraintWidth_percent=".8"
+        app:layout_constraintVertical_bias="1"
+        android:layout_marginBottom="5dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
