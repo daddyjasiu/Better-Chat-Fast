@@ -60,6 +60,7 @@ class SignUpTabFragment : Fragment(){
 
                             val user = UserFactory.createUser(
                                 UserTypes.STANDARD,
+                                auth.currentUser!!.uid,
                                 firstName,
                                 lastName,
                                 email,
