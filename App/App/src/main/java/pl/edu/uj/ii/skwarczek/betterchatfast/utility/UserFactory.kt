@@ -11,6 +11,7 @@ object UserFactory {
     fun createUser(
         type: UserTypes,
         userId: String,
+        nickname: String,
         firstName: String,
         lastName: String,
         email: String,
@@ -19,10 +20,10 @@ object UserFactory {
     ): IUser {
         return when (type) {
             UserTypes.STANDARD -> {
-                StandardUser(userId, firstName, lastName, email, profilePicture, location)
+                StandardUser(userId, nickname, firstName, lastName, email, profilePicture, location)
             }
             UserTypes.PREMIUM -> {
-                PremiumUser(userId, firstName, lastName, email, profilePicture, location)
+                PremiumUser(userId,nickname, firstName, lastName, email, profilePicture, location)
             }
         }
     }

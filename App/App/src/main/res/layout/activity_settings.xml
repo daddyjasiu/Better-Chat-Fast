@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <EditText
-        android:id="@+id/sign_up_email_edit_text"
+        android:id="@+id/settings_nickname_edit_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintWidth_percent=".8"
         app:layout_constraintVertical_bias=".1"
         app:layout_constraintHorizontal_bias=".5"
-        android:hint="E-mail"
+        android:hint="Nickname"
         android:paddingStart="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
@@ -24,42 +24,52 @@
         tools:ignore="RtlSymmetry" />
 
     <EditText
-        android:inputType="textPassword"
-        android:id="@+id/sign_up_password_edit_text"
+        android:id="@+id/settings_first_name_edit_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Password"
-        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_text_bg"
+        android:hint="First name"
         android:paddingStart="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:background="@drawable/edit_text_bg"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintHorizontal_bias=".5"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintHorizontal_bias=".5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_email_edit_text"
+        app:layout_constraintTop_toBottomOf="@+id/settings_nickname_edit_text"
+        app:layout_constraintWidth_percent=".8"
+        tools:ignore="RtlSymmetry" />
+
+    <EditText
+        android:id="@+id/settings_last_name_edit_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_bg"
+        android:hint="Last name"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_first_name_edit_text"
         app:layout_constraintWidth_percent=".8"
         tools:ignore="RtlSymmetry" />
 
     <Button
-        android:id="@+id/sign_up_button"
-        android:layout_width="0dp"
+        android:id="@+id/settings_save_changes_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_bg"
-        android:text="Sign up"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:backgroundTint="@null"
+        android:text="Save changes"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_password_edit_text"
-        app:layout_constraintWidth_percent=".8"
-        app:layout_constraintVertical_bias="1"
-        android:layout_marginBottom="5dp"
-        android:textAllCaps="false"/>
-
+        app:layout_constraintTop_toBottomOf="@+id/settings_last_name_edit_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,9 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.activities
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -18,18 +17,17 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import org.w3c.dom.Text
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
+import pl.edu.uj.ii.skwarczek.betterchatfast.interfaces.ISettings
+import pl.edu.uj.ii.skwarczek.betterchatfast.models.Settings
 import pl.edu.uj.ii.skwarczek.betterchatfast.utility.FirestoreHelper
 import kotlin.coroutines.CoroutineContext
-import kotlin.math.sign
 
 class MainScreenActivity : AppCompatActivity(), CoroutineScope {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var currentUser: FirebaseUser
     private lateinit var db: FirebaseFirestore
-    private lateinit var signOutButton: Button
     private lateinit var testTextView: TextView
 
     private var job: Job = Job()
@@ -48,34 +46,52 @@ class MainScreenActivity : AppCompatActivity(), CoroutineScope {
 
         initView()
 
-        signOutButton.setOnClickListener {
-
-            AlertDialog.Builder(this)
-                .setTitle("Sign out")
-                .setMessage("Do you really want to sign out?")
-                .setNegativeButton("No") { dialogInterface, _ ->
-                    dialogInterface.dismiss()
-                }
-                .setPositiveButton("Yes") { _, _ ->
-                    auth.signOut()
-                    val signOutIntent = Intent(this, SignInActivity::class.java)
-                    signOutIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(signOutIntent)
-                }
-                .show()
-        }
-
         launch{
-            testTextView.text = FirestoreHelper.getUserFromFirestore(currentUser)?.get("email").toString()
+            testTextView.text = FirestoreHelper.getCurrentUserFromFirestore()?.get("email").toString()
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_details, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.settings_menu_item -> {
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+            }
+
+            R.id.about_us_menu_item -> {
+
+            }
+
+            R.id.sign_out_menu_item -> {
+                AlertDialog.Builder(this)
+                    .setTitle("Sign out")
+                    .setMessage("Do you really want to sign out?")
+                    .setNegativeButton("No") { dialogInterface, _ ->
+                        dialogInterface.dismiss()
+                    }
+                    .setPositiveButton("Yes") { _, _ ->
+                        auth.signOut()
+                        val signOutIntent = Intent(this, SignInActivity::class.java)
+                        signOutIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(signOutIntent)
+                    }
+                    .show()
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     private fun initView(){
         auth = Firebase.auth
         currentUser = auth.currentUser!!
         db = Firebase.firestore
-        signOutButton = findViewById(R.id.signout_button)
         testTextView = findViewById(R.id.test_main_screen_text_view)
     }
 }
