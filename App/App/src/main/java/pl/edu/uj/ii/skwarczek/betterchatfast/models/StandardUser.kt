@@ -10,6 +10,6 @@ data class StandardUser(
     override var email: String,
     override var profilePicture: String,
     override var location: Location,
-    ): IUser(userId, firstName, lastName, email, profilePicture, false, location){
+    ): IUser(userId, firstName, lastName, email, profilePicture, location, false, false){
 
     }

@@ -14,17 +14,33 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import org.w3c.dom.Text
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
+import pl.edu.uj.ii.skwarczek.betterchatfast.utility.FirestoreHelper
+import kotlin.coroutines.CoroutineContext
 import kotlin.math.sign
 
-class MainScreenActivity : AppCompatActivity() {
+class MainScreenActivity : AppCompatActivity(), CoroutineScope {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var currentUser: FirebaseUser
     private lateinit var db: FirebaseFirestore
     private lateinit var signOutButton: Button
     private lateinit var testTextView: TextView
+
+    private var job: Job = Job()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,16 +65,9 @@ class MainScreenActivity : AppCompatActivity() {
                 .show()
         }
 
-            db.collection("users")
-                .document(currentUser.uid)
-                .get()
-                .addOnSuccessListener { document ->
-                    if (document != null) {
-                        testTextView.text = document.data?.get("firstName")?.toString()
-                    } else {
-                        Log.d(TAG, "No such document")
-                    }
-                }
+        launch{
+            testTextView.text = FirestoreHelper.getUserFromFirestore(currentUser)?.get("email").toString()
+        }
 
     }
 

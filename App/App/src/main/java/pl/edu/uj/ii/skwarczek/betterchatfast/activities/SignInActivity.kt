@@ -3,8 +3,6 @@ package pl.edu.uj.ii.skwarczek.betterchatfast.activities
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
@@ -57,7 +55,6 @@ class SignInActivity : AppCompatActivity() {
             startActivityForResult(signInIntent, RC_GOOGLE_SIGN_IN)
         }
     }
-
 
     override fun onStart() {
         super.onStart()
@@ -127,7 +124,7 @@ class SignInActivity : AppCompatActivity() {
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
         viewPager.adapter =
-            SignInAdapter(supportFragmentManager, lifecycle, this, tabLayout.tabCount)
+            SignInAdapter(supportFragmentManager, lifecycle, tabLayout.tabCount)
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = tabTitles[position]

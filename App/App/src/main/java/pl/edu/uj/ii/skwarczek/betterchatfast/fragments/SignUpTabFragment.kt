@@ -20,6 +20,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.activities.MainScreenActivity
+import pl.edu.uj.ii.skwarczek.betterchatfast.activities.OnboardingActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.enums.UserTypes
 import pl.edu.uj.ii.skwarczek.betterchatfast.utility.FirestoreHelper
 import pl.edu.uj.ii.skwarczek.betterchatfast.utility.UserFactory
@@ -68,7 +69,7 @@ class SignUpTabFragment : Fragment(){
                                 Location("asd"))
                             FirestoreHelper.addUserToFirestore(user)
 
-                            val intent = Intent(activity, MainScreenActivity::class.java)
+                            val intent = Intent(activity, OnboardingActivity::class.java)
                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             startActivity(intent)
                         }

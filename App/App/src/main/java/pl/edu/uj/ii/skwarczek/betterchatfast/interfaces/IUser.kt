@@ -8,9 +8,8 @@ open class IUser(
     open var lastName: String,
     open var email: String,
     open var profilePicture: String,
-    open var isPremium: Boolean,
     open var location: Location,
 
-    ) {
-
-}
+    open var isPremium: Boolean,
+    open var isAfterOnboarding: Boolean,
+    )

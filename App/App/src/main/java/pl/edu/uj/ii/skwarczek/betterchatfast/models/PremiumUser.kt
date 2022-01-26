@@ -10,6 +10,6 @@ data class PremiumUser(
     override var email: String,
     override var profilePicture: String,
     override var location: Location,
-): IUser(userId, firstName, lastName, email, profilePicture, true, location){
+): IUser(userId, firstName, lastName, email, profilePicture, location, true, false){
 
 }
