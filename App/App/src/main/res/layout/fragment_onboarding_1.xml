@@ -29,7 +29,7 @@
         android:layout_marginStart="20dp"
         android:fontFamily="sans-serif-light"
         android:text="Hello,"
-        android:textSize="42sp"
+        android:textSize="44sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
@@ -44,7 +44,7 @@
         android:fontFamily="sans-serif-condensed"
         android:text="nice to meet you!"
         android:textColor="@color/black"
-        android:textSize="54sp"
+        android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
@@ -57,7 +57,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Every hero needs a name, so pick one! Just remember to not use anything offensive (we will see this)!"
+        android:text="Every hero needs a name, so pick one!\n\nJust remember to not use anything offensive (we will see this)!"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,7 +66,7 @@
         app:layout_constraintStart_toStartOf="@+id/onboarding_1_hello2_text_view"
         app:layout_constraintTop_toBottomOf="@+id/onboarding_1_hello2_text_view"
         app:layout_constraintVertical_bias="0"
-        app:layout_constraintWidth_percent=".5" />
+        app:layout_constraintWidth_percent=".7" />
 
     <EditText
         android:id="@+id/onboarding_1_nickname_edit_text"

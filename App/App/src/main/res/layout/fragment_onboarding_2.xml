@@ -28,8 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:fontFamily="sans-serif-light"
-        android:text="We want"
-        android:textSize="42sp"
+        android:text="We want to"
+        android:textSize="44sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-condensed"
-        android:text="to know you better"
+        android:text="know you better"
         android:textColor="@color/black"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -55,18 +55,17 @@
     <TextView
         android:id="@+id/onboarding_2_description_text_view"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Our privacy settings and security filters require you to put your name and surname. It will not be shown to anyone!"
+        android:text="Our privacy settings and security filters require you to tell us your name and surname.\n\nDon't worry, it will not be shown to anyone!"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent=".1"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@+id/onboarding_2_hello2_text_view"
         app:layout_constraintTop_toBottomOf="@+id/onboarding_2_hello2_text_view"
         app:layout_constraintVertical_bias="0"
-        app:layout_constraintWidth_percent=".5" />
+        app:layout_constraintWidth_percent=".7" />
 
     <EditText
         android:id="@+id/onboarding_2_last_name_edit_text"
