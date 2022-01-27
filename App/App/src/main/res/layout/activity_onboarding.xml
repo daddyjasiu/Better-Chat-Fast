@@ -5,71 +5,9 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <EditText
-        android:id="@+id/onboarding_nickname_edit_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintWidth_percent=".8"
-        app:layout_constraintVertical_bias=".1"
-        app:layout_constraintHorizontal_bias=".5"
-        android:hint="Nickname"
-        android:paddingStart="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:background="@drawable/edit_text_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="RtlSymmetry" />
-
-    <EditText
-        android:id="@+id/onboarding_first_name_edit_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/edit_text_bg"
-        android:hint="First name"
-        android:paddingStart="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintHorizontal_bias=".5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/onboarding_nickname_edit_text"
-        app:layout_constraintWidth_percent=".8"
-        tools:ignore="RtlSymmetry" />
-
-    <EditText
-        android:id="@+id/onboarding_last_name_edit_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/edit_text_bg"
-        android:hint="Last name"
-        android:paddingStart="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias=".5"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/onboarding_first_name_edit_text"
-        app:layout_constraintWidth_percent=".8"
-        tools:ignore="RtlSymmetry" />
-
-    <Button
-        android:id="@+id/finish_onboarding_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="Take me to main screen!"
-        android:textAllCaps="false"/>
+    <com.cuberto.liquid_swipe.LiquidPager
+        android:id="@+id/onboarding_liquid_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
