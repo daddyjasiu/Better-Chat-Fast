@@ -1,7 +1,5 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.interfaces
 
-import android.content.Context
-
 interface ISettings {
     fun setUserNickname(nickname: String)
     fun setUserFirstName(firstName: String)

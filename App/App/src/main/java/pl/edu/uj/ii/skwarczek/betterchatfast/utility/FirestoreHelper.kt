@@ -2,20 +2,12 @@ package pl.edu.uj.ii.skwarczek.betterchatfast.utility
 
 import android.content.ContentValues
 import android.content.ContentValues.TAG
-import android.content.Context
-import android.net.Uri
 import android.util.Log
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
-import pl.edu.uj.ii.skwarczek.betterchatfast.interfaces.ISettings
 import pl.edu.uj.ii.skwarczek.betterchatfast.interfaces.IUser
-import java.lang.Exception
 
 object FirestoreHelper {
 
