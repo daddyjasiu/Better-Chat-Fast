@@ -54,6 +54,19 @@ class SignUpTabFragment : Fragment(){
                         if (task.isSuccessful) {
                             Toast.makeText(activity, "Registered successfully!", Toast.LENGTH_SHORT).show()
 
+                            //Adding user to the firestore only with email, adding additional info after onboarding
+                            val newUser = UserFactory.createUser(
+                                UserTypes.STANDARD,
+                                userId = auth.currentUser?.uid!!,
+                                "",
+                                "",
+                                "",
+                                email,
+                                "",
+                                Location("")
+                            )
+                            FirestoreHelper.addUserToFirestore(newUser)
+
                             val intent = Intent(activity, OnboardingActivity::class.java)
                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             startActivity(intent)

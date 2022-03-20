@@ -18,10 +18,10 @@ object FirestoreHelper {
             .document(user.userId)
             .set(user)
             .addOnSuccessListener {
-                Log.d(ContentValues.TAG, "User added with ID: ${user.userId}")
+                Log.d(TAG, "User added with ID: ${user.userId}")
             }
             .addOnFailureListener { e ->
-                Log.w(ContentValues.TAG, "Error adding user", e)
+                Log.w(TAG, "Error adding user", e)
             }
     }
 

@@ -11,6 +11,8 @@ data class StandardUser(
     override var email: String,
     override var profilePicture: String,
     override var location: Location,
-    ): IUser(userId, nickname, firstName, lastName, email, profilePicture, location, false, false){
 
-    }
+    override var isPremium: Boolean = false,
+    override var isAfterOnboarding: Boolean = false,
+
+    ) : IUser

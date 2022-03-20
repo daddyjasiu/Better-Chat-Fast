@@ -2,15 +2,15 @@ package pl.edu.uj.ii.skwarczek.betterchatfast.interfaces
 
 import android.location.Location
 
-open class IUser(
-    open var userId: String,
-    open var nickname: String,
-    open var firstName: String,
-    open var lastName: String,
-    open var email: String,
-    open var profilePicture: String,
-    open var location: Location,
+interface IUser{
+    var userId: String
+    var nickname: String
+    var firstName: String
+    var lastName: String
+    var email: String
+    var profilePicture: String
+    var location: Location
 
-    open var isPremium: Boolean,
-    open var isAfterOnboarding: Boolean,
-    )
+    var isPremium: Boolean
+    var isAfterOnboarding: Boolean
+}

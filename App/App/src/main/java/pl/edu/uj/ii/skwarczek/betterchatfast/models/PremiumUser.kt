@@ -11,6 +11,8 @@ data class PremiumUser(
     override var email: String,
     override var profilePicture: String,
     override var location: Location,
-): IUser(userId, nickname, firstName, lastName, email, profilePicture, location, true, false){
 
-}
+    override var isPremium: Boolean = true,
+    override var isAfterOnboarding: Boolean = false,
+
+    ): IUser
