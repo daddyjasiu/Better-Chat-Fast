@@ -75,4 +75,20 @@ object FirestoreHelper {
             .update("lastName", lastName)
     }
 
+    fun updateCurrentUserIsPremium(isPremium: Boolean){
+        val db = Firebase.firestore
+        val currentUser = Firebase.auth.currentUser!!
+        db.collection("users")
+            .document(currentUser.uid)
+            .update("premium", isPremium)
+    }
+
+    fun updateCurrentUserIsAfterOnboarding(isAfterOnboarding: Boolean){
+        val db = Firebase.firestore
+        val currentUser = Firebase.auth.currentUser!!
+        db.collection("users")
+            .document(currentUser.uid)
+            .update("afterOnboarding", isAfterOnboarding)
+    }
+
 }

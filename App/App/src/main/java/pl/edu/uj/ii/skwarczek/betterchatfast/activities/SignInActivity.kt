@@ -16,20 +16,36 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_signin_tab.*
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.adapters.SignInAdapter
 import kotlinx.android.synthetic.main.fragment_signin_tab.view.*
 import kotlinx.android.synthetic.main.fragment_signup_tab.view.*
+import kotlinx.coroutines.*
+import pl.edu.uj.ii.skwarczek.betterchatfast.utility.FirestoreHelper
+import kotlin.coroutines.CoroutineContext
 
 
-class SignInActivity : AppCompatActivity() {
+class SignInActivity : AppCompatActivity(), CoroutineScope {
+
+    private var job: Job = Job()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
+    }
 
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager2
     private lateinit var googleActionButton: FloatingActionButton
 
+    private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
     private companion object{
         private  const val TAG = "SignInActivity"
@@ -99,14 +115,18 @@ class SignInActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
                     val isNew = task.result.additionalUserInfo?.isNewUser!!
-                    if(isNew){
-                        //przejscie do onboard screena
-                        startActivity(Intent(this, OnboardingActivity::class.java))
-                        finish()
-                    }
-                    else {
-                        val user = auth.currentUser
-                        updateUI(user)
+
+                    launch {
+                        val currentUser = FirestoreHelper.getCurrentUserFromFirestore()
+
+                        if (isNew && currentUser?.get("afterOnboarding") != false) {
+                            //przejscie do onboard screena
+                            startActivity(Intent(baseContext, OnboardingActivity::class.java))
+                            finish()
+                        } else {
+                            val user = auth.currentUser
+                            updateUI(user)
+                        }
                     }
                 } else {
                     // If sign in fails, display a message to the user.
@@ -120,6 +140,7 @@ class SignInActivity : AppCompatActivity() {
     private fun initView() {
 
         auth = Firebase.auth
+        db = Firebase.firestore
         googleActionButton = findViewById(R.id.fab_google)
 
         tabLayout = findViewById(R.id.sign_in_tab_layout)

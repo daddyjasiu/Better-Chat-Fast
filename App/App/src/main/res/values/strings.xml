@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Better Chat Fast</string>
     <string name="onboarding_1_text">We are so happy you\'re here!\n\nBetter Chat Fast lets you talk with people from across the globe in thrilling, time-limited calls!\n\nMake the most of your conversations by asking questions, exchanging social media accounts and getting to know each other (fast)!</string>
-    <string name="onboarding_4_text">Every hero needs a name, so pick one!\nJust remember to not use anything offensive (we will see this)!\n\nWe also need to know your name and surname for security reasons.\nDon\'t worry, your info will remain secure and hidden!</string>
+    <string name="onboarding_4_text">Every hero needs a name, so pick one!\nJust remember to not use anything offensive (we will see this)!\n\nWe also need to know your name and surname for security reasons.</string>
 </resources>

@@ -10,7 +10,4 @@ interface IUser{
     var email: String
     var profilePicture: String
     var location: Location
-
-    var isPremium: Boolean
-    var isAfterOnboarding: Boolean
 }

@@ -1,6 +1,7 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.models
 
 import android.location.Location
+import com.google.firebase.firestore.PropertyName
 import pl.edu.uj.ii.skwarczek.betterchatfast.interfaces.IUser
 
 data class StandardUser(
@@ -12,7 +13,9 @@ data class StandardUser(
     override var profilePicture: String,
     override var location: Location,
 
-    override var isPremium: Boolean = false,
-    override var isAfterOnboarding: Boolean = false,
+    @PropertyName("isPremium")
+    var isPremium: Boolean = false,
+    @PropertyName("isAfterOnboarding")
+    var isAfterOnboarding: Boolean = false,
 
     ) : IUser

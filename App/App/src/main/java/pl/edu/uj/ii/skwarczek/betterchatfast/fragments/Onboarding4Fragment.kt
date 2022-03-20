@@ -39,6 +39,7 @@ class Onboarding4Fragment  : Fragment() {
                 FirestoreHelper.updateCurrentUserNicknameInFirebase(nickname)
                 FirestoreHelper.updateCurrentUserFirstNameInFirebase(firstName)
                 FirestoreHelper.updateCurrentUserLastNameInFirebase(lastName)
+                FirestoreHelper.updateCurrentUserIsAfterOnboarding(true)
 
                 val intent = Intent(context, MainScreenActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
