@@ -3,16 +3,135 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorAccentVariant">
 
-    <Button
-        android:id="@+id/onboarding_finish_button"
+    <TextView
+    android:id="@+id/onboarding_4_app_name_text_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="25dp"
+    android:text="Better Chat Fast"
+    android:textColor="@color/black"
+    android:textSize="16sp"
+    android:textStyle="bold"
+    app:layout_constraintHorizontal_bias="0"
+    app:layout_constraintVertical_bias="0"
+    app:layout_constraintBottom_toTopOf="@+id/onboarding_4_hello1_text_view"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="@+id/onboarding_4_hello1_text_view"
+    app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/onboarding_4_hello1_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="sans-serif-light"
+        android:text="We need"
+        android:textSize="44sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".15" />
+
+    <TextView
+        android:id="@+id/onboarding_4_hello2_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:text="some more info"
+        android:textColor="@color/black"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/onboarding_4_hello1_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/onboarding_4_hello1_text_view"
+        app:layout_constraintVertical_bias="0" />
+
+    <TextView
+        android:id="@+id/onboarding_4_description_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/onboarding_4_text"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".1"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/onboarding_4_hello2_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/onboarding_4_hello2_text_view"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintWidth_percent=".7" />
+
+    <EditText
+        android:id="@+id/onboarding_4_nickname_edit_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_bg"
+        android:hint="Nickname"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintVertical_bias=".1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/onboarding_4_description_text_view"
+        app:layout_constraintWidth_percent=".8"
+        tools:ignore="RtlSymmetry" />
+
+    <EditText
+        android:id="@+id/onboarding_4_last_name_edit_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/edit_text_bg"
+        android:hint="Last name"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/onboarding_4_first_name_edit_text"
+        app:layout_constraintWidth_percent=".8"
+        app:layout_constraintVertical_bias="0"
+        tools:ignore="RtlSymmetry" />
+
+    <EditText
+        android:id="@+id/onboarding_4_first_name_edit_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_bg"
+        android:layout_marginTop="15dp"
+        android:hint="First name"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/onboarding_4_nickname_edit_text"
+        app:layout_constraintWidth_percent=".8"
+        app:layout_constraintVertical_bias="0"
+        tools:ignore="RtlSymmetry" />
+
+    <Button
+        android:id="@+id/onboarding_4_finish_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finish"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="finish"/>
+        app:layout_constraintTop_toBottomOf="@+id/onboarding_4_last_name_edit_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

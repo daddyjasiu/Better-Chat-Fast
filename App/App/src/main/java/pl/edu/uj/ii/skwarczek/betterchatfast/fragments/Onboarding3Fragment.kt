@@ -14,8 +14,6 @@ class Onboarding3Fragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_onboarding_3, container, false)
 
-
-
         return view
     }
 }
