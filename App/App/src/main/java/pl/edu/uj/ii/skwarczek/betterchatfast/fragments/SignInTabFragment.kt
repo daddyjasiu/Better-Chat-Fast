@@ -1,4 +1,4 @@
-package pl.edu.uj.ii.skwarczek.productlist.fragments
+package pl.edu.uj.ii.skwarczek.betterchatfast.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,22 +9,36 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.activities.MainScreenActivity
+import pl.edu.uj.ii.skwarczek.betterchatfast.activities.OnboardingActivity
+import kotlin.coroutines.CoroutineContext
 
-class SignInTabFragment : Fragment(){
+class SignInTabFragment : Fragment(), CoroutineScope{
 
     private lateinit var auth: FirebaseAuth
     private lateinit var signInButton: Button
     private lateinit var forgotPasswordTextView: TextView
     private lateinit var signInEmailField: EditText
     private lateinit var signInPasswordField: EditText
+
+    private var job: Job = Job()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,9 +57,22 @@ class SignInTabFragment : Fragment(){
                     .addOnCompleteListener { task ->
                         if(task.isSuccessful){
                             Toast.makeText(activity, "Logged in successfully!", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(activity, MainScreenActivity::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                            startActivity(intent)
+
+                            launch(Dispatchers.Main){
+                                val user = pl.edu.uj.ii.skwarczek.betterchatfast.utility.FirestoreHelper.getCurrentUserFromFirestore()
+                                //If the user is NOT new, but he hasn't finished onboarding, onboard him
+                                if (user.get("afterOnboarding").toString() == "false") {
+                                    val intent = Intent(activity, OnboardingActivity::class.java)
+                                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                    startActivity(intent)
+                                }
+                                //If the user is NOT new and has finished onboarding, take him to main screen
+                                else {
+                                    val intent = Intent(activity, MainScreenActivity::class.java)
+                                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                    startActivity(intent)
+                                }
+                            }
                         }
                         else{
                             Toast.makeText(activity, "Login failed, try again.", Toast.LENGTH_SHORT).show()

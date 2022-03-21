@@ -43,7 +43,6 @@ class SignUpTabFragment : Fragment(){
         initView(view)
 
         signUpButton.setOnClickListener {
-            println("User SignUpButton clicked!")
             if(signUpEmailField.text.toString().trim().isNotEmpty() && signUpPasswordField.text.toString().trim().isNotEmpty()){
 
                 val email = signUpEmailField.text.trim().toString()

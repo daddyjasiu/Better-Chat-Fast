@@ -1,14 +1,19 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.activities
 
 import android.content.Intent
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInApi
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.GoogleApiActivity
+import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -20,12 +25,14 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_signin_tab.*
-import pl.edu.uj.ii.skwarczek.betterchatfast.R
-import pl.edu.uj.ii.skwarczek.betterchatfast.adapters.SignInAdapter
 import kotlinx.android.synthetic.main.fragment_signin_tab.view.*
 import kotlinx.android.synthetic.main.fragment_signup_tab.view.*
 import kotlinx.coroutines.*
+import pl.edu.uj.ii.skwarczek.betterchatfast.R
+import pl.edu.uj.ii.skwarczek.betterchatfast.adapters.SignInAdapter
+import pl.edu.uj.ii.skwarczek.betterchatfast.enums.UserTypes
 import pl.edu.uj.ii.skwarczek.betterchatfast.utility.FirestoreHelper
+import pl.edu.uj.ii.skwarczek.betterchatfast.utility.UserFactory
 import kotlin.coroutines.CoroutineContext
 
 
@@ -47,8 +54,9 @@ class SignInActivity : AppCompatActivity(), CoroutineScope {
 
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
-    private companion object{
-        private  const val TAG = "SignInActivity"
+
+    private companion object {
+        private const val TAG = "SignInActivity"
         private const val RC_GOOGLE_SIGN_IN = 2115
     }
 
@@ -66,7 +74,7 @@ class SignInActivity : AppCompatActivity(), CoroutineScope {
 
         val client = GoogleSignIn.getClient(this, gso)
 
-        googleActionButton.setOnClickListener{
+        googleActionButton.setOnClickListener {
             val signInIntent = client.signInIntent
             startActivityForResult(signInIntent, RC_GOOGLE_SIGN_IN)
         }
@@ -80,12 +88,22 @@ class SignInActivity : AppCompatActivity(), CoroutineScope {
     }
 
     private fun updateUI(currentUser: FirebaseUser?) {
-        if(currentUser == null){
-            Log.w(TAG,"User is null, not going to navigate")
-        }
-        else{
-            startActivity(Intent(this, MainScreenActivity::class.java))
-            finish()
+        if (currentUser == null) {
+            Log.w(TAG, "User is null, not going to navigate")
+        } else {
+            launch(Dispatchers.Main){
+                val user = FirestoreHelper.getCurrentUserFromFirestore()
+                //If the user is NOT new, but he hasn't finished onboarding, onboard him
+                if (user.get("afterOnboarding").toString() == "false") {
+                    startActivity(Intent(baseContext, OnboardingActivity::class.java))
+                    finish()
+                }
+                //If the user is NOT new and has finished onboarding, take him to main screen
+                else {
+                    startActivity(Intent(baseContext, MainScreenActivity::class.java))
+                    finish()
+                }
+            }
         }
     }
 
@@ -114,19 +132,27 @@ class SignInActivity : AppCompatActivity(), CoroutineScope {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
-                    val isNew = task.result.additionalUserInfo?.isNewUser!!
 
-                    launch {
-                        val currentUser = FirestoreHelper.getCurrentUserFromFirestore()
+                    val isNewUser = task.result.additionalUserInfo?.isNewUser!!
 
-                        if (isNew && currentUser?.get("afterOnboarding") != false) {
-                            //przejscie do onboard screena
-                            startActivity(Intent(baseContext, OnboardingActivity::class.java))
-                            finish()
-                        } else {
-                            val user = auth.currentUser
-                            updateUI(user)
-                        }
+                    //If the user is new, onboard him and create Firestore doc
+                    if (isNewUser) {
+                        val newUser = UserFactory.createUser(
+                            UserTypes.STANDARD,
+                            auth.currentUser?.uid!!,
+                            "",
+                            "",
+                            "",
+                            auth.currentUser?.email!!,
+                            "",
+                            Location("")
+                        )
+                        FirestoreHelper.addUserToFirestore(newUser)
+                        startActivity(Intent(baseContext, OnboardingActivity::class.java))
+                        finish()
+                    } else {
+                        val user = auth.currentUser
+                        updateUI(user)
                     }
                 } else {
                     // If sign in fails, display a message to the user.

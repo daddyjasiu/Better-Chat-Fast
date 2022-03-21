@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -45,10 +46,6 @@ class MainScreenActivity : AppCompatActivity(), CoroutineScope {
         setContentView(R.layout.activity_main_screen)
 
         initView()
-
-        launch{
-            testTextView.text = FirestoreHelper.getCurrentUserFromFirestore()?.get("email").toString()
-        }
 
     }
 
