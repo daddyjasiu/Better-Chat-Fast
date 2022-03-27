@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 
-
 class DashboardFragment : Fragment() {
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -19,5 +18,4 @@ class DashboardFragment : Fragment() {
 
         return view
     }
-
 }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -28,7 +29,6 @@ class MainScreenActivity : AppCompatActivity(), CoroutineScope {
     private lateinit var auth: FirebaseAuth
     private lateinit var currentUser: FirebaseUser
     private lateinit var db: FirebaseFirestore
-    private lateinit var testTextView: TextView
 
     private var job: Job = Job()
 
@@ -91,6 +91,7 @@ class MainScreenActivity : AppCompatActivity(), CoroutineScope {
         auth = Firebase.auth
         currentUser = auth.currentUser!!
         db = Firebase.firestore
+
         //testTextView = findViewById(R.id.test_main_screen_text_view)
     }
 }

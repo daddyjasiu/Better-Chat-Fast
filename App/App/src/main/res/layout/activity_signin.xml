@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,6 +18,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:autoSizeMaxTextSize="100sp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center"
+        android:maxLines="1"
+        android:padding="20dp"
+        android:text="Better Chat Fast"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/sign_in_constraint_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/sign_in_constraint_layout"
@@ -41,7 +57,7 @@
             app:layout_constraintHeight_percent=".7"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sign_in_tab_layout"
-            app:layout_constraintVertical_bias=".15"/>
+            app:layout_constraintVertical_bias=".15" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/sign_in_tab_layout"
@@ -63,59 +79,47 @@
             android:backgroundTint="@color/white"
             android:elevation="35dp"
             android:src="@drawable/google_icon"
-            app:tint="@null"
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/fab_facebook"
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sign_in_view_pager" />
+            app:layout_constraintTop_toBottomOf="@id/sign_in_view_pager"
+            app:tint="@null" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_facebook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:backgroundTint="@color/white"
             android:elevation="35dp"
-            android:layout_marginBottom="10dp"
             android:src="@drawable/fb_icon"
-            app:tint="@null"
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sign_in_view_pager" />
+            app:layout_constraintTop_toBottomOf="@id/sign_in_view_pager"
+            app:tint="@null" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_twitter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
             android:backgroundTint="@color/white"
             android:elevation="35dp"
-            android:layout_marginBottom="10dp"
             android:src="@drawable/twitter_icon"
-            app:tint="@null"
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/fab_facebook"
-            app:layout_constraintTop_toBottomOf="@id/sign_in_view_pager" />
+            app:layout_constraintTop_toBottomOf="@id/sign_in_view_pager"
+            app:tint="@null" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Better Chat Fast"
-        android:textColor="@color/white"
-        android:textSize="50sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/sign_in_constraint_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
