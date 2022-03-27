@@ -91,6 +91,6 @@ class MainScreenActivity : AppCompatActivity(), CoroutineScope {
         auth = Firebase.auth
         currentUser = auth.currentUser!!
         db = Firebase.firestore
-        testTextView = findViewById(R.id.test_main_screen_text_view)
+        //testTextView = findViewById(R.id.test_main_screen_text_view)
     }
 }
