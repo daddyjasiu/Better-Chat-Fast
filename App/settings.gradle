@@ -5,6 +5,10 @@ dependencyResolutionManagement {
         mavenCentral()
         maven { url 'https://jitpack.io' }
     }
+
+    repositories {
+        maven { url "https://repo.sendbird.com/public/maven" }
+    }
 }
 rootProject.name = "Better Chat Fast"
 include ':app'

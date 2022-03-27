@@ -34,6 +34,10 @@ allprojects{
             }
         }
     }
+
+    repositories {
+        maven { url "https://repo.sendbird.com/public/maven" }
+    }
 }
 
 task clean(type: Delete) {

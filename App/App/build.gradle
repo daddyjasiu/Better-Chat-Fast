@@ -22,8 +22,14 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
         }
+
     }
+    buildTypes.each{
+        it.buildConfigField 'String', 'SENDBIRD_APP_ID', SENDBIRD_APP_ID
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -49,7 +55,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     //FIREBASE/FIRESTORE/AUTHENTICATION
-
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation platform('com.google.firebase:firebase-bom:29.0.3')
@@ -58,5 +63,8 @@ dependencies {
 
     //LIQUID SWIPE ONBOARDING SCREEN
     implementation 'com.cuberto:liquid-swipe:1.0.0'
+
+    //SENDBIRD VIDEO CALLING SDK
+    implementation 'com.sendbird.sdk:sendbird-calls:1.8.0'
 
 }

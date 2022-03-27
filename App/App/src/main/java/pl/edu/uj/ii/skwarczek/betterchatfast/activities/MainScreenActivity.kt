@@ -2,26 +2,25 @@ package pl.edu.uj.ii.skwarczek.betterchatfast.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.api.ProjectProperties
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.sendbird.calls.SendBirdCall
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import pl.edu.uj.ii.skwarczek.betterchatfast.BuildConfig
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
-import pl.edu.uj.ii.skwarczek.betterchatfast.interfaces.ISettings
-import pl.edu.uj.ii.skwarczek.betterchatfast.models.Settings
-import pl.edu.uj.ii.skwarczek.betterchatfast.utility.FirestoreHelper
 import kotlin.coroutines.CoroutineContext
 
 class MainScreenActivity : AppCompatActivity(), CoroutineScope {
@@ -46,6 +45,9 @@ class MainScreenActivity : AppCompatActivity(), CoroutineScope {
         setContentView(R.layout.activity_main_screen)
 
         initView()
+
+        // Initialize SendBirdCall instance to use APIs in your app.
+        SendBirdCall.init(applicationContext, BuildConfig.SENDBIRD_APP_ID)
 
     }
 
