@@ -1,10 +1,8 @@
-package pl.edu.uj.ii.skwarczek.productlist.fragments
+package pl.edu.uj.ii.skwarczek.betterchatfast.fragments
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

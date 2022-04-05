@@ -1,19 +1,20 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.activities
 
 import android.content.Intent
+import android.content.IntentSender
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.google.android.gms.auth.api.identity.Identity
+import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInApi
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.common.api.GoogleApiActivity
-import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -55,6 +56,8 @@ class SignInActivity : AppCompatActivity(), CoroutineScope {
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
 
+    private lateinit var oneTapClient: SignInClient
+
     private companion object {
         private const val TAG = "SignInActivity"
         private const val RC_GOOGLE_SIGN_IN = 2115
@@ -68,7 +71,7 @@ class SignInActivity : AppCompatActivity(), CoroutineScope {
 
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("216448691370-r3r35dg4bgpoq9krqmth431efoerj66l.apps.googleusercontent.com")
+            .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
@@ -86,7 +89,7 @@ class SignInActivity : AppCompatActivity(), CoroutineScope {
         val currentUser = auth.currentUser
         updateUI(currentUser)
     }
-
+//
     private fun updateUI(currentUser: FirebaseUser?) {
         if (currentUser == null) {
             Log.w(TAG, "User is null, not going to navigate")
@@ -115,7 +118,6 @@ class SignInActivity : AppCompatActivity(), CoroutineScope {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 // Google Sign In was successful, authenticate with Firebase
-                Log.d("kurestwo", "firebaseAuthWithGoogle:")
                 val account = task.getResult(ApiException::class.java)!!
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
                 firebaseAuthWithGoogle(account.idToken!!)
@@ -186,7 +188,5 @@ class SignInActivity : AppCompatActivity(), CoroutineScope {
             tab.text = tabTitles[position]
         }.attach()
 
-
     }
-
 }

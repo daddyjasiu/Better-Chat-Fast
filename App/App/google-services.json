@@ -1,37 +1,41 @@
 {
   "project_info": {
-    "project_number": "216448691370",
-    "project_id": "better-chat-fast",
-    "storage_bucket": "better-chat-fast.appspot.com"
+    "project_number": "843338473562",
+    "project_id": "better-chat-fast-b37e1",
+    "storage_bucket": "better-chat-fast-b37e1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:216448691370:android:1906f42eea1af4617f34d3",
+        "mobilesdk_app_id": "1:843338473562:android:843725da00184192deb863",
         "android_client_info": {
           "package_name": "pl.edu.uj.ii.skwarczek.betterchatfast"
         }
       },
       "oauth_client": [
         {
-          "client_id": "216448691370-a533um69dhmeob1qtprgrb0d4hhgd1ul.apps.googleusercontent.com",
+          "client_id": "843338473562-vr0m040hdbtsae6sj0el518bktb589il.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "pl.edu.uj.ii.skwarczek.betterchatfast",
             "certificate_hash": "2a951c1dc0701651fcbda5f4d0ad292d40abe53e"
           }
+        },
+        {
+          "client_id": "843338473562-s5qkcpv8gmqbiniq5rvalsp0ra9d1h8d.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBA0Mw1zN5RTwmiq2AWkZRFuGPEHFho5IY"
+          "current_key": "AIzaSyBYDRbvbXV0CIKE2DfGWC296L65OEwh_tM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "216448691370-r3r35dg4bgpoq9krqmth431efoerj66l.apps.googleusercontent.com",
+              "client_id": "843338473562-s5qkcpv8gmqbiniq5rvalsp0ra9d1h8d.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
