@@ -68,7 +68,7 @@ class SignInActivity : AppCompatActivity(), CoroutineScope {
 
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestIdToken("216448691370-r3r35dg4bgpoq9krqmth431efoerj66l.apps.googleusercontent.com")
             .requestEmail()
             .build()
 
@@ -115,6 +115,7 @@ class SignInActivity : AppCompatActivity(), CoroutineScope {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 // Google Sign In was successful, authenticate with Firebase
+                Log.d("kurestwo", "firebaseAuthWithGoogle:")
                 val account = task.getResult(ApiException::class.java)!!
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
                 firebaseAuthWithGoogle(account.idToken!!)

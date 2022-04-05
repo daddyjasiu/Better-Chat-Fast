@@ -14,28 +14,24 @@
       },
       "oauth_client": [
         {
-          "client_id": "216448691370-h39qunnujhv2qvu6ob4nce0d9abstp15.apps.googleusercontent.com",
+          "client_id": "216448691370-a533um69dhmeob1qtprgrb0d4hhgd1ul.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "pl.edu.uj.ii.skwarczek.betterchatfast",
             "certificate_hash": "2a951c1dc0701651fcbda5f4d0ad292d40abe53e"
           }
-        },
-        {
-          "client_id": "216448691370-5cogf89337imc7udkg5ftmkaike9d6od.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCMOdTjX_WEt3y6w-aaAaUfHGpe2CgyAeY"
+          "current_key": "AIzaSyBA0Mw1zN5RTwmiq2AWkZRFuGPEHFho5IY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "216448691370-5cogf89337imc7udkg5ftmkaike9d6od.apps.googleusercontent.com",
+              "client_id": "216448691370-r3r35dg4bgpoq9krqmth431efoerj66l.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

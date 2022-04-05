@@ -47,11 +47,10 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
 
-    implementation 'com.google.android.gms:play-services-auth:20.1.0'
     implementation 'com.android.support.constraint:constraint-layout:2.0.4'
-    implementation 'androidx.camera:camera-view:1.0.0-alpha26'
-    implementation 'androidx.navigation:navigation-fragment:2.3.5'
-    implementation 'androidx.databinding:databinding-runtime:4.2.2'
+    implementation 'androidx.camera:camera-view:1.1.0-beta02'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
+    implementation 'androidx.databinding:databinding-runtime:7.1.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     testImplementation 'junit:junit:4.+'
@@ -64,6 +63,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.0.3')
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
+    implementation 'com.google.android.gms:play-services-auth:20.1.0'
 
     //LIQUID SWIPE ONBOARDING SCREEN
     implementation 'com.cuberto:liquid-swipe:1.0.0'
