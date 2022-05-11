@@ -17,6 +17,7 @@
             android:id="@+id/group_call_constraint_layout_header"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:background="@color/background_500"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
@@ -42,6 +43,7 @@
                     <ImageView
                         android:layout_width="19dp"
                         android:layout_height="19dp"
+                        android:src="@drawable/ic_group_call"
                         android:layout_gravity="center" />
                 </androidx.cardview.widget.CardView>
 
@@ -53,13 +55,16 @@
                     android:fontFamily="sans-serif"
                     android:textStyle="bold"
                     android:textSize="16sp"
+                    android:textColor="@color/ondark_01"
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="4sp"
                     android:ellipsize="end"
                     android:maxLines="1" />
+
                 <ImageView
                     android:layout_width="24dp"
-                    android:layout_height="24dp"/>
+                    android:layout_height="24dp"
+                    android:src="@drawable/icon_shevron_right"/>
 
             </LinearLayout>
 
@@ -67,6 +72,7 @@
                 android:id="@+id/group_call_image_view_camera_flip"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:src="@drawable/icon_camera_flip_and"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -76,6 +82,7 @@
                 android:id="@+id/group_call_image_view_speaker"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:src="@drawable/icon_speaker"
                 android:layout_marginEnd="24dp"
                 app:layout_constraintEnd_toStartOf="@id/group_call_image_view_camera_flip"
                 app:layout_constraintTop_toTopOf="parent"
@@ -86,12 +93,14 @@
             android:id="@+id/group_call_constraint_layout_footer"
             android:layout_width="match_parent"
             android:layout_height="64dp"
+            android:background="@color/background_500"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <ImageView
                 android:id="@+id/group_call_image_view_video_on_off"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:src="@drawable/btn_video_off"
                 android:tag="@{true}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -103,6 +112,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginEnd="12dp"
+                android:src="@drawable/btn_audio_off"
                 android:tag="@{true}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -112,6 +122,7 @@
                 android:id="@+id/group_call_image_view_exit"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:src="@drawable/btn_call_end"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginStart="12dp"
@@ -129,6 +140,7 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:src="@drawable/ic_user"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="12dp" />
 
@@ -140,7 +152,7 @@
                     android:textColor="@color/white"
                     android:letterSpacing="-0.01"
                     android:lineSpacingExtra="8sp"
-                    android:text="group_call_participants"
+                    android:text="@string/group_call_participants"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center_vertical" />
             </LinearLayout>
