@@ -15,7 +15,7 @@ import com.sendbird.calls.SendBirdCall
 import com.sendbird.calls.quickstart.groupcall.main.SettingsFragmentDirections
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.FragmentSettingsBinding
-import pl.edu.uj.ii.skwarczek.betterchatfast.signin.SignInActivity
+import pl.edu.uj.ii.skwarczek.betterchatfast.signin.SendbirdSignInActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.Status
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.dpToPixel
 
@@ -72,7 +72,7 @@ class SettingsFragment : Fragment() {
         viewModel.deauthenticateLiveData.observe(requireActivity()) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    val intent = Intent(activity, SignInActivity::class.java)
+                    val intent = Intent(activity, SendbirdSignInActivity::class.java)
                     startActivity(intent)
                     activity?.finish()
                 }

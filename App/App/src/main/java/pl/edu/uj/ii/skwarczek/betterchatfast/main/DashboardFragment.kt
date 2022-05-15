@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -54,6 +55,7 @@ class DashboardFragment : Fragment() {
         }
 
         binding.dashboardCreateRoomButton.setOnClickListener {
+            Log.d("a","Clicked create")
             viewModel.createAndEnterRoom()
         }
 

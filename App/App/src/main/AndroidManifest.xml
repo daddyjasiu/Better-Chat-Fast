@@ -38,6 +38,7 @@
         </activity>
         <activity android:name=".activities.OnboardingActivity"/>
         <activity android:name=".activities.SettingsActivity"/>
+        <activity android:name=".signin.SendbirdSignInActivity"/>
     </application>
 
 </manifest>

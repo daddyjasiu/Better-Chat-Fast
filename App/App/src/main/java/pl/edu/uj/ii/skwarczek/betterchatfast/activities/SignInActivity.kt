@@ -25,13 +25,17 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.sendbird.calls.SendBirdCall
 import kotlinx.android.synthetic.main.fragment_signin_tab.*
 import kotlinx.android.synthetic.main.fragment_signin_tab.view.*
 import kotlinx.android.synthetic.main.fragment_signup_tab.view.*
 import kotlinx.coroutines.*
+import pl.edu.uj.ii.skwarczek.betterchatfast.BuildConfig
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.adapters.SignInAdapter
 import pl.edu.uj.ii.skwarczek.betterchatfast.enums.UserTypes
+import pl.edu.uj.ii.skwarczek.betterchatfast.signin.SendbirdSignInActivity
+import pl.edu.uj.ii.skwarczek.betterchatfast.util.SharedPreferencesManager
 import pl.edu.uj.ii.skwarczek.betterchatfast.utility.FirestoreHelper
 import pl.edu.uj.ii.skwarczek.betterchatfast.utility.UserFactory
 import kotlin.coroutines.CoroutineContext
@@ -103,7 +107,13 @@ class SignInActivity : AppCompatActivity(), CoroutineScope {
                 }
                 //If the user is NOT new and has finished onboarding, take him to main screen
                 else {
-                    startActivity(Intent(baseContext, MainScreenActivity::class.java))
+
+// Initialize SendBirdCall instance to use APIs in your app.
+                    SendBirdCall.init(applicationContext, BuildConfig.SENDBIRD_APP_ID)
+                    SendBirdCall.setLoggerLevel(SendBirdCall.LOGGER_INFO)
+                    SharedPreferencesManager.init(applicationContext)
+
+                    startActivity(Intent(baseContext, SendbirdSignInActivity::class.java))
                     finish()
                 }
             }

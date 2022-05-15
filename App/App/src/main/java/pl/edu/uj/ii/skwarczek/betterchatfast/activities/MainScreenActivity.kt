@@ -42,12 +42,13 @@ class MainScreenActivity : AppCompatActivity(), CoroutineScope {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Initialize SendBirdCall instance to use APIs in your app.
+        SendBirdCall.init(applicationContext, BuildConfig.SENDBIRD_APP_ID)
         setContentView(R.layout.activity_main_screen)
 
         initView()
 
-        // Initialize SendBirdCall instance to use APIs in your app.
-        SendBirdCall.init(applicationContext, BuildConfig.SENDBIRD_APP_ID)
+
 
     }
 

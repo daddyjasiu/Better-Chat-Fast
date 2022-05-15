@@ -15,7 +15,7 @@ import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.ActivitySignInBinding
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.*
 
-class SignInActivity : BaseActivity() {
+class SendbirdSignInActivity : BaseActivity() {
     private lateinit var binding: ActivitySignInBinding
     private val viewModel: AuthenticateViewModel = AuthenticateViewModel()
 

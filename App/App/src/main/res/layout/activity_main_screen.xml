@@ -16,7 +16,7 @@
 
         <fragment
             android:id="@+id/fragment_dashboard"
-            android:name="pl.edu.uj.ii.skwarczek.betterchatfast.fragments.DashboardFragment"
+            android:name="pl.edu.uj.ii.skwarczek.betterchatfast.main.DashboardFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
