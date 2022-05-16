@@ -53,7 +53,7 @@ class SendbirdSignInActivity : BaseActivity() {
     }
 
     private fun onSignInButtonClicked(v: View) {
-        val appId = binding.editTextApplicationId.text.toString()
+        val appId = SENDBIRD_APP_ID//binding.editTextApplicationId.text.toString()
         if (appId.isEmpty()) {
             return
         }

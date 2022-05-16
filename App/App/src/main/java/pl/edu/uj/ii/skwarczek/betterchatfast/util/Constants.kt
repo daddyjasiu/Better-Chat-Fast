@@ -1,6 +1,6 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.util
 
-const val SENDBIRD_APP_ID = "SAMPLE_APP_ID"
+const val SENDBIRD_APP_ID = "855E2D4A-D1BE-4BB7-AD06-4B4CC30B04B2"
 
 const val UNKNOWN_SENDBIRD_ERROR = "unknown sendbird error"
 const val EXTRA_ROOM_ID = "com.sendbird.calls.quickstart.ROOM_ID"

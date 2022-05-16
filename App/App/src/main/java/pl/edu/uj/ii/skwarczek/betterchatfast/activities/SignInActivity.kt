@@ -1,20 +1,16 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.activities
 
 import android.content.Intent
-import android.content.IntentSender
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
-import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -25,19 +21,27 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.gson.GsonBuilder
 import com.sendbird.calls.SendBirdCall
+import com.sendbird.calls.shadow.com.google.gson.Gson
+import com.sendbird.calls.shadow.com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.fragment_signin_tab.*
 import kotlinx.android.synthetic.main.fragment_signin_tab.view.*
 import kotlinx.android.synthetic.main.fragment_signup_tab.view.*
 import kotlinx.coroutines.*
+import org.json.JSONObject
 import pl.edu.uj.ii.skwarczek.betterchatfast.BuildConfig
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.adapters.SignInAdapter
 import pl.edu.uj.ii.skwarczek.betterchatfast.enums.UserTypes
+import pl.edu.uj.ii.skwarczek.betterchatfast.models.SendbirdUser
 import pl.edu.uj.ii.skwarczek.betterchatfast.signin.SendbirdSignInActivity
+import pl.edu.uj.ii.skwarczek.betterchatfast.util.RequestHandler
+import pl.edu.uj.ii.skwarczek.betterchatfast.util.SENDBIRD_APP_ID
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.SharedPreferencesManager
 import pl.edu.uj.ii.skwarczek.betterchatfast.utility.FirestoreHelper
 import pl.edu.uj.ii.skwarczek.betterchatfast.utility.UserFactory
+import java.net.URL
 import kotlin.coroutines.CoroutineContext
 
 
@@ -81,11 +85,23 @@ class SignInActivity : AppCompatActivity(), CoroutineScope {
 
         val client = GoogleSignIn.getClient(this, gso)
 
+        //Trying to create new user in sendbird database
+        val url = "https://api-$SENDBIRD_APP_ID.sendbird.com/v3/users"
+        val newUser =  SendbirdUser("Jacob","Asty","https://sendbird.com/main/img/profiles/profile_05_512px.png")
+        val postJSONObject = JSONObject("""{"user_id":"Jacob",
+                                                "nickname":"Asty",
+                                                "profile_url":"https://sendbird.com/main/img/profiles/profile_05_512px.png"}""")
+        Thread(Runnable {
+            RequestHandler.requestPOST(url, postJSONObject)
+        }).start()
+
+
         googleActionButton.setOnClickListener {
             val signInIntent = client.signInIntent
             startActivityForResult(signInIntent, RC_GOOGLE_SIGN_IN)
         }
     }
+
 
     override fun onStart() {
         super.onStart()

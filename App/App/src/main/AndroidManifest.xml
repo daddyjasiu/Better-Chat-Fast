@@ -39,6 +39,11 @@
         <activity android:name=".activities.OnboardingActivity"/>
         <activity android:name=".activities.SettingsActivity"/>
         <activity android:name=".signin.SendbirdSignInActivity"/>
+        <activity android:name=".main.MainActivity"/>
+        <activity android:name=".room.RoomActivity"/>
+        <activity android:name=".preview.PreviewActivity"/>
+        <activity android:name=".splash.SplashActivity"/>
+        <activity android:name=".util.BaseActivity"/>
     </application>
 
 </manifest>
