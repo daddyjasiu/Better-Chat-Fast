@@ -124,7 +124,7 @@ class SignInActivity : AppCompatActivity(), CoroutineScope {
                 //If the user is NOT new and has finished onboarding, take him to main screen
                 else {
 
-// Initialize SendBirdCall instance to use APIs in your app.
+                    // Initialize SendBirdCall instance to use APIs in your app.
                     SendBirdCall.init(applicationContext, BuildConfig.SENDBIRD_APP_ID)
                     SendBirdCall.setLoggerLevel(SendBirdCall.LOGGER_INFO)
                     SharedPreferencesManager.init(applicationContext)

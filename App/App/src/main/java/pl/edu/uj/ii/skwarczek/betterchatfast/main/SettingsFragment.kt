@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.sendbird.calls.SendBirdCall
-import com.sendbird.calls.quickstart.groupcall.main.SettingsFragmentDirections
+import pl.edu.uj.ii.skwarczek.betterchatfast.main.SettingsFragmentDirections
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.FragmentSettingsBinding
 import pl.edu.uj.ii.skwarczek.betterchatfast.signin.SendbirdSignInActivity

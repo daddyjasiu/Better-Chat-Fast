@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.sendbird.calls.quickstart.groupcall.main.SettingsFragment"
+        android:name="pl.edu.uj.ii.skwarczek.betterchatfast.main.SettingsFragment"
         android:label="SettingsFragment"
         tools:layout="@layout/fragment_settings" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/appInfoFragment"
-        android:name="com.sendbird.calls.quickstart.groupcall.main.AppInfoFragment"
+        android:name="pl.edu.uj.ii.skwarczek.betterchatfast.main.AppInfoFragment"
         android:label="fragment_app_info"
         tools:layout="@layout/fragment_app_info" />
 </navigation>
