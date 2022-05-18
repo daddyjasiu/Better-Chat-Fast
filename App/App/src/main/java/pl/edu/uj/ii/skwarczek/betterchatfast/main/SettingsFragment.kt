@@ -1,33 +1,37 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.main
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.google.firebase.auth.FirebaseAuth
 import com.sendbird.calls.SendBirdCall
 import pl.edu.uj.ii.skwarczek.betterchatfast.main.SettingsFragmentDirections
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
+import pl.edu.uj.ii.skwarczek.betterchatfast.activities.SignInActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.FragmentSettingsBinding
-import pl.edu.uj.ii.skwarczek.betterchatfast.signin.SendbirdSignInActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.Status
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.dpToPixel
 
 class SettingsFragment : Fragment() {
     private val viewModel: SettingsViewModel = SettingsViewModel()
     lateinit var binding: FragmentSettingsBinding
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        auth= FirebaseAuth.getInstance()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false)
         setViewEventListener()
         setUserInfo()
@@ -75,9 +79,10 @@ class SettingsFragment : Fragment() {
         viewModel.deauthenticateLiveData.observe(requireActivity()) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    val intent = Intent(activity, SendbirdSignInActivity::class.java)
-                    startActivity(intent)
-                    activity?.finish()
+                            auth.signOut()
+                            val signOutIntent = Intent(activity, SignInActivity::class.java)
+                            signOutIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(signOutIntent)
                 }
             }
         }

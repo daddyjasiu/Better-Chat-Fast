@@ -20,6 +20,7 @@ import kotlinx.coroutines.launch
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.activities.MainScreenActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.activities.OnboardingActivity
+import pl.edu.uj.ii.skwarczek.betterchatfast.main.MainActivity
 import kotlin.coroutines.CoroutineContext
 
 class SignInTabFragment : Fragment(), CoroutineScope{
@@ -68,7 +69,7 @@ class SignInTabFragment : Fragment(), CoroutineScope{
                                 }
                                 //If the user is NOT new and has finished onboarding, take him to main screen
                                 else {
-                                    val intent = Intent(activity, MainScreenActivity::class.java)
+                                    val intent = Intent(activity, MainActivity::class.java)
                                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                     startActivity(intent)
                                 }
