@@ -12,11 +12,29 @@
         tools:layout="@layout/fragment_settings" >
         <action
             android:id="@+id/action_settingsFragment_to_appInfoFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popUpTo="@id/settingsFragment"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/appInfoFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_settingsActivity"
+            app:destination="@id/settingsActivity"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popUpTo="@id/settingsFragment"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/appInfoFragment"
         android:name="pl.edu.uj.ii.skwarczek.betterchatfast.main.AppInfoFragment"
         android:label="fragment_app_info"
         tools:layout="@layout/fragment_app_info" />
+    <activity
+        android:id="@+id/settingsActivity"
+        android:name="pl.edu.uj.ii.skwarczek.betterchatfast.settings.SettingsActivity"
+        android:label="SettingsActivity"
+        tools:layout="@layout/activity_settings"/>
 </navigation>

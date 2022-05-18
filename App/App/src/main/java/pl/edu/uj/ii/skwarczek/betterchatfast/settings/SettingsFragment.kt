@@ -68,7 +68,10 @@ class SettingsFragment : Fragment() {
             val action = SettingsFragmentDirections.actionSettingsFragmentToAppInfoFragment()
             findNavController().navigate(action)
         }
-
+        binding.settingsConstraintLayoutUserSettings.setOnClickListener {
+            val action = SettingsFragmentDirections.actionSettingsFragmentToSettingsActivity()
+            findNavController().navigate(action)
+        }
         binding.settingsConstraintLayoutSignOut.setOnClickListener { viewModel.deauthenticate() }
     }
 
