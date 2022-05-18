@@ -10,8 +10,18 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.sendbird.calls.SendBirdCall
+import org.json.JSONObject
+import pl.edu.uj.ii.skwarczek.betterchatfast.BuildConfig
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.activities.MainScreenActivity
+import pl.edu.uj.ii.skwarczek.betterchatfast.main.MainActivity
+import pl.edu.uj.ii.skwarczek.betterchatfast.models.SendbirdUser
+import pl.edu.uj.ii.skwarczek.betterchatfast.util.RequestHandler
+import pl.edu.uj.ii.skwarczek.betterchatfast.util.SENDBIRD_APP_ID
+import pl.edu.uj.ii.skwarczek.betterchatfast.util.SharedPreferencesManager
 import pl.edu.uj.ii.skwarczek.betterchatfast.utility.FirestoreHelper
 
 class Onboarding4Fragment  : Fragment() {
@@ -20,6 +30,7 @@ class Onboarding4Fragment  : Fragment() {
     private lateinit var firstNameField: EditText
     private lateinit var lastNameField: EditText
     private lateinit var finishOnboardingButton: Button
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +52,17 @@ class Onboarding4Fragment  : Fragment() {
                 FirestoreHelper.updateCurrentUserLastNameInFirebase(lastName)
                 FirestoreHelper.updateCurrentUserIsAfterOnboarding(true)
 
-                val intent = Intent(context, MainScreenActivity::class.java)
+                val mail = auth.currentUser?.email
+                //http post user
+                val url = "https://api-$SENDBIRD_APP_ID.sendbird.com/v3/users"
+                val postJSONObject = JSONObject("""{"user_id":"$mail",
+                                                "nickname":"$nickname",
+                                                "profile_url":"https://sendbird.com/main/img/profiles/profile_05_512px.png"}""")
+                Thread(kotlinx.coroutines.Runnable {
+                    RequestHandler.requestPOST(url, postJSONObject)
+                }).start()
+
+                val intent = Intent(context, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             }
@@ -54,6 +75,7 @@ class Onboarding4Fragment  : Fragment() {
     }
 
     private fun initView(view: View){
+        auth = FirebaseAuth.getInstance()
         finishOnboardingButton = view.findViewById(R.id.onboarding_4_finish_button)
         nicknameField = view.findViewById(R.id.onboarding_4_nickname_edit_text)
         firstNameField = view.findViewById(R.id.onboarding_4_first_name_edit_text)

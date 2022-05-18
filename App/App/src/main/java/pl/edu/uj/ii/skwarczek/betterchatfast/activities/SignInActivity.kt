@@ -34,6 +34,7 @@ import pl.edu.uj.ii.skwarczek.betterchatfast.BuildConfig
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.adapters.SignInAdapter
 import pl.edu.uj.ii.skwarczek.betterchatfast.enums.UserTypes
+import pl.edu.uj.ii.skwarczek.betterchatfast.main.MainActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.models.SendbirdUser
 import pl.edu.uj.ii.skwarczek.betterchatfast.signin.SendbirdSignInActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.RequestHandler
@@ -85,16 +86,6 @@ class SignInActivity : AppCompatActivity(), CoroutineScope {
 
         val client = GoogleSignIn.getClient(this, gso)
 
-        //Trying to create new user in sendbird database
-        val url = "https://api-$SENDBIRD_APP_ID.sendbird.com/v3/users"
-        val newUser =  SendbirdUser("Jacob","Asty","https://sendbird.com/main/img/profiles/profile_05_512px.png")
-        val postJSONObject = JSONObject("""{"user_id":"Jacob",
-                                                "nickname":"Asty",
-                                                "profile_url":"https://sendbird.com/main/img/profiles/profile_05_512px.png"}""")
-        Thread(Runnable {
-            RequestHandler.requestPOST(url, postJSONObject)
-        }).start()
-
 
         googleActionButton.setOnClickListener {
             val signInIntent = client.signInIntent
@@ -124,12 +115,9 @@ class SignInActivity : AppCompatActivity(), CoroutineScope {
                 //If the user is NOT new and has finished onboarding, take him to main screen
                 else {
 
-                    // Initialize SendBirdCall instance to use APIs in your app.
-                    SendBirdCall.init(applicationContext, BuildConfig.SENDBIRD_APP_ID)
-                    SendBirdCall.setLoggerLevel(SendBirdCall.LOGGER_INFO)
-                    SharedPreferencesManager.init(applicationContext)
 
-                    startActivity(Intent(baseContext, SendbirdSignInActivity::class.java))
+
+                    startActivity(Intent(baseContext, MainActivity::class.java))
                     finish()
                 }
             }

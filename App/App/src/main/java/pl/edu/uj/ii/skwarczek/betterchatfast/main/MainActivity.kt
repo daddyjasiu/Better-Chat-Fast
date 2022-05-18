@@ -2,6 +2,7 @@ package pl.edu.uj.ii.skwarczek.betterchatfast.main
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -9,17 +10,36 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.auth.FirebaseAuth
+import com.sendbird.calls.SendBirdCall
+import pl.edu.uj.ii.skwarczek.betterchatfast.BuildConfig
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.BaseActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.requestPermissions
 import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.ActivityMainBinding
+import pl.edu.uj.ii.skwarczek.betterchatfast.signin.AuthenticateViewModel
+import pl.edu.uj.ii.skwarczek.betterchatfast.util.SENDBIRD_APP_ID
+import pl.edu.uj.ii.skwarczek.betterchatfast.util.SharedPreferencesManager
 
 class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val viewModel: AuthenticateViewModel = AuthenticateViewModel()
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Initialize SendBirdCall instance to use APIs in your app.
+        SendBirdCall.init(applicationContext, SENDBIRD_APP_ID)
+        SendBirdCall.setLoggerLevel(SendBirdCall.LOGGER_INFO)
+        SharedPreferencesManager.init(applicationContext)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        //Sendbird user auth
+        auth = FirebaseAuth.getInstance()
+        val mail = auth.currentUser?.email
+        viewModel.authenticate(mail!!, null)
+
 
         val tabLayout = binding.tabLayoutMain
         tabLayout.addOnTabSelectedListener(onTabSelectedListener)
@@ -38,6 +58,7 @@ class MainActivity : BaseActivity() {
         }.attach()
         requestPermissions()
     }
+
 
     private val onTabSelectedListener = object : TabLayout.OnTabSelectedListener {
         override fun onTabSelected(tab: TabLayout.Tab?) {
