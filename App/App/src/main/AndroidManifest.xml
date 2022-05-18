@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".onboarding.OnboardingActivity"/>
-        <activity android:name=".settings.SettingsActivity"/>
+        <activity android:name=".settings.UserPreferencesFragment"/>
         <activity android:name=".main.MainActivity"/>
         <activity android:name=".room.RoomActivity"/>
         <activity android:name=".preview.PreviewActivity"/>

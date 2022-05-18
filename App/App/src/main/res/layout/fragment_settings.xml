@@ -193,7 +193,7 @@
                     android:layout_marginEnd="16dp"
                     android:fontFamily="sans-serif"
                     android:lineSpacingExtra="8sp"
-                    android:text="@string/settings_user"
+                    android:text="@string/settings_user_preferences"
                     android:textColor="@color/onlight_01"
                     android:textSize="16sp"
                     android:textStyle="normal"

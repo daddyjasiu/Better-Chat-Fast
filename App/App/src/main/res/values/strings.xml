@@ -35,7 +35,7 @@
     <!-- SettingsFragment -->
     <string name="settings_title">Settings</string>
     <string name="settings_application_information">Application information</string>
-    <string name="settings_user">User settings</string>
+    <string name="settings_user_preferences">User preferences</string>
     <string name="settings_sign_out">Sign out</string>
 
     <!-- AppInfoFragment -->

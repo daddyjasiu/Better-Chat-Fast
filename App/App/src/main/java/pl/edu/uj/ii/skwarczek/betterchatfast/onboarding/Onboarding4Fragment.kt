@@ -57,7 +57,6 @@ class Onboarding4Fragment : Fragment() {
                 )
                 Thread(kotlinx.coroutines.Runnable {
                     RequestHandler.requestPOST(url, postJSONObject)
-
                 }).start()
 
                 val intent = Intent(context, MainActivity::class.java)
