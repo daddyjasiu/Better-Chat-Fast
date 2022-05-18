@@ -18,7 +18,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
-import pl.edu.uj.ii.skwarczek.betterchatfast.activities.MainScreenActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.activities.OnboardingActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.main.MainActivity
 import kotlin.coroutines.CoroutineContext
