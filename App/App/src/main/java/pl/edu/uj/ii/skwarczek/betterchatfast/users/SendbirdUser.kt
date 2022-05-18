@@ -1,4 +1,4 @@
-package pl.edu.uj.ii.skwarczek.betterchatfast.models
+package pl.edu.uj.ii.skwarczek.betterchatfast.users
 
 data class SendbirdUser(
     val user_id: String,

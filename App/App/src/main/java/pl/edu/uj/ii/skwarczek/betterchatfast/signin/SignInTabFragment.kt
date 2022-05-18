@@ -1,4 +1,4 @@
-package pl.edu.uj.ii.skwarczek.betterchatfast.fragments
+package pl.edu.uj.ii.skwarczek.betterchatfast.signin
 
 import android.content.Intent
 import android.os.Bundle
@@ -18,8 +18,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
-import pl.edu.uj.ii.skwarczek.betterchatfast.activities.OnboardingActivity
+import pl.edu.uj.ii.skwarczek.betterchatfast.onboarding.OnboardingActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.main.MainActivity
+import pl.edu.uj.ii.skwarczek.betterchatfast.util.FirestoreHelper
 import kotlin.coroutines.CoroutineContext
 
 class SignInTabFragment : Fragment(), CoroutineScope{
@@ -59,7 +60,7 @@ class SignInTabFragment : Fragment(), CoroutineScope{
                             Toast.makeText(activity, "Logged in successfully!", Toast.LENGTH_SHORT).show()
 
                             launch(Dispatchers.Main){
-                                val user = pl.edu.uj.ii.skwarczek.betterchatfast.utility.FirestoreHelper.getCurrentUserFromFirestore()
+                                val user = FirestoreHelper.getCurrentUserFromFirestore()
                                 //If the user is NOT new, but he hasn't finished onboarding, onboard him
                                 if (user.get("afterOnboarding").toString() == "false") {
                                     val intent = Intent(activity, OnboardingActivity::class.java)

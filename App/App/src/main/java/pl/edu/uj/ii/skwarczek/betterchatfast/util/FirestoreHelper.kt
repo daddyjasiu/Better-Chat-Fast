@@ -1,18 +1,15 @@
-package pl.edu.uj.ii.skwarczek.betterchatfast.utility
+package pl.edu.uj.ii.skwarczek.betterchatfast.util
 
 import android.content.ContentValues.TAG
 import android.util.Log
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.tasks.await
-import pl.edu.uj.ii.skwarczek.betterchatfast.interfaces.IUser
+import pl.edu.uj.ii.skwarczek.betterchatfast.users.IUser
 
 object FirestoreHelper {
 

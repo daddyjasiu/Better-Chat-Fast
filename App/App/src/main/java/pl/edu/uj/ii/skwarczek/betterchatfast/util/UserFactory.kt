@@ -1,10 +1,10 @@
-package pl.edu.uj.ii.skwarczek.betterchatfast.utility
+package pl.edu.uj.ii.skwarczek.betterchatfast.util
 
 import android.location.Location
-import pl.edu.uj.ii.skwarczek.betterchatfast.interfaces.IUser
-import pl.edu.uj.ii.skwarczek.betterchatfast.enums.UserTypes
-import pl.edu.uj.ii.skwarczek.betterchatfast.models.PremiumUser
-import pl.edu.uj.ii.skwarczek.betterchatfast.models.StandardUser
+import pl.edu.uj.ii.skwarczek.betterchatfast.users.IUser
+import pl.edu.uj.ii.skwarczek.betterchatfast.users.UserTypes
+import pl.edu.uj.ii.skwarczek.betterchatfast.users.PremiumUser
+import pl.edu.uj.ii.skwarczek.betterchatfast.users.StandardUser
 
 object UserFactory {
 

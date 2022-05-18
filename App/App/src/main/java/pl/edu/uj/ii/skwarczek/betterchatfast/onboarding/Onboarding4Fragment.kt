@@ -1,4 +1,4 @@
-package pl.edu.uj.ii.skwarczek.betterchatfast.fragments
+package pl.edu.uj.ii.skwarczek.betterchatfast.onboarding
 
 import android.content.Intent
 import android.os.Bundle
@@ -16,7 +16,7 @@ import pl.edu.uj.ii.skwarczek.betterchatfast.main.MainActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.signin.AuthenticateViewModel
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.RequestHandler
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.SENDBIRD_APP_ID
-import pl.edu.uj.ii.skwarczek.betterchatfast.utility.FirestoreHelper
+import pl.edu.uj.ii.skwarczek.betterchatfast.util.FirestoreHelper
 
 class Onboarding4Fragment : Fragment() {
 

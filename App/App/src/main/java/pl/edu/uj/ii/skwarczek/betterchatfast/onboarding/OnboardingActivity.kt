@@ -1,20 +1,14 @@
-package pl.edu.uj.ii.skwarczek.betterchatfast.activities
+package pl.edu.uj.ii.skwarczek.betterchatfast.onboarding
 
-import android.content.Intent
-import android.location.Location
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
 import androidx.viewpager.widget.ViewPager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
-import pl.edu.uj.ii.skwarczek.betterchatfast.adapters.OnboardingAdapter
+import pl.edu.uj.ii.skwarczek.betterchatfast.onboarding.OnboardingAdapter
 
 class OnboardingActivity: AppCompatActivity() {
 

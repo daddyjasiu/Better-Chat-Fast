@@ -1,4 +1,4 @@
-package pl.edu.uj.ii.skwarczek.betterchatfast.interfaces
+package pl.edu.uj.ii.skwarczek.betterchatfast.users
 
 import android.location.Location
 

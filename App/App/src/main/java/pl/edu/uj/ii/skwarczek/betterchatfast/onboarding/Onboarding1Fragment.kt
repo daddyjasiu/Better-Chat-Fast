@@ -1,4 +1,4 @@
-package pl.edu.uj.ii.skwarczek.betterchatfast.fragments
+package pl.edu.uj.ii.skwarczek.betterchatfast.onboarding
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 
-class Onboarding3Fragment : Fragment() {
+
+class Onboarding1Fragment : Fragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_onboarding_3, container, false)
+        val view = inflater.inflate(R.layout.fragment_onboarding_1, container, false)
 
         return view
     }

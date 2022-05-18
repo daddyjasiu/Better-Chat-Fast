@@ -1,4 +1,4 @@
-package pl.edu.uj.ii.skwarczek.betterchatfast.fragments
+package pl.edu.uj.ii.skwarczek.betterchatfast.signin
 
 import android.content.Intent
 import android.location.Location
@@ -17,10 +17,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
-import pl.edu.uj.ii.skwarczek.betterchatfast.activities.OnboardingActivity
-import pl.edu.uj.ii.skwarczek.betterchatfast.enums.UserTypes
-import pl.edu.uj.ii.skwarczek.betterchatfast.utility.FirestoreHelper
-import pl.edu.uj.ii.skwarczek.betterchatfast.utility.UserFactory
+import pl.edu.uj.ii.skwarczek.betterchatfast.onboarding.OnboardingActivity
+import pl.edu.uj.ii.skwarczek.betterchatfast.users.UserTypes
+import pl.edu.uj.ii.skwarczek.betterchatfast.util.FirestoreHelper
+import pl.edu.uj.ii.skwarczek.betterchatfast.util.UserFactory
 
 class SignUpTabFragment : Fragment(){
 

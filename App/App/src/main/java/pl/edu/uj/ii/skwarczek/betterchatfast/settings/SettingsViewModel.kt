@@ -1,4 +1,4 @@
-package pl.edu.uj.ii.skwarczek.betterchatfast.main
+package pl.edu.uj.ii.skwarczek.betterchatfast.settings
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

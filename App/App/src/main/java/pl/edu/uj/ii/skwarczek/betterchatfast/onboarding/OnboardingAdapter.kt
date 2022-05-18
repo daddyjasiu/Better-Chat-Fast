@@ -1,12 +1,12 @@
-package pl.edu.uj.ii.skwarczek.betterchatfast.adapters
+package pl.edu.uj.ii.skwarczek.betterchatfast.onboarding
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import pl.edu.uj.ii.skwarczek.betterchatfast.fragments.Onboarding1Fragment
-import pl.edu.uj.ii.skwarczek.betterchatfast.fragments.Onboarding2Fragment
-import pl.edu.uj.ii.skwarczek.betterchatfast.fragments.Onboarding3Fragment
-import pl.edu.uj.ii.skwarczek.betterchatfast.fragments.Onboarding4Fragment
+import pl.edu.uj.ii.skwarczek.betterchatfast.onboarding.Onboarding1Fragment
+import pl.edu.uj.ii.skwarczek.betterchatfast.onboarding.Onboarding2Fragment
+import pl.edu.uj.ii.skwarczek.betterchatfast.onboarding.Onboarding3Fragment
+import pl.edu.uj.ii.skwarczek.betterchatfast.onboarding.Onboarding4Fragment
 
 class OnboardingAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 

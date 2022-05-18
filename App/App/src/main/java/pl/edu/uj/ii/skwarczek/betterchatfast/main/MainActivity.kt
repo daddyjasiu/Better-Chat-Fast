@@ -1,10 +1,8 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.main
 
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -13,9 +11,9 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.sendbird.calls.SendBirdCall
-import pl.edu.uj.ii.skwarczek.betterchatfast.BuildConfig
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.ActivityMainBinding
+import pl.edu.uj.ii.skwarczek.betterchatfast.settings.SettingsContainerFragment
 import pl.edu.uj.ii.skwarczek.betterchatfast.signin.AuthenticateViewModel
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.*
 

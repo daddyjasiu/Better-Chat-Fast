@@ -1,7 +1,6 @@
-package pl.edu.uj.ii.skwarczek.betterchatfast.models
+package pl.edu.uj.ii.skwarczek.betterchatfast.settings
 
-import pl.edu.uj.ii.skwarczek.betterchatfast.interfaces.ISettings
-import pl.edu.uj.ii.skwarczek.betterchatfast.utility.FirestoreHelper
+import pl.edu.uj.ii.skwarczek.betterchatfast.util.FirestoreHelper
 
 class Settings : ISettings {
     override fun setUserNickname(nickname: String) {

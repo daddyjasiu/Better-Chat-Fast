@@ -1,10 +1,8 @@
-package pl.edu.uj.ii.skwarczek.betterchatfast.activities
+package pl.edu.uj.ii.skwarczek.betterchatfast.settings
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -13,10 +11,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.CoroutineScope
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
-import pl.edu.uj.ii.skwarczek.betterchatfast.interfaces.ISettings
-import pl.edu.uj.ii.skwarczek.betterchatfast.models.Settings
 
 class SettingsActivity: AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package pl.edu.uj.ii.skwarczek.betterchatfast.activities
+package pl.edu.uj.ii.skwarczek.betterchatfast.signin
 
 import android.content.Intent
 import android.location.Location
@@ -21,28 +21,16 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.gson.GsonBuilder
-import com.sendbird.calls.SendBirdCall
-import com.sendbird.calls.shadow.com.google.gson.Gson
-import com.sendbird.calls.shadow.com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.fragment_signin_tab.*
 import kotlinx.android.synthetic.main.fragment_signin_tab.view.*
 import kotlinx.android.synthetic.main.fragment_signup_tab.view.*
 import kotlinx.coroutines.*
-import org.json.JSONObject
-import pl.edu.uj.ii.skwarczek.betterchatfast.BuildConfig
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
-import pl.edu.uj.ii.skwarczek.betterchatfast.adapters.SignInAdapter
-import pl.edu.uj.ii.skwarczek.betterchatfast.enums.UserTypes
+import pl.edu.uj.ii.skwarczek.betterchatfast.onboarding.OnboardingActivity
+import pl.edu.uj.ii.skwarczek.betterchatfast.users.UserTypes
 import pl.edu.uj.ii.skwarczek.betterchatfast.main.MainActivity
-import pl.edu.uj.ii.skwarczek.betterchatfast.models.SendbirdUser
-import pl.edu.uj.ii.skwarczek.betterchatfast.signin.SendbirdSignInActivity
-import pl.edu.uj.ii.skwarczek.betterchatfast.util.RequestHandler
-import pl.edu.uj.ii.skwarczek.betterchatfast.util.SENDBIRD_APP_ID
-import pl.edu.uj.ii.skwarczek.betterchatfast.util.SharedPreferencesManager
-import pl.edu.uj.ii.skwarczek.betterchatfast.utility.FirestoreHelper
-import pl.edu.uj.ii.skwarczek.betterchatfast.utility.UserFactory
-import java.net.URL
+import pl.edu.uj.ii.skwarczek.betterchatfast.util.FirestoreHelper
+import pl.edu.uj.ii.skwarczek.betterchatfast.util.UserFactory
 import kotlin.coroutines.CoroutineContext
 
 
