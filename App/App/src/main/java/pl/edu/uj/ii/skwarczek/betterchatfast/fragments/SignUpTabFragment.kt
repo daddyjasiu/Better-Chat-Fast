@@ -17,7 +17,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
-import pl.edu.uj.ii.skwarczek.betterchatfast.activities.MainScreenActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.activities.OnboardingActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.enums.UserTypes
 import pl.edu.uj.ii.skwarczek.betterchatfast.utility.FirestoreHelper

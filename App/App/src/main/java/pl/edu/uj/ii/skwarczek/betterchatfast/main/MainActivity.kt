@@ -38,9 +38,7 @@ class MainActivity : BaseActivity() {
 
         viewModel.authenticate(mail!!, null)
 
-
         observeViewModel()
-
 
         requestPermissions()
     }

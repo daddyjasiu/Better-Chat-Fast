@@ -2,7 +2,6 @@ package pl.edu.uj.ii.skwarczek.betterchatfast.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,22 +9,16 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.sendbird.calls.SendBirdCall
 import org.json.JSONObject
-import pl.edu.uj.ii.skwarczek.betterchatfast.BuildConfig
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
-import pl.edu.uj.ii.skwarczek.betterchatfast.activities.MainScreenActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.main.MainActivity
-import pl.edu.uj.ii.skwarczek.betterchatfast.models.SendbirdUser
 import pl.edu.uj.ii.skwarczek.betterchatfast.signin.AuthenticateViewModel
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.RequestHandler
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.SENDBIRD_APP_ID
-import pl.edu.uj.ii.skwarczek.betterchatfast.util.SharedPreferencesManager
 import pl.edu.uj.ii.skwarczek.betterchatfast.utility.FirestoreHelper
 
-class Onboarding4Fragment  : Fragment() {
+class Onboarding4Fragment : Fragment() {
 
     private lateinit var nicknameField: EditText
     private lateinit var firstNameField: EditText
@@ -48,7 +41,7 @@ class Onboarding4Fragment  : Fragment() {
             val firstName = firstNameField.text?.trim().toString()
             val lastName = lastNameField.text?.trim().toString()
 
-            if(nickname.isNotEmpty() && firstName.isNotEmpty() && lastName.isNotEmpty()){
+            if (nickname.isNotEmpty() && firstName.isNotEmpty() && lastName.isNotEmpty()) {
                 FirestoreHelper.updateCurrentUserNicknameInFirebase(nickname)
                 FirestoreHelper.updateCurrentUserFirstNameInFirebase(firstName)
                 FirestoreHelper.updateCurrentUserLastNameInFirebase(lastName)
@@ -57,9 +50,11 @@ class Onboarding4Fragment  : Fragment() {
                 val mail = auth.currentUser?.email
                 //http post user
                 val url = "https://api-$SENDBIRD_APP_ID.sendbird.com/v3/users"
-                val postJSONObject = JSONObject("""{"user_id":"$mail",
+                val postJSONObject = JSONObject(
+                    """{"user_id":"$mail",
                                                 "nickname":"$nickname",
-                                                "profile_url":"https://sendbird.com/main/img/profiles/profile_05_512px.png"}""")
+                                                "profile_url":"https://sendbird.com/main/img/profiles/profile_05_512px.png"}"""
+                )
                 Thread(kotlinx.coroutines.Runnable {
                     RequestHandler.requestPOST(url, postJSONObject)
 
@@ -68,16 +63,16 @@ class Onboarding4Fragment  : Fragment() {
                 val intent = Intent(context, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
-            }
-            else{
-                Toast.makeText(context, "Please fill all required fields", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "Please fill all required fields", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
         return view
     }
 
-    private fun initView(view: View){
+    private fun initView(view: View) {
         auth = FirebaseAuth.getInstance()
         finishOnboardingButton = view.findViewById(R.id.onboarding_4_finish_button)
         nicknameField = view.findViewById(R.id.onboarding_4_nickname_edit_text)
