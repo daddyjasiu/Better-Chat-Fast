@@ -35,7 +35,6 @@ class AuthenticateViewModel : ViewModel() {
                     SharedPreferencesManager.accessToken = accessToken
                     Resource.success(user)
                 } else {
-
                     Resource.error(e.message, e.code, null)
                 }
                 _authenticateLiveData.postValue(resource)

@@ -3,6 +3,7 @@ package pl.edu.uj.ii.skwarczek.betterchatfast.main
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -14,12 +15,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.sendbird.calls.SendBirdCall
 import pl.edu.uj.ii.skwarczek.betterchatfast.BuildConfig
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
-import pl.edu.uj.ii.skwarczek.betterchatfast.util.BaseActivity
-import pl.edu.uj.ii.skwarczek.betterchatfast.util.requestPermissions
 import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.ActivityMainBinding
 import pl.edu.uj.ii.skwarczek.betterchatfast.signin.AuthenticateViewModel
-import pl.edu.uj.ii.skwarczek.betterchatfast.util.SENDBIRD_APP_ID
-import pl.edu.uj.ii.skwarczek.betterchatfast.util.SharedPreferencesManager
+import pl.edu.uj.ii.skwarczek.betterchatfast.util.*
 
 class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -33,32 +31,48 @@ class MainActivity : BaseActivity() {
         SendBirdCall.init(applicationContext, SENDBIRD_APP_ID)
         SendBirdCall.setLoggerLevel(SendBirdCall.LOGGER_INFO)
         SharedPreferencesManager.init(applicationContext)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         //Sendbird user auth
         auth = FirebaseAuth.getInstance()
         val mail = auth.currentUser?.email
+
         viewModel.authenticate(mail!!, null)
 
 
-        val tabLayout = binding.tabLayoutMain
-        tabLayout.addOnTabSelectedListener(onTabSelectedListener)
+        observeViewModel()
 
-        val viewPager2 = binding.viewPagerMain
-        viewPager2.adapter = ViewPagerAdapter(this)
 
-        TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
-            val iconResourceId = when (position) {
-                0 -> R.drawable.icon_rooms
-                1 -> R.drawable.icon_settings
-                else -> return@TabLayoutMediator
-            }
-
-            tab.setIcon(iconResourceId)
-        }.attach()
         requestPermissions()
     }
+    private fun observeViewModel() {
+        viewModel.authenticationLiveData.observe(this) { resource ->
+            Log.d("SignInActivity", "observe() resource: $resource")
+            when (resource.status) {
+                Status.LOADING -> {
+                    // TODO : show loading view
+                }
+                Status.SUCCESS -> {
+                    binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+                    val tabLayout = binding.tabLayoutMain
+                    tabLayout.addOnTabSelectedListener(onTabSelectedListener)
 
+                    val viewPager2 = binding.viewPagerMain
+                    viewPager2.adapter = ViewPagerAdapter(this)
+
+                    TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
+                        val iconResourceId = when (position) {
+                            0 -> R.drawable.icon_rooms
+                            1 -> R.drawable.icon_settings
+                            else -> return@TabLayoutMediator
+                        }
+
+                        tab.setIcon(iconResourceId)
+                    }.attach()
+                }
+                Status.ERROR -> Toast.makeText(this, resource.message, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     private val onTabSelectedListener = object : TabLayout.OnTabSelectedListener {
         override fun onTabSelected(tab: TabLayout.Tab?) {

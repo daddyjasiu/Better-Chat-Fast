@@ -19,6 +19,7 @@ import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.activities.MainScreenActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.main.MainActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.models.SendbirdUser
+import pl.edu.uj.ii.skwarczek.betterchatfast.signin.AuthenticateViewModel
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.RequestHandler
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.SENDBIRD_APP_ID
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.SharedPreferencesManager
@@ -31,6 +32,7 @@ class Onboarding4Fragment  : Fragment() {
     private lateinit var lastNameField: EditText
     private lateinit var finishOnboardingButton: Button
     private lateinit var auth: FirebaseAuth
+    private val viewModel: AuthenticateViewModel = AuthenticateViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,6 +62,7 @@ class Onboarding4Fragment  : Fragment() {
                                                 "profile_url":"https://sendbird.com/main/img/profiles/profile_05_512px.png"}""")
                 Thread(kotlinx.coroutines.Runnable {
                     RequestHandler.requestPOST(url, postJSONObject)
+
                 }).start()
 
                 val intent = Intent(context, MainActivity::class.java)
