@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/appInfoFragment"
-        android:name="pl.edu.uj.ii.skwarczek.betterchatfast.main.AppInfoFragment"
+        android:name="pl.edu.uj.ii.skwarczek.betterchatfast.settings.AppInfoFragment"
         android:label="fragment_app_info"
         tools:layout="@layout/fragment_app_info" />
     <activity
