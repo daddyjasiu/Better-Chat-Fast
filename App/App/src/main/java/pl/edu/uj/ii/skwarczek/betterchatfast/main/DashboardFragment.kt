@@ -12,17 +12,36 @@ import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 import com.sendbird.calls.SendBirdCall
 import com.sendbird.calls.SendBirdError
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.preview.PreviewActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.room.RoomActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.*
 import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.FragmentDashboardBinding
+import pl.edu.uj.ii.skwarczek.betterchatfast.users.IUser
+import kotlin.coroutines.CoroutineContext
 
-class DashboardFragment : Fragment() {
+class DashboardFragment : Fragment(), CoroutineScope {
     lateinit var binding: FragmentDashboardBinding
     private val viewModel: DashboardViewModel = DashboardViewModel()
+    private lateinit var auth: FirebaseAuth
+
+    private var job: Job = Job()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,6 +57,9 @@ class DashboardFragment : Fragment() {
     }
 
     private fun setViewEventListeners() {
+
+        auth = FirebaseAuth.getInstance()
+
         binding.linearLayoutDashboard.setOnClickListener {
             activity?.hideKeyboard()
             binding.editTextRoomId.clearFocus()
@@ -54,8 +76,15 @@ class DashboardFragment : Fragment() {
         }
 
         binding.dashboardCreateRoomButton.setOnClickListener {
-            Log.d("a","Clicked create")
             viewModel.createAndEnterRoom()
+        }
+
+        binding.dashboardSearchRoomButton.setOnClickListener {
+            launch(Dispatchers.Main) {
+                val user = FirestoreHelper.getCurrentUserFromFirestore()
+                FirestoreHelper.addUserToWaitingList(user)
+                FirestoreHelper.pairUsers()
+            }
         }
 
         binding.textViewEnter.setOnClickListener(this::onEnterButtonClicked)

@@ -87,6 +87,53 @@
                     android:orientation="vertical"
                     android:padding="24dp">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Search room"
+                        android:fontFamily="sans-serif"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textColor="@color/onlight_01"
+                        android:lineSpacingExtra="4sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/dashboard_search_room_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="24dp"
+                        android:text="@string/dashboard_search_room_button"
+                        android:textAllCaps="false"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:fontFamily="sans-serif"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="@color/ondark_01"
+                        android:letterSpacing="0.03"
+                        android:lineSpacingExtra="2sp"
+                        app:cornerRadius="4dp"
+                        app:backgroundTint="#742ddd" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:background="@color/white"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
@@ -239,4 +286,5 @@
         </LinearLayout>
 
     </ScrollView>
+
 </layout>

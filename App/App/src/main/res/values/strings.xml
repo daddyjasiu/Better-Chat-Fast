@@ -21,6 +21,7 @@
     <string name="dashboard_create_room_title">Create a room</string>
     <string name="dashboard_create_room_description">Start a group call in a room and share the room ID with others.</string>
     <string name="dashboard_create_room_button">Create</string>
+    <string name="dashboard_search_room_button">Search</string>
     <string name="dashboard_enter_with_room_id_title">Enter with room ID</string>
     <string name="dashboard_enter_with_room_id_description">Enter an existing room to participate in a group call.</string>
     <string name="dashboard_hint_room_id">Room ID</string>
