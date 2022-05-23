@@ -76,18 +76,18 @@ class UserPreferencesFragment: Fragment() {
 
                 Toast.makeText(context, "User credentials updated!", Toast.LENGTH_SHORT).show()
 
-//                val mail = auth.currentUser?.email
-//                //http post user
-//                val url = "https://api-$SENDBIRD_APP_ID.sendbird.com/v3/users/$mail"
-//
-//                val postJSONObject = JSONObject(
-//                    """{"user_id":"$mail",
-//                                                "nickname":"$nickname",
-//                                                "profile_url":"https://sendbird.com/main/img/profiles/profile_05_512px.png"}"""
-//                )
-//                Thread(kotlinx.coroutines.Runnable {
-//                    RequestHandler.requestPOST(url, postJSONObject)
-//                }).start()
+                val mail = auth.currentUser?.email
+                //http post user
+                val url = "https://api-$SENDBIRD_APP_ID.sendbird.com/v3/users/$mail"
+
+                val postJSONObject = JSONObject(
+                    """{"user_id":"$mail",
+                                                "nickname":"$nickname",
+                                                "profile_url":"https://sendbird.com/main/img/profiles/profile_05_512px.png"}"""
+                )
+                Thread(kotlinx.coroutines.Runnable {
+                    RequestHandler.requestPUT(url, postJSONObject)
+                }).start()
 
             }
             else{

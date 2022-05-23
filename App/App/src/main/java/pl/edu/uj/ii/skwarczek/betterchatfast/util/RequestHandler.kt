@@ -1,6 +1,5 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.util
 
-import android.util.Log
 import org.json.JSONObject
 import java.io.*
 import java.net.HttpURLConnection
@@ -13,9 +12,10 @@ object RequestHandler {
 
     const val GET : String = "GET"
     const val POST : String = "POST"
+    const val PUT : String = "PUT"
 
     @Throws(IOException::class)
-    fun requestPOST(r_url: String?, postDataParams: JSONObject): String? {
+    fun requestPOST(r_url: String?, postDataParams: JSONObject): String {
         val url = URL(r_url)
         val conn: HttpURLConnection = url.openConnection() as HttpURLConnection
         conn.readTimeout = 3000
@@ -59,7 +59,51 @@ object RequestHandler {
     }
 
     @Throws(IOException::class)
-    fun requestGET(url: String?): String? {
+    fun requestPUT(r_url: String?, postDataParams: JSONObject): String {
+        val url = URL(r_url)
+        val conn: HttpURLConnection = url.openConnection() as HttpURLConnection
+        conn.readTimeout = 3000
+        conn.connectTimeout = 3000
+        conn.requestMethod = PUT
+        conn.doInput = true
+        conn.doOutput = true
+        conn.setRequestProperty("Content-Type","application/json; charset=utf8")
+
+        conn.setRequestProperty("Api-Token","e29fe77840867f6120bbc2ee6b8ea2027ef76eca")
+
+        val os: OutputStream = conn.outputStream
+        val writer = BufferedWriter(OutputStreamWriter(os, "UTF-8"))
+        writer.write(postDataParams.toString())
+        writer.flush()
+        writer.close()
+        os.close()
+        val responseCode: Int = conn.responseCode // To Check for 200
+        if (responseCode == HttpsURLConnection.HTTP_OK) {
+            val `in` = BufferedReader(InputStreamReader(conn.inputStream))
+            val sb = StringBuffer("")
+            var line: String? = ""
+            while (`in`.readLine().also { line = it } != null) {
+                sb.append(line)
+                break
+            }
+            `in`.close()
+            return sb.toString()
+        }
+        //error
+        val `in` = BufferedReader(InputStreamReader(conn.errorStream))
+        val sb = StringBuffer("")
+        var line: String? = ""
+        while (`in`.readLine().also { line = it } != null) {
+            sb.append(line)
+            break
+        }
+        `in`.close()
+
+        return sb.toString()
+    }
+
+    @Throws(IOException::class)
+    fun requestGET(url: String?): String {
         val obj = URL(url)
         val con = obj.openConnection() as HttpURLConnection
         con.requestMethod = GET
