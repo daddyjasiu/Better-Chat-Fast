@@ -7,63 +7,44 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 import pl.edu.uj.ii.skwarczek.betterchatfast.users.IUser
-import kotlin.math.cos
 
 object FirestoreHelper {
 
     suspend fun pairUsers() {
         val db = Firebase.firestore
 
-//        val allWaitingUsersQuerySnapshots = getWaitingUsers()
-//        val allWaitingUsersDocumentSnapshots = mutableListOf<DocumentSnapshot>()
-//
-//        if (allWaitingUsersQuerySnapshots != null) {
-//            for (userDocumentSnapshot in allWaitingUsersQuerySnapshots) {
-//                allWaitingUsersDocumentSnapshots.add(userDocumentSnapshot)
-//                Log.d("SNAP", JSON.stringify(userDocumentSnapshot.toString()))
-//            }
-//        }
-//
-//        for(user in allWaitingUsersDocumentSnapshots){
-//            addUserToPairedList(user)
-//        }
+        val allWaitingUsersQuerySnapshots = getWaitingUsers()
+        val currentUser = getCurrentUserFromFirestore()
+        val allWaitingUsersDocumentSnapshots = mutableListOf<DocumentSnapshot>()
 
-
-
-            //val numberOfParticipants = 2
-            //val pair = allWaitingUsers.asSequence().shuffled().take(numberOfParticipants) as ArrayList<*>
-
-    //        db.collection("matchmaking")
-    //            .document("data")
-    //            .update("paired", FieldValue.arrayUnion(pair))
-
+        for (userDocumentSnapshot in allWaitingUsersQuerySnapshots) {
+            Log.d("SNAP", userDocumentSnapshot.toString())
+            Log.d("USER", currentUser.toString())
+        }
 
     }
 
-    private suspend fun getWaitingUsers(): QuerySnapshot? = coroutineScope {
+    private suspend fun getWaitingUsers(): ArrayList<DocumentSnapshot> = coroutineScope{
         val db = Firebase.firestore
+        val result = arrayListOf<DocumentSnapshot>()
 
-        val task = async {
-            db.collection("waiting")
-                .get()
-                .addOnSuccessListener { document ->
-                    if (document != null) {
-                        document.documents
-                    } else {
-                        Log.d(TAG, "No such document")
-                    }
+        db.collection("waiting")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    result.add(document)
                 }
-                .addOnFailureListener {
-                    Log.d(TAG, "User get failed!")
-                }
-                .await()
-        }
-        task.await()
+            }
+            .addOnFailureListener {
+                Log.d(TAG, "User get failed!")
+            }
+            .await()
+
+        return@coroutineScope result
     }
 
     fun addUserToPairedList(user: DocumentSnapshot) {
