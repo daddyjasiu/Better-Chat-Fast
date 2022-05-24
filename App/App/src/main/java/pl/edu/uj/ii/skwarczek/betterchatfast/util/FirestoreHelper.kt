@@ -13,11 +13,11 @@ import pl.edu.uj.ii.skwarczek.betterchatfast.users.IUser
 
 object FirestoreHelper {
 
-    suspend fun getWaitingUsers(): ArrayList<DocumentSnapshot> = coroutineScope {
+    suspend fun getMatchmakingUsers(): ArrayList<DocumentSnapshot> = coroutineScope {
         val db = Firebase.firestore
         val result = arrayListOf<DocumentSnapshot>()
 
-        db.collection("waiting")
+        db.collection("matchmaking")
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
@@ -32,19 +32,10 @@ object FirestoreHelper {
         return@coroutineScope result
     }
 
-    fun addUserToPairedList(user: DocumentSnapshot) {
+    fun addUserToMatchmakingList(user: DocumentSnapshot) {
         val db = Firebase.firestore
 
-        db.collection("paired")
-            .document(user.get("userId").toString())
-            .set(user)
-
-    }
-
-    fun addUserToWaitingList(user: DocumentSnapshot) {
-        val db = Firebase.firestore
-
-        db.collection("waiting")
+        db.collection("matchmaking")
             .document(user.get("userId").toString())
             .set(user)
 

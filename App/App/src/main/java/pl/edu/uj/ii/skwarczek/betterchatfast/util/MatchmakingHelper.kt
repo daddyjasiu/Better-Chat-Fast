@@ -3,13 +3,15 @@ package pl.edu.uj.ii.skwarczek.betterchatfast.util
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
+
 object MatchmakingHelper {
 
     suspend fun pairUsers() {
+
         val db = Firebase.firestore
         val numberOfParticipants = 2
 
-        val allWaitingUsersQuerySnapshots = FirestoreHelper.getWaitingUsers()
+        val allWaitingUsersQuerySnapshots = FirestoreHelper.getMatchmakingUsers()
         val currentUser = FirestoreHelper.getCurrentUserFromFirestore()
         val allWaitingUsersDocumentSnapshots: MutableList<Map<*, *>> = mutableListOf()
 

@@ -80,8 +80,7 @@ class DashboardFragment : Fragment(), CoroutineScope {
         binding.dashboardSearchRoomButton.setOnClickListener {
             launch(Dispatchers.Main) {
                 val user = FirestoreHelper.getCurrentUserFromFirestore()
-                FirestoreHelper.addUserToWaitingList(user)
-                MatchmakingHelper.pairUsers()
+                FirestoreHelper.addUserToMatchmakingList(user)
             }
         }
 
