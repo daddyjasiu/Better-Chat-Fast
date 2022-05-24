@@ -3,17 +3,16 @@ package pl.edu.uj.ii.skwarczek.betterchatfast.main
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 import com.sendbird.calls.SendBirdCall
 import com.sendbird.calls.SendBirdError
 import kotlinx.coroutines.CoroutineScope
@@ -21,11 +20,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
+import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.FragmentDashboardBinding
 import pl.edu.uj.ii.skwarczek.betterchatfast.preview.PreviewActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.room.RoomActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.*
-import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.FragmentDashboardBinding
-import pl.edu.uj.ii.skwarczek.betterchatfast.users.IUser
 import kotlin.coroutines.CoroutineContext
 
 class DashboardFragment : Fragment(), CoroutineScope {
@@ -83,7 +81,7 @@ class DashboardFragment : Fragment(), CoroutineScope {
             launch(Dispatchers.Main) {
                 val user = FirestoreHelper.getCurrentUserFromFirestore()
                 FirestoreHelper.addUserToWaitingList(user)
-                FirestoreHelper.pairUsers()
+                MatchmakingHelper.pairUsers()
             }
         }
 
@@ -183,11 +181,12 @@ class DashboardFragment : Fragment(), CoroutineScope {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CODE_PREVIEW && resultCode == RESULT_ENTER_FAIL) {
             val errorCode = data?.getIntExtra(EXTRA_ENTER_ERROR_CODE, -1)
-            val errorMessage = if (errorCode == SendBirdError.ERR_PARTICIPANTS_LIMIT_EXCEEDED_IN_ROOM) {
-                getString(R.string.dashboard_can_not_enter_room_max_participants_count_exceeded)
-            } else {
-                data?.getStringExtra(EXTRA_ENTER_ERROR_MESSAGE)
-            } ?: UNKNOWN_SENDBIRD_ERROR
+            val errorMessage =
+                if (errorCode == SendBirdError.ERR_PARTICIPANTS_LIMIT_EXCEEDED_IN_ROOM) {
+                    getString(R.string.dashboard_can_not_enter_room_max_participants_count_exceeded)
+                } else {
+                    data?.getStringExtra(EXTRA_ENTER_ERROR_MESSAGE)
+                } ?: UNKNOWN_SENDBIRD_ERROR
 
             activity?.showAlertDialog(
                 getString(R.string.dashboard_can_not_enter_room),

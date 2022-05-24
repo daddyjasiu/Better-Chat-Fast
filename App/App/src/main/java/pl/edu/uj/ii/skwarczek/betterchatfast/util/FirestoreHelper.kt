@@ -4,31 +4,16 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.*
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.tasks.await
 import pl.edu.uj.ii.skwarczek.betterchatfast.users.IUser
 
 object FirestoreHelper {
 
-    suspend fun pairUsers() {
-        val db = Firebase.firestore
-
-        val allWaitingUsersQuerySnapshots = getWaitingUsers()
-        val currentUser = getCurrentUserFromFirestore()
-        val allWaitingUsersDocumentSnapshots = mutableListOf<DocumentSnapshot>()
-
-        for (userDocumentSnapshot in allWaitingUsersQuerySnapshots) {
-            Log.d("SNAP", userDocumentSnapshot.toString())
-            Log.d("USER", currentUser.toString())
-        }
-
-    }
-
-    private suspend fun getWaitingUsers(): ArrayList<DocumentSnapshot> = coroutineScope{
+    suspend fun getWaitingUsers(): ArrayList<DocumentSnapshot> = coroutineScope {
         val db = Firebase.firestore
         val result = arrayListOf<DocumentSnapshot>()
 
@@ -133,6 +118,22 @@ object FirestoreHelper {
         db.collection("users")
             .document(currentUser.uid)
             .update("premium", isPremium)
+    }
+
+    fun deleteDocumentById(collectionId: String, documentId: String){
+        val db = Firebase.firestore
+        db.collection(collectionId).document(documentId)
+            .delete()
+            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
+            .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
+    }
+
+    fun createDocumentById(collectionId: String, documentId: String, doc: Map<*,*>){
+        val db = Firebase.firestore
+        db.collection(collectionId).document(documentId)
+            .set(doc)
+            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully created!") }
+            .addOnFailureListener { e -> Log.w(TAG, "Error creating document", e) }
     }
 
     fun updateCurrentUserIsAfterOnboarding(isAfterOnboarding: Boolean) {
