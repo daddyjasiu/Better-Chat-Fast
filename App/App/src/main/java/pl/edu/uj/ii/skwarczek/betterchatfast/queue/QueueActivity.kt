@@ -66,13 +66,10 @@ class QueueActivity: BaseActivity(), CoroutineScope {
                 var room = FirestoreHelper.getRoomById(user.get("roomId").toString())
 
                 if (room.get("host") == user.get("userId")) {
-                    val roomId = viewModel.createRoom()
-                    val db = Firebase.firestore
-                    Log.d("roomId", roomId)
+                    viewModel.createRoom()
 
-                    db.collection("rooms").document(roomId).update("senbirdId", roomId)
                 } else {
-                    while (room.get("senbirdId").toString() == "") {
+                    while (room.get("senbirdId").toString() == "null") {
                         Log.d("sendbirdId", room.get("senbirdId").toString())
 
                         room = FirestoreHelper.getRoomById(user.get("roomId").toString())
@@ -92,7 +89,10 @@ class QueueActivity: BaseActivity(), CoroutineScope {
                     // TODO : show loading view
                 }
                 Status.SUCCESS -> {
-
+                    val db = Firebase.firestore
+                    val roomId = resource.data
+                    Log.d("roomId", roomId.toString())
+                    db.collection("rooms").document(roomId.toString()).update("senbirdId", roomId)
                     resource.data?.let { goToPreviewActivity(it) }
                 }
                 Status.ERROR -> {

@@ -50,9 +50,9 @@ class DashboardViewModel : ViewModel() {
         })
     }
 
-    fun createRoom(): String {
+    fun createRoom() {
         if (_createdRoomId.value?.status == Status.LOADING) {
-            return ""
+            return
         }
 
         var result: String =""
@@ -68,7 +68,6 @@ class DashboardViewModel : ViewModel() {
                 }
             }
         })
-        return result
     }
 
     fun fetchRoomById(roomId: String) {
