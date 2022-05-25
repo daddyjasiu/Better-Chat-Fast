@@ -83,24 +83,24 @@ class DashboardFragment : Fragment(), CoroutineScope {
 
         binding.dashboardSearchRoomButton.setOnClickListener {
             launch(Dispatchers.Main) {
-                val user = FirestoreHelper.getCurrentUserFromFirestore().data
-                val newUser = UserFactory.createUser(
-                    UserTypes.STANDARD,
-                    user?.get("userId") as String,
-                    user?.get("nickname") as String,
-                    user?.get("firstName") as String,
-                    user?.get("lastName") as String,
-                    user?.get("email") as String,
-                    user?.get("profilePicture") as String,
-                    Location("abc")
-                )
-                FirestoreHelper.addUserToMatchmakingList(newUser)
-//                for (i in 0..50) {
-//                    val db = Firebase.firestore
-//                    db.collection("matchmaking")
-//                        .document()
-//                        .set(hashMapOf("1" to "1", "2" to "2", "3" to "3"))
-//                }
+//                val user = FirestoreHelper.getCurrentUserFromFirestore().data
+//                val newUser = UserFactory.createUser(
+//                    UserTypes.STANDARD,
+//                    user?.get("userId") as String,
+//                    user?.get("nickname") as String,
+//                    user?.get("firstName") as String,
+//                    user?.get("lastName") as String,
+//                    user?.get("email") as String,
+//                    user?.get("profilePicture") as String,
+//                    Location("abc")
+//                )
+//                FirestoreHelper.addUserToMatchmakingList(newUser)
+                for (i in 0..50) {
+                    val db = Firebase.firestore
+                    db.collection("matchmaking")
+                        .document()
+                        .set(hashMapOf("1" to "1", "2" to "2", "3" to "3"))
+                }
             }
         }
 
