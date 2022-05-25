@@ -14,13 +14,27 @@ exports.matchmaker = functions.firestore.document("matchmaking/{userId}")
         console.log("hej");
 
         const userId = context.params.userId;
-
-        const user = database.collection('matchmaking').doc(userId);
-        const room = database.collection('rooms').doc("XDDD")
+        const user1ref = database.collection('matchmaking').doc(userId);
+        const users = database.collectionGroup('matchmaking');
         try {
             await database.runTransaction(async (t) => {
-                const doc = await t.get(user)
-                t.set(room, {user: userId});
+                const doc = await t.get(users);
+                var user2 = null;
+                doc.forEach(user=>{
+                    if(user.data().id !== context.params.userId){
+                        console.log("user.data()")
+                        console.log(user.data());
+                        user2 = user.data();
+                    }
+                     
+                });
+                if(user2 !== null){
+                    const user2ref = database.collection('matchmaking').doc(user2.id)
+                    const room = database.collection('rooms').doc(generateRoomId());
+                    t.set(room, {userId1: userId, userId2: user2.id});
+                    t.delete(user1ref);
+                    t.delete(user2ref);
+                }
             });
 
             console.log('Transaction success!');
