@@ -50,11 +50,12 @@ class DashboardViewModel : ViewModel() {
         })
     }
 
-    fun createRoom() {
+    fun createRoom(): String {
         if (_createdRoomId.value?.status == Status.LOADING) {
-            return
+            return ""
         }
 
+        var result: String =""
         _createdRoomId.postValue(Resource.loading(null))
         val params = RoomParams(RoomType.SMALL_ROOM_FOR_VIDEO)
         SendBirdCall.createRoom(params, object : RoomHandler {
@@ -62,10 +63,12 @@ class DashboardViewModel : ViewModel() {
                 if (e != null) {
                     _createdRoomId.postValue(Resource.error(e.message, e.code, null))
                 } else {
+                    result= room?.roomId.toString()
                     _createdRoomId.postValue(Resource.success(room?.roomId))
                 }
             }
         })
+        return result
     }
 
     fun fetchRoomById(roomId: String) {

@@ -62,25 +62,24 @@ class QueueActivity: BaseActivity(), CoroutineScope {
                 Log.d("matchmakin state",user.get("matchmakingState").toString())
                 delay(1000)
             }
-            var room = FirestoreHelper.getRoomById(user.get("roomId").toString())
-            if(room.get("host")==user.get("userId")){
-                viewModel.createRoom()
-                val db = Firebase.firestore
-                val roomId =viewModel.createdRoomId.toString()
-                Log.d("roomId",roomId)
+            launch(Dispatchers.Main) {
+                var room = FirestoreHelper.getRoomById(user.get("roomId").toString())
 
-                db.collection("rooms").document(roomId).update("senbirdId", roomId)
-                viewModel.fetchRoomById(roomId)
-            }
-            else{
-                while(room.get("senbirdId").toString() == "")
-                {
-                    Log.d("sendbirdId",room.get("senbirdId").toString())
+                if (room.get("host") == user.get("userId")) {
+                    val roomId = viewModel.createRoom()
+                    val db = Firebase.firestore
+                    Log.d("roomId", roomId)
 
-                    room = FirestoreHelper.getRoomById(user.get("roomId").toString())
-                    delay(1000)
+                    db.collection("rooms").document(roomId).update("senbirdId", roomId)
+                } else {
+                    while (room.get("senbirdId").toString() == "") {
+                        Log.d("sendbirdId", room.get("senbirdId").toString())
+
+                        room = FirestoreHelper.getRoomById(user.get("roomId").toString())
+                        delay(1000)
+                    }
+                    viewModel.fetchRoomById(room.get("senbirdId").toString())
                 }
-                viewModel.fetchRoomById(room.get("senbirdId").toString())
             }
         }
         observeViewModel()
@@ -92,7 +91,10 @@ class QueueActivity: BaseActivity(), CoroutineScope {
                 Status.LOADING -> {
                     // TODO : show loading view
                 }
-                Status.SUCCESS -> resource.data?.let { goToPreviewActivity(it) }
+                Status.SUCCESS -> {
+
+                    resource.data?.let { goToPreviewActivity(it) }
+                }
                 Status.ERROR -> {
                     val message = if (resource?.errorCode == SendBirdError.ERR_INVALID_PARAMS) {
                         getString(R.string.dashboard_invalid_room_params)
