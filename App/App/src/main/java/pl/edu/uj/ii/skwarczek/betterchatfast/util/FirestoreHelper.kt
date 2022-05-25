@@ -32,11 +32,11 @@ object FirestoreHelper {
         return@coroutineScope result
     }
 
-    fun addUserToMatchmakingList(user: DocumentSnapshot) {
+    fun addUserToMatchmakingList(user: IUser) {
         val db = Firebase.firestore
 
         db.collection("matchmaking")
-            .document(user.get("userId").toString())
+            .document(user.userId)
             .set(user)
 
     }

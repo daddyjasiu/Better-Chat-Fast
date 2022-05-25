@@ -21,17 +21,17 @@ exports.matchmaker = functions.firestore.document("matchmaking/{userId}")
                 const doc = await t.get(users);
                 var user2 = null;
                 doc.forEach(user=>{
-                    if(user.data().id !== context.params.userId){
+                    if(user.userId !== context.params.userId){
                         console.log("user.data()")
-                        console.log(user.data());
-                        user2 = user.data();
+                        console.log(user);
+                        user2 = user;
                     }
                      
                 });
                 if(user2 !== null){
-                    const user2ref = database.collection('matchmaking').doc(user2.id)
-                    const room = database.collection('rooms').doc(generateRoomId());
-                    t.set(room, {userId1: userId, userId2: user2.id});
+                    const user2ref = database.collection('matchmaking').doc(user2.userId)
+                    const room = database.collection('rooms').doc();
+                    t.set(room, {userId1: userId, userId2: user2.userId});
                     t.delete(user1ref);
                     t.delete(user2ref);
                 }

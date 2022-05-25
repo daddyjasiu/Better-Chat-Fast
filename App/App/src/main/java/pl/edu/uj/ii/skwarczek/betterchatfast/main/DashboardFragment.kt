@@ -1,6 +1,7 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.main
 
 import android.content.Intent
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.sendbird.calls.SendBirdCall
 import com.sendbird.calls.SendBirdError
 import kotlinx.coroutines.CoroutineScope
@@ -23,6 +26,7 @@ import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.FragmentDashboardBinding
 import pl.edu.uj.ii.skwarczek.betterchatfast.preview.PreviewActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.room.RoomActivity
+import pl.edu.uj.ii.skwarczek.betterchatfast.users.UserTypes
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.*
 import kotlin.coroutines.CoroutineContext
 
@@ -79,8 +83,24 @@ class DashboardFragment : Fragment(), CoroutineScope {
 
         binding.dashboardSearchRoomButton.setOnClickListener {
             launch(Dispatchers.Main) {
-                val user = FirestoreHelper.getCurrentUserFromFirestore()
-                FirestoreHelper.addUserToMatchmakingList(user)
+                val user = FirestoreHelper.getCurrentUserFromFirestore().data
+                val newUser = UserFactory.createUser(
+                    UserTypes.STANDARD,
+                    user?.get("userId") as String,
+                    user?.get("nickname") as String,
+                    user?.get("firstName") as String,
+                    user?.get("lastName") as String,
+                    user?.get("email") as String,
+                    user?.get("profilePicture") as String,
+                    Location("abc")
+                )
+                FirestoreHelper.addUserToMatchmakingList(newUser)
+//                for (i in 0..50) {
+//                    val db = Firebase.firestore
+//                    db.collection("matchmaking")
+//                        .document()
+//                        .set(hashMapOf("1" to "1", "2" to "2", "3" to "3"))
+//                }
             }
         }
 
