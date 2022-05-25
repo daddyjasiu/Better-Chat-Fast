@@ -92,7 +92,9 @@ class QueueActivity: BaseActivity(), CoroutineScope {
                     val db = Firebase.firestore
                     val roomId = resource.data
                     Log.d("roomId", roomId.toString())
-                    db.collection("rooms").document(roomId.toString()).update("senbirdId", roomId)
+                    db.collection("rooms").document(
+                        SendBirdCall.currentUser!!.userId
+                    ).update("host", roomId)
                     resource.data?.let { goToPreviewActivity(it) }
                 }
                 Status.ERROR -> {
