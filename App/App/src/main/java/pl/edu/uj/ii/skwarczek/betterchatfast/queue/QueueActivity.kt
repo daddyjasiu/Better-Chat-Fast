@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -49,17 +50,13 @@ class QueueActivity: BaseActivity(), CoroutineScope {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
-        Log.d("matchmakin state","XD")
 
         launch(Dispatchers.Main) {
-            Log.d("matchmakin state","XD2")
 
             var user = FirestoreHelper.getCurrentUserFromFirestore()
-            Log.d("matchmakin state",user.get("matchmakingState").toString())
 
             while(user.get("matchmakingState").toString()!=EMatchmakingStates.IN_ROOM.toString()){
                 user = FirestoreHelper.getCurrentUserFromFirestore()
-                Log.d("matchmakin state",user.get("matchmakingState").toString())
                 delay(1000)
             }
             launch(Dispatchers.Main) {
@@ -69,13 +66,12 @@ class QueueActivity: BaseActivity(), CoroutineScope {
                     viewModel.createRoom()
 
                 } else {
-                    while (room.get("senbirdId").toString() == "null") {
-                        Log.d("sendbirdId", room.get("senbirdId").toString())
+                    while (room.get("sendbirdId").toString() == "null") {
 
                         room = FirestoreHelper.getRoomById(user.get("roomId").toString())
                         delay(1000)
                     }
-                    viewModel.fetchRoomById(room.get("senbirdId").toString())
+                    viewModel.fetchRoomById(room.get("sendbirdId").toString())
                 }
             }
         }
@@ -83,7 +79,6 @@ class QueueActivity: BaseActivity(), CoroutineScope {
     }
     private fun observeViewModel() {
         viewModel.createdRoomId.observe(this) { resource ->
-            Log.d("DashboardFragment", "observe() resource: $resource")
             when (resource.status) {
                 Status.LOADING -> {
                     // TODO : show loading view
@@ -91,10 +86,10 @@ class QueueActivity: BaseActivity(), CoroutineScope {
                 Status.SUCCESS -> {
                     val db = Firebase.firestore
                     val roomId = resource.data
-                    Log.d("roomId", roomId.toString())
+                    val auth = Firebase.auth
                     db.collection("rooms").document(
-                        SendBirdCall.currentUser!!.userId
-                    ).update("host", roomId)
+                        auth.currentUser!!.uid
+                    ).update("sendbirdId", roomId)
                     resource.data?.let { goToPreviewActivity(it) }
                 }
                 Status.ERROR -> {
