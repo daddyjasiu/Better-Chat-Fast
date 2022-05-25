@@ -28,15 +28,41 @@ class DashboardViewModel : ViewModel() {
                 if (e != null) {
                     _createdRoomId.postValue(Resource.error(e.message, e.code, null))
                 } else {
-                    room?.enter(EnterParams().setAudioEnabled(true).setVideoEnabled(true), object : CompletionHandler {
-                        override fun onResult(e: SendBirdException?) {
-                            if (e != null) {
-                                _createdRoomId.postValue(Resource.error(e.message, e.code, null))
-                            } else {
-                                _createdRoomId.postValue(Resource.success(room.roomId))
+                    room?.enter(
+                        EnterParams().setAudioEnabled(true).setVideoEnabled(true),
+                        object : CompletionHandler {
+                            override fun onResult(e: SendBirdException?) {
+                                if (e != null) {
+                                    _createdRoomId.postValue(
+                                        Resource.error(
+                                            e.message,
+                                            e.code,
+                                            null
+                                        )
+                                    )
+                                } else {
+                                    _createdRoomId.postValue(Resource.success(room.roomId))
+                                }
                             }
-                        }
-                    })
+                        })
+                }
+            }
+        })
+    }
+
+    fun createRoom() {
+        if (_createdRoomId.value?.status == Status.LOADING) {
+            return
+        }
+
+        _createdRoomId.postValue(Resource.loading(null))
+        val params = RoomParams(RoomType.SMALL_ROOM_FOR_VIDEO)
+        SendBirdCall.createRoom(params, object : RoomHandler {
+            override fun onResult(room: Room?, e: SendBirdException?) {
+                if (e != null) {
+                    _createdRoomId.postValue(Resource.error(e.message, e.code, null))
+                } else {
+                    _createdRoomId.postValue(Resource.success(room?.roomId))
                 }
             }
         })

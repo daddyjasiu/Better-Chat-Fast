@@ -6,6 +6,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.tasks.await
@@ -39,6 +40,15 @@ object FirestoreHelper {
         db.collection("matchmaking")
             .document(user.userId)
             .set(user)
+    }
+
+    fun deleteCurrentUserFromMatchmaking(){
+        val db = Firebase.firestore
+        val currentUser = Firebase.auth.currentUser!!
+
+        db.collection("matchmaking")
+            .document(currentUser.uid)
+            .delete()
     }
 
     fun addUserToFirestore(user: IUser) {
@@ -141,6 +151,25 @@ object FirestoreHelper {
         db.collection("users")
             .document(currentUser.uid)
             .update("afterOnboarding", isAfterOnboarding)
+    }
+
+   suspend fun getRoomById(roomId: String): DocumentSnapshot = coroutineScope{
+        val db = Firebase.firestore
+        val task = async {
+            db.collection("rooms").document(roomId).get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        document.data
+                    } else {
+                        Log.d(TAG, "No such document")
+                    }
+                }
+                .addOnFailureListener {
+                    Log.d(TAG, "User get failed!")
+                }
+                .await()
+        }
+        task.await()
     }
 
 }

@@ -23,6 +23,7 @@ import kotlinx.coroutines.launch
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.FragmentDashboardBinding
 import pl.edu.uj.ii.skwarczek.betterchatfast.preview.PreviewActivity
+import pl.edu.uj.ii.skwarczek.betterchatfast.queue.QueueActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.room.RoomActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.users.EMatchmakingStates
 import pl.edu.uj.ii.skwarczek.betterchatfast.users.EUserTypes
@@ -118,20 +119,16 @@ class DashboardFragment : Fragment(), CoroutineScope {
                 FirestoreHelper.updateCurrentUserMatchmakingState(EMatchmakingStates.IN_QUEUE)
                 FirestoreHelper.addUserToMatchmakingList(user)
 
-                
+                val intent = Intent(context, QueueActivity::class.java).apply {
+                    //putExtra(EXTRA_ROOM_ID, roomId)
+                }
+
+                startActivityForResult(intent, REQUEST_CODE_PREVIEW)
             }
         }
 
 
         binding.textViewEnter.setOnClickListener(this::onEnterButtonClicked)
-    }
-
-    private fun generateRoomId(): String {
-        var possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-        var roomId = ""
-        for (j in 0..20) roomId += possibleChars[kotlin.math.floor(Math.random() * possibleChars.length)
-            .toInt()]
-        return roomId
     }
 
     private fun onEnterButtonClicked(v: View) {

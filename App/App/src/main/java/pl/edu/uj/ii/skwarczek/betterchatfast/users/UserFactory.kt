@@ -17,14 +17,15 @@ object UserFactory {
         email: String,
         profilePicture: String,
         location: Location,
-        matchmakingStates: EMatchmakingStates = EMatchmakingStates.NOT_MATCHMAKING
+        matchmakingStates: EMatchmakingStates = EMatchmakingStates.NOT_MATCHMAKING,
+        roomId: String = ""
         ): IUser {
         return when (type) {
             EUserTypes.STANDARD -> {
-                StandardUser(userId, nickname, firstName, lastName, email, profilePicture, location, matchmakingStates)
+                StandardUser(userId, nickname, firstName, lastName, email, profilePicture, location, matchmakingStates,roomId)
             }
             EUserTypes.PREMIUM -> {
-                PremiumUser(userId,nickname, firstName, lastName, email, profilePicture, location, matchmakingStates)
+                PremiumUser(userId,nickname, firstName, lastName, email, profilePicture, location, matchmakingStates,roomId)
             }
         }
     }

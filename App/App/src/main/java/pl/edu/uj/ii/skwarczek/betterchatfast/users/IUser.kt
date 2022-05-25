@@ -11,4 +11,5 @@ interface IUser{
     var profilePicture: String
     var location: Location
     var matchmakingState: EMatchmakingStates
+    var roomId: String
 }

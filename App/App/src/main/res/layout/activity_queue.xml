@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_queue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        tools:context=".queue.QueueActivity"
+        >
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/queue_cancel_button"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="sans-serif"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:letterSpacing="0.03"
+            android:lineSpacingExtra="2sp"
+            android:text="@string/cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/ondark_01"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:backgroundTint="#742ddd"
+            app:cornerRadius="4dp" />
+    </LinearLayout>
+
+</layout>

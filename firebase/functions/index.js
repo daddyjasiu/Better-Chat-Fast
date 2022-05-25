@@ -31,17 +31,15 @@ exports.matchmaker = functions.region('europe-central2').firestore.document("mat
                 });
                 if(user2 !== null){
                     const user2ref = database.collection('matchmaking').doc(user2.get("userId"))
-                    const room = database.collection('rooms').doc();
-                    t.set(room, {userId1: userId, userId2: user2.get("userId")});
-
+                    const room = database.collection('rooms').doc(userId);
+                    t.set(room, {host: userId, client: user2.get("userId")});
                     t.delete(user1ref);
                     t.delete(user2ref);
 
                     const mainUser1 = database.collection('users').doc(userId);
                     const mainUser2 = database.collection('users').doc(user2.get("userId"));
-                    t.update(mainUser1, {matchmakingState:"IN_ROOM"})
-                    t.update(mainUser2, {matchmakingState:"IN_ROOM"})
-
+                    t.update(mainUser1, {matchmakingState:"IN_ROOM", roomId: userId})
+                    t.update(mainUser2, {matchmakingState:"IN_ROOM", roomId: userId})
                 }
             });
 
