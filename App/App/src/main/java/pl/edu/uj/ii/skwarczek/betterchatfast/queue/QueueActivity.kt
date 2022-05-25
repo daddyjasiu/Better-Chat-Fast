@@ -49,10 +49,17 @@ class QueueActivity: BaseActivity(), CoroutineScope {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
+        Log.d("matchmakin state","XD")
+
         launch(Dispatchers.Main) {
+            Log.d("matchmakin state","XD2")
+
             var user = FirestoreHelper.getCurrentUserFromFirestore()
-            while(user.get("matchmakingState")!=EMatchmakingStates.IN_ROOM){
+            Log.d("matchmakin state",user.get("matchmakingState").toString())
+
+            while(user.get("matchmakingState").toString()!=EMatchmakingStates.IN_ROOM.toString()){
                 user = FirestoreHelper.getCurrentUserFromFirestore()
+                Log.d("matchmakin state",user.get("matchmakingState").toString())
                 delay(1000)
             }
             var room = FirestoreHelper.getRoomById(user.get("roomId").toString())
@@ -60,12 +67,16 @@ class QueueActivity: BaseActivity(), CoroutineScope {
                 viewModel.createRoom()
                 val db = Firebase.firestore
                 val roomId =viewModel.createdRoomId.toString()
-                db.collection("rooms").document(roomId).set(hashMapOf("senbirdId" to roomId))
+                Log.d("roomId",roomId)
+
+                db.collection("rooms").document(roomId).update("senbirdId", roomId)
                 viewModel.fetchRoomById(roomId)
             }
             else{
                 while(room.get("senbirdId").toString() == "")
                 {
+                    Log.d("sendbirdId",room.get("senbirdId").toString())
+
                     room = FirestoreHelper.getRoomById(user.get("roomId").toString())
                     delay(1000)
                 }
