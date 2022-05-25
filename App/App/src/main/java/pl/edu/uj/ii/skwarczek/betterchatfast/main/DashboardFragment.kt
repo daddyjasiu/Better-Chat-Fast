@@ -14,8 +14,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.sendbird.calls.SendBirdCall
 import com.sendbird.calls.SendBirdError
 import kotlinx.coroutines.CoroutineScope
@@ -26,7 +24,10 @@ import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.FragmentDashboardBinding
 import pl.edu.uj.ii.skwarczek.betterchatfast.preview.PreviewActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.room.RoomActivity
-import pl.edu.uj.ii.skwarczek.betterchatfast.users.UserTypes
+import pl.edu.uj.ii.skwarczek.betterchatfast.users.EMatchmakingStates
+import pl.edu.uj.ii.skwarczek.betterchatfast.users.EUserTypes
+import pl.edu.uj.ii.skwarczek.betterchatfast.users.IUser
+import pl.edu.uj.ii.skwarczek.betterchatfast.users.UserFactory
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.*
 import kotlin.coroutines.CoroutineContext
 
@@ -83,28 +84,54 @@ class DashboardFragment : Fragment(), CoroutineScope {
 
         binding.dashboardSearchRoomButton.setOnClickListener {
             launch(Dispatchers.Main) {
-//                val user = FirestoreHelper.getCurrentUserFromFirestore().data
-//                val newUser = UserFactory.createUser(
-//                    UserTypes.STANDARD,
-//                    user?.get("userId") as String,
-//                    user?.get("nickname") as String,
-//                    user?.get("firstName") as String,
-//                    user?.get("lastName") as String,
-//                    user?.get("email") as String,
-//                    user?.get("profilePicture") as String,
-//                    Location("abc")
-//                )
-//                FirestoreHelper.addUserToMatchmakingList(newUser)
-                for (i in 0..50) {
-                    val db = Firebase.firestore
-                    db.collection("matchmaking")
-                        .document()
-                        .set(hashMapOf("1" to "1", "2" to "2", "3" to "3"))
+                val currentUser = FirestoreHelper.getCurrentUserFromFirestore()
+
+                val user: IUser = when (currentUser.get("premium")) {
+                    true -> {
+                        UserFactory.createUser(
+                            EUserTypes.PREMIUM,
+                            currentUser.id,
+                            currentUser["nickname"].toString(),
+                            currentUser["firstName"].toString(),
+                            currentUser["lastName"].toString(),
+                            currentUser["email"].toString(),
+                            currentUser["profilePicture"].toString(),
+                            Location(""),
+                            EMatchmakingStates.IN_QUEUE
+                        )
+                    }
+                    else -> {
+                        UserFactory.createUser(
+                            EUserTypes.STANDARD,
+                            currentUser.id,
+                            currentUser["nickname"].toString(),
+                            currentUser["firstName"].toString(),
+                            currentUser["lastName"].toString(),
+                            currentUser["email"].toString(),
+                            currentUser["profilePicture"].toString(),
+                            Location(""),
+                            EMatchmakingStates.IN_QUEUE
+                        )
+                    }
                 }
+
+                FirestoreHelper.updateCurrentUserMatchmakingState(EMatchmakingStates.IN_QUEUE)
+                FirestoreHelper.addUserToMatchmakingList(user)
+
+                
             }
         }
 
+
         binding.textViewEnter.setOnClickListener(this::onEnterButtonClicked)
+    }
+
+    private fun generateRoomId(): String {
+        var possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+        var roomId = ""
+        for (j in 0..20) roomId += possibleChars[kotlin.math.floor(Math.random() * possibleChars.length)
+            .toInt()]
+        return roomId
     }
 
     private fun onEnterButtonClicked(v: View) {

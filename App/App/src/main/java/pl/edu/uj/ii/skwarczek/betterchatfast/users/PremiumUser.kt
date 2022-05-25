@@ -11,10 +11,9 @@ data class PremiumUser(
     override var email: String,
     override var profilePicture: String,
     override var location: Location,
+    override var matchmakingState: EMatchmakingStates,
 
-    @PropertyName("isPremium")
     var isPremium: Boolean = true,
-    @PropertyName("isAfterOnboarding")
     var isAfterOnboarding: Boolean = false,
 
     ): IUser

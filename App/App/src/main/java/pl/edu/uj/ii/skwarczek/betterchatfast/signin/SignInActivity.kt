@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -29,9 +28,9 @@ import kotlinx.coroutines.*
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.main.MainActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.onboarding.OnboardingActivity
-import pl.edu.uj.ii.skwarczek.betterchatfast.users.UserTypes
+import pl.edu.uj.ii.skwarczek.betterchatfast.users.EUserTypes
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.FirestoreHelper
-import pl.edu.uj.ii.skwarczek.betterchatfast.util.UserFactory
+import pl.edu.uj.ii.skwarczek.betterchatfast.users.UserFactory
 import kotlin.coroutines.CoroutineContext
 
 
@@ -144,7 +143,7 @@ class SignInActivity : AppCompatActivity(), CoroutineScope {
                     //If the user is new, onboard him and create Firestore doc
                     if (isNewUser) {
                         val newUser = UserFactory.createUser(
-                            UserTypes.STANDARD,
+                            EUserTypes.STANDARD,
                             auth.currentUser?.uid!!,
                             "",
                             "",

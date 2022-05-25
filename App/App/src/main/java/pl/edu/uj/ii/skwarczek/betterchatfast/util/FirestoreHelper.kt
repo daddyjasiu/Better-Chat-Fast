@@ -9,6 +9,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.tasks.await
+import pl.edu.uj.ii.skwarczek.betterchatfast.users.EMatchmakingStates
 import pl.edu.uj.ii.skwarczek.betterchatfast.users.IUser
 
 object FirestoreHelper {
@@ -38,7 +39,6 @@ object FirestoreHelper {
         db.collection("matchmaking")
             .document(user.userId)
             .set(user)
-
     }
 
     fun addUserToFirestore(user: IUser) {
@@ -109,6 +109,14 @@ object FirestoreHelper {
         db.collection("users")
             .document(currentUser.uid)
             .update("premium", isPremium)
+    }
+
+    fun updateCurrentUserMatchmakingState(matchmakingState: EMatchmakingStates){
+        val db = Firebase.firestore
+        val currentUser = Firebase.auth.currentUser!!
+        db.collection("users")
+            .document(currentUser.uid)
+            .update("matchmakingState", matchmakingState)
     }
 
     fun deleteDocumentById(collectionId: String, documentId: String){

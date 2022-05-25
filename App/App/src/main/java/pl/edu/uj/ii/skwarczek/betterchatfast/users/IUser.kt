@@ -10,4 +10,5 @@ interface IUser{
     var email: String
     var profilePicture: String
     var location: Location
+    var matchmakingState: EMatchmakingStates
 }

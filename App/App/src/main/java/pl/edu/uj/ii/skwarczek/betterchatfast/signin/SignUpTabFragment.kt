@@ -18,9 +18,9 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.onboarding.OnboardingActivity
-import pl.edu.uj.ii.skwarczek.betterchatfast.users.UserTypes
+import pl.edu.uj.ii.skwarczek.betterchatfast.users.EUserTypes
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.FirestoreHelper
-import pl.edu.uj.ii.skwarczek.betterchatfast.util.UserFactory
+import pl.edu.uj.ii.skwarczek.betterchatfast.users.UserFactory
 
 class SignUpTabFragment : Fragment(){
 
@@ -52,7 +52,7 @@ class SignUpTabFragment : Fragment(){
 
                             //Adding user to the firestore only with email, adding additional info after onboarding
                             val newUser = UserFactory.createUser(
-                                UserTypes.STANDARD,
+                                EUserTypes.STANDARD,
                                 userId = auth.currentUser?.uid!!,
                                 "",
                                 "",
