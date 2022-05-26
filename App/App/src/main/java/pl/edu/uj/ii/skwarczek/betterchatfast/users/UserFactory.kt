@@ -1,10 +1,6 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.users
 
 import android.location.Location
-import pl.edu.uj.ii.skwarczek.betterchatfast.users.IUser
-import pl.edu.uj.ii.skwarczek.betterchatfast.users.EUserTypes
-import pl.edu.uj.ii.skwarczek.betterchatfast.users.PremiumUser
-import pl.edu.uj.ii.skwarczek.betterchatfast.users.StandardUser
 
 object UserFactory {
 
