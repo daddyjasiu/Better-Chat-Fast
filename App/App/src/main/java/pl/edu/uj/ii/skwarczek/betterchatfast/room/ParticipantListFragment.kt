@@ -37,6 +37,7 @@ class ParticipantListFragment : Fragment() {
         )
 
         binding.participantListImageViewClose.setOnClickListener {
+
             findNavController().navigateUp()
         }
 

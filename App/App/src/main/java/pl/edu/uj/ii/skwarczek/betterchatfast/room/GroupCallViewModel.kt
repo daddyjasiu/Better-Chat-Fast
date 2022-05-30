@@ -143,6 +143,7 @@ class GroupCallViewModel(
         override fun onRemoteParticipantExited(participant: RemoteParticipant) {
             Log.d(TAG, "onRemoteParticipantExited() called with: participant = $participant")
             _participants.postValue(sortedParticipants)
+            room?.exit()
         }
 
         override fun onRemoteParticipantStreamStarted(participant: RemoteParticipant) {
