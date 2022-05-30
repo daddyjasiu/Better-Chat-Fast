@@ -127,8 +127,6 @@ class GroupCallFragment : Fragment() {
         viewModel.isExited.observe(viewLifecycleOwner) {
             if (it.status == Status.SUCCESS) {
                 activity?.finish()
-                updateCurrentUserMatchmakingState(EMatchmakingStates.NOT_MATCHMAKING)
-                findNavController().navigateUp()
             } else {
                 val message = it.message ?: return@observe
                 activity?.showToast(message)

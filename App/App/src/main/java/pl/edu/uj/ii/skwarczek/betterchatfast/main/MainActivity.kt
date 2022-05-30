@@ -15,6 +15,7 @@ import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.ActivityMainBinding
 import pl.edu.uj.ii.skwarczek.betterchatfast.settings.SettingsContainerFragment
 import pl.edu.uj.ii.skwarczek.betterchatfast.signin.AuthenticateViewModel
+import pl.edu.uj.ii.skwarczek.betterchatfast.users.EMatchmakingStates
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.*
 
 class MainActivity : BaseActivity() {
@@ -37,8 +38,15 @@ class MainActivity : BaseActivity() {
         viewModel.authenticate(mail!!, null)
 
         observeViewModel()
+        FirestoreHelper.updateCurrentUserMatchmakingState(EMatchmakingStates.NOT_MATCHMAKING)
 
         requestPermissions()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        FirestoreHelper.updateCurrentUserMatchmakingState(EMatchmakingStates.NOT_MATCHMAKING)
+
     }
     private fun observeViewModel() {
         viewModel.authenticationLiveData.observe(this) { resource ->

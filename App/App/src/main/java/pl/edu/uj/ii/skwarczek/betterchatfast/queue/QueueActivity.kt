@@ -36,6 +36,8 @@ class QueueActivity: BaseActivity(), CoroutineScope {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        FirestoreHelper.updateCurrentUserMatchmakingState(EMatchmakingStates.IN_QUEUE)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_queue)
         binding.queueCancelButton.setOnClickListener {
 
@@ -71,6 +73,12 @@ class QueueActivity: BaseActivity(), CoroutineScope {
             }
         }
         observeViewModel()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        FirestoreHelper.updateCurrentUserMatchmakingState(EMatchmakingStates.IN_QUEUE)
+
     }
     private fun observeViewModel() {
         viewModel.createdRoomId.observe(this) { resource ->

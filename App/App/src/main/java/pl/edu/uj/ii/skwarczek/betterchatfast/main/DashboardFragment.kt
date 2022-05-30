@@ -116,7 +116,6 @@ class DashboardFragment : Fragment(), CoroutineScope {
                     }
                 }
 
-                FirestoreHelper.updateCurrentUserMatchmakingState(EMatchmakingStates.IN_QUEUE)
                 FirestoreHelper.addUserToMatchmakingList(user)
 
                 val intent = Intent(context, QueueActivity::class.java).apply {
