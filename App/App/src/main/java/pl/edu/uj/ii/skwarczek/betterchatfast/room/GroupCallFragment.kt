@@ -35,10 +35,10 @@ class GroupCallFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_group_call, container, false)
         val roomId = (activity as? RoomActivity)?.let {
-            if (it.isNewlyCreated() && !isNewlyCreatedRoomInfoShown) {
-                showNewlyCreatedRoomInfo(it.getRoomId())
-                isNewlyCreatedRoomInfoShown = true
-            }
+//            if (it.isNewlyCreated() && !isNewlyCreatedRoomInfoShown) {
+//                showNewlyCreatedRoomInfo(it.getRoomId())
+//                isNewlyCreatedRoomInfoShown = true
+//            }
 
             viewModel = GroupCallViewModel(it.getRoomId())
             it.getRoomId()
