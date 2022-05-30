@@ -31,17 +31,17 @@ class QueueActivity: BaseActivity(), CoroutineScope {
 
     override fun onDestroy() {
         super.onDestroy()
+        FirestoreHelper.deleteCurrentUserFromMatchmaking()
+
         job.cancel()
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        FirestoreHelper.updateCurrentUserMatchmakingState(EMatchmakingStates.IN_QUEUE)
+
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_queue)
         binding.queueCancelButton.setOnClickListener {
-
-            FirestoreHelper.updateCurrentUserMatchmakingState(EMatchmakingStates.NOT_MATCHMAKING)
             FirestoreHelper.deleteCurrentUserFromMatchmaking()
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -74,6 +74,7 @@ class QueueActivity: BaseActivity(), CoroutineScope {
         }
         observeViewModel()
     }
+
 
     override fun onResume() {
         super.onResume()

@@ -15,6 +15,7 @@ class RoomActivity : BaseActivity() {
         setContentView(R.layout.activity_room)
     }
 
+
     fun getRoomId(): String {
         return intent.getStringExtra(EXTRA_ROOM_ID) ?: throw IllegalStateException()
     }

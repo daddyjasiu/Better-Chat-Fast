@@ -38,7 +38,6 @@ class MainActivity : BaseActivity() {
         viewModel.authenticate(mail!!, null)
 
         observeViewModel()
-        FirestoreHelper.updateCurrentUserMatchmakingState(EMatchmakingStates.NOT_MATCHMAKING)
 
         requestPermissions()
     }
