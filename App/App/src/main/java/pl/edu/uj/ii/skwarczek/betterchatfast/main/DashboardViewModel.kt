@@ -16,6 +16,9 @@ class DashboardViewModel : ViewModel() {
     private val _fetchedRoomId: MutableLiveData<Resource<String>> = MutableLiveData()
     val fetchedRoomId: LiveData<Resource<String>> = _fetchedRoomId
 
+    private val _enterResult: MutableLiveData<Resource<String>> = MutableLiveData()
+    val enterResult: LiveData<Resource<String>> = _enterResult
+
     fun createAndEnterRoom() {
         if (_createdRoomId.value?.status == Status.LOADING) {
             return
@@ -84,6 +87,25 @@ class DashboardViewModel : ViewModel() {
                     _fetchedRoomId.postValue(Resource.error(e.message, e.code, null))
                 } else {
                     _fetchedRoomId.postValue(Resource.success(room?.roomId))
+                }
+            }
+        })
+    }
+
+    fun enter(roomId: String, isAudioEnabled: Boolean, isVideoEnabled: Boolean) {
+        val room = SendBirdCall.getCachedRoomById(roomId) ?: return
+
+        _enterResult.postValue(Resource.loading(null))
+        val enterParams = EnterParams()
+            .setAudioEnabled(isAudioEnabled)
+            .setVideoEnabled(isVideoEnabled)
+
+        room.enter(enterParams, object : CompletionHandler {
+            override fun onResult(e: SendBirdException?) {
+                if (e == null) {
+                    _enterResult.postValue(Resource.success(null))
+                } else {
+                    _enterResult.postValue(Resource.error(e.message, e.code, null))
                 }
             }
         })

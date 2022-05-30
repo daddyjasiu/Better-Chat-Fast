@@ -61,7 +61,7 @@ class QueueActivity: BaseActivity(), CoroutineScope {
                 var room = FirestoreHelper.getRoomById(user.get("roomId").toString())
 
                 if (room.get("host") == user.get("userId")) {
-                    viewModel.createRoom()
+                    viewModel.createAndEnterRoom()
 
                 } else {
                     while (room.get("sendbirdId").toString() == "null") {
@@ -69,7 +69,7 @@ class QueueActivity: BaseActivity(), CoroutineScope {
                         room = FirestoreHelper.getRoomById(user.get("roomId").toString())
                         delay(1000)
                     }
-                    viewModel.fetchRoomById(room.get("sendbirdId").toString())
+                    viewModel.enter(room.get("sendbirdId").toString(),true,true)
                 }
             }
         }
@@ -127,6 +127,20 @@ class QueueActivity: BaseActivity(), CoroutineScope {
                             resource?.message ?: UNKNOWN_SENDBIRD_ERROR
                         }
                     )
+                }
+            }
+        }
+
+        viewModel.enterResult.observe(this) { resource ->
+            when (resource.status) {
+                Status.SUCCESS -> resource.data?.let { goToRoomActivity(it) }
+
+                Status.ERROR -> {
+                    setResult(RESULT_ENTER_FAIL, Intent().apply {
+                        putExtra(EXTRA_ENTER_ERROR_CODE, resource.errorCode)
+                        putExtra(EXTRA_ENTER_ERROR_MESSAGE, resource.message)
+                    })
+                    finish()
                 }
             }
         }
