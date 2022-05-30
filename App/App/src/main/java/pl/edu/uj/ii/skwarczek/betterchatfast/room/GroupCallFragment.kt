@@ -17,7 +17,9 @@ import com.sendbird.calls.SendBirdCall
 import pl.edu.uj.ii.skwarczek.betterchatfast.room.GroupCallFragmentDirections
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.FragmentGroupCallBinding
+import pl.edu.uj.ii.skwarczek.betterchatfast.users.EMatchmakingStates
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.*
+import pl.edu.uj.ii.skwarczek.betterchatfast.util.FirestoreHelper.updateCurrentUserMatchmakingState
 
 class GroupCallFragment : Fragment() {
     lateinit var binding: FragmentGroupCallBinding
@@ -125,6 +127,8 @@ class GroupCallFragment : Fragment() {
         viewModel.isExited.observe(viewLifecycleOwner) {
             if (it.status == Status.SUCCESS) {
                 activity?.finish()
+                updateCurrentUserMatchmakingState(EMatchmakingStates.NOT_MATCHMAKING)
+                findNavController().navigateUp()
             } else {
                 val message = it.message ?: return@observe
                 activity?.showToast(message)
