@@ -103,11 +103,12 @@ class DashboardViewModel : ViewModel() {
         room.enter(enterParams, object : CompletionHandler {
             override fun onResult(e: SendBirdException?) {
                 if (e == null) {
-                    _enterResult.postValue(Resource.success(null))
+                    _enterResult.postValue(Resource.success(roomId))
                 } else {
                     _enterResult.postValue(Resource.error(e.message, e.code, null))
                 }
             }
         })
+
     }
 }

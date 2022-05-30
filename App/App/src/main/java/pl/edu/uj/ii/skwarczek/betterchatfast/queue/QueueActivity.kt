@@ -69,7 +69,7 @@ class QueueActivity: BaseActivity(), CoroutineScope {
                         room = FirestoreHelper.getRoomById(user.get("roomId").toString())
                         delay(1000)
                     }
-                    viewModel.enter(room.get("sendbirdId").toString(),true,true)
+                    viewModel.fetchRoomById(room.get("sendbirdId").toString())
                 }
             }
         }
@@ -117,7 +117,10 @@ class QueueActivity: BaseActivity(), CoroutineScope {
                 Status.LOADING -> {
                     // TODO : show loading view
                 }
-                Status.SUCCESS -> resource.data?.let { goToRoomActivity(it) }
+                Status.SUCCESS -> resource.data?.let { viewModel.enter(it,
+                    isAudioEnabled = true,
+                    isVideoEnabled = true
+                ) }
                 Status.ERROR -> {
                     this.showAlertDialog(
                         getString(R.string.dashboard_incorrect_room_id),
