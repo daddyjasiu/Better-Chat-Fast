@@ -172,4 +172,11 @@ object FirestoreHelper {
         task.await()
     }
 
+    fun updateCurrentUserRoomId(roomId: String){
+        val db = Firebase.firestore
+        val currentUser = Firebase.auth.currentUser!!
+        db.collection("users")
+            .document(currentUser.uid)
+            .update("roomId", roomId)
+    }
 }

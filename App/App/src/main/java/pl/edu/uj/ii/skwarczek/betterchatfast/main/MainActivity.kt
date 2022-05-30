@@ -45,6 +45,7 @@ class MainActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         FirestoreHelper.updateCurrentUserMatchmakingState(EMatchmakingStates.NOT_MATCHMAKING)
+        FirestoreHelper.updateCurrentUserRoomId("")
 
     }
     private fun observeViewModel() {
