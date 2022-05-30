@@ -14,6 +14,7 @@ import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.ActivityQueueBinding
 import pl.edu.uj.ii.skwarczek.betterchatfast.main.DashboardViewModel
 import pl.edu.uj.ii.skwarczek.betterchatfast.main.MainActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.preview.PreviewActivity
+import pl.edu.uj.ii.skwarczek.betterchatfast.room.RoomActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.users.EMatchmakingStates
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.*
 import kotlin.coroutines.CoroutineContext
@@ -94,7 +95,7 @@ class QueueActivity: BaseActivity(), CoroutineScope {
                     db.collection("rooms").document(
                         auth.currentUser!!.uid
                     ).update("sendbirdId", roomId)
-                    resource.data?.let { goToPreviewActivity(it) }
+                    resource.data?.let { goToRoomActivity(it) }
                 }
                 Status.ERROR -> {
                     val message = if (resource?.errorCode == SendBirdError.ERR_INVALID_PARAMS) {
@@ -116,7 +117,7 @@ class QueueActivity: BaseActivity(), CoroutineScope {
                 Status.LOADING -> {
                     // TODO : show loading view
                 }
-                Status.SUCCESS -> resource.data?.let { goToPreviewActivity(it) }
+                Status.SUCCESS -> resource.data?.let { goToRoomActivity(it) }
                 Status.ERROR -> {
                     this.showAlertDialog(
                         getString(R.string.dashboard_incorrect_room_id),
@@ -136,6 +137,15 @@ class QueueActivity: BaseActivity(), CoroutineScope {
         }
 
         startActivityForResult(intent, REQUEST_CODE_PREVIEW)
+    }
+
+    private fun goToRoomActivity(roomId: String) {
+        val intent = Intent(this, RoomActivity::class.java).apply {
+            putExtra(EXTRA_ROOM_ID, roomId)
+            putExtra(EXTRA_IS_NEWLY_CREATED, true)
+        }
+
+        startActivity(intent)
     }
 
 }

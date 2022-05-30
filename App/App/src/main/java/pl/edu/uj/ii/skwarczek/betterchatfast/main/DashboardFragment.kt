@@ -188,7 +188,7 @@ class DashboardFragment : Fragment(), CoroutineScope {
                 Status.LOADING -> {
                     // TODO : show loading view
                 }
-                Status.SUCCESS -> resource.data?.let { goToRoomActivity(it) }
+                Status.SUCCESS -> resource.data?.let { goToPreviewActivity(it) }
                 Status.ERROR -> {
                     activity?.showAlertDialog(
                         getString(R.string.dashboard_incorrect_room_id),
