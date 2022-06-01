@@ -4,12 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.sendbird.calls.*
 import com.sendbird.calls.handler.CompletionHandler
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.Resource
-import kotlin.coroutines.coroutineContext
 
 class GroupCallViewModel(
     roomId: String

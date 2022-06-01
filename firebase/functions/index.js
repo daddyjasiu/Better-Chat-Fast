@@ -11,8 +11,6 @@ const database = admin.firestore();
 exports.matchmaker = functions.region('europe-central2').firestore.document("matchmaking/{userId}")
     .onWrite(async (snapshot, context) => {
 
-        console.log("hej");
-
         const userId = context.params.userId;
         const user1ref = database.collection('matchmaking').doc(userId);
         const users = database.collectionGroup('matchmaking');
@@ -49,3 +47,51 @@ exports.matchmaker = functions.region('europe-central2').firestore.document("mat
         }
 
     });
+
+exports.myCloudTimer = functions.region('europe-central2').firestore.document('rooms/{roomId}')
+    .onCreate( (snapshot, context) => {
+        const roomId = context.params.roomId;
+        const timeInMs = snapshot.get("timeInMs")
+        console.log("get "+snapshot.get("timeInMs"))
+
+        try {
+                //const doc = await room.get(room)
+                //let timeInMs = room.get("timeInMs")
+                let timeInSeconds = timeInMs / 1000;
+                console.log('Cloud Timer was Started: ' + timeInSeconds);
+                const totalTime = functionTimer(timeInSeconds,
+                elapsedTime => {
+                    room.update({ elapsedTime: elapsedTime });
+                });
+            console.log('Timer of ' + totalTime + ' has finished.');
+             new Promise(resolve => setTimeout(resolve, 1000));
+
+            console.log('Transaction success!');
+        } catch (e) {
+            console.log('Transaction failure:', e);
+        }
+    });
+
+function functionTimer (seconds, call) {
+    return new Promise((resolve, reject) => {
+        if (seconds > 300) {
+            reject('execution would take too long...');
+            return;
+        }
+        let interval = setInterval(onInterval, 1000);
+        let elapsedSeconds = 0;
+
+        function onInterval () {
+            if (elapsedSeconds >= seconds) {
+                clearInterval(interval);
+                call(0);
+                resolve(elapsedSeconds);
+                return;
+            }
+            call(seconds - elapsedSeconds);
+            elapsedSeconds++;
+        }
+    });
+}
+
+
