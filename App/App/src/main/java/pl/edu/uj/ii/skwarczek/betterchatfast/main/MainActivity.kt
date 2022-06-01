@@ -124,7 +124,19 @@ class MainActivity : BaseActivity() {
                         val geocoder = Geocoder(this, Locale.getDefault())
                         val list: List<Address> =
                             geocoder.getFromLocation(location.latitude, location.longitude, 1)
-                        FirestoreHelper.updateCurrentUserLocation(list[0])
+                        val userAddress = mapOf(
+                            "countryCode" to list[0].countryCode,
+                            "lat" to list[0].latitude.toString(),
+                            "lon" to list[0].longitude.toString(),
+                            "country" to list[0].countryName,
+                            "city" to list[0].locality,
+                            "address" to list[0].getAddressLine(0),
+                            "district" to list[0].subLocality,
+                            "county" to list[0].subAdminArea,
+                            "street" to list[0].thoroughfare,
+                            "state" to list[0].adminArea,
+                        )
+                        FirestoreHelper.updateCurrentUserLocation(userAddress as Map<*, *>)
                     }
                 }
             } else {

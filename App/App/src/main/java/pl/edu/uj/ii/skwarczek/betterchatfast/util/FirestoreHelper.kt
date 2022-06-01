@@ -90,7 +90,7 @@ object FirestoreHelper {
         task.await()
     }
 
-    fun updateCurrentUserLocation(location: Address){
+    fun updateCurrentUserLocation(location: Map<*, *>){
         val db = Firebase.firestore
         val currentUser = Firebase.auth.currentUser!!
         db.collection("users")
