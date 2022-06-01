@@ -1,6 +1,7 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.util
 
 import android.content.ContentValues.TAG
+import android.location.Address
 import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
@@ -89,7 +90,15 @@ object FirestoreHelper {
         task.await()
     }
 
-    fun updateCurrentUserNicknameInFirebase(nickname: String) {
+    fun updateCurrentUserLocation(location: Address){
+        val db = Firebase.firestore
+        val currentUser = Firebase.auth.currentUser!!
+        db.collection("users")
+            .document(currentUser.uid)
+            .update("location", location)
+    }
+
+    fun updateCurrentUserNickname(nickname: String) {
         val db = Firebase.firestore
         val currentUser = Firebase.auth.currentUser!!
         db.collection("users")
@@ -97,7 +106,7 @@ object FirestoreHelper {
             .update("nickname", nickname)
     }
 
-    fun updateCurrentUserFirstNameInFirebase(firstName: String) {
+    fun updateCurrentUserFirstName(firstName: String) {
         val db = Firebase.firestore
         val currentUser = Firebase.auth.currentUser!!
         db.collection("users")
@@ -105,7 +114,7 @@ object FirestoreHelper {
             .update("firstName", firstName)
     }
 
-    fun updateCurrentUserLastNameInFirebase(lastName: String) {
+    fun updateCurrentUserLastName(lastName: String) {
         val db = Firebase.firestore
         val currentUser = Firebase.auth.currentUser!!
         db.collection("users")

@@ -120,14 +120,11 @@ class MainActivity : BaseActivity() {
             if (isLocationEnabled()) {
                 mFusedLocationClient.lastLocation.addOnCompleteListener(this) { task ->
                     val location: Location? = task.result
-                    Log.d("locationTest",location.toString())
                     if (location != null) {
-                        Log.d("locationTest","xd2")
                         val geocoder = Geocoder(this, Locale.getDefault())
                         val list: List<Address> =
                             geocoder.getFromLocation(location.latitude, location.longitude, 1)
-                        val test = mutableListOf(list[0].latitude, list[0].longitude, list[0].countryName, list[0].locality, list[0].getAddressLine(0))
-                        Log.d("locationTest", test.toString())
+                        FirestoreHelper.updateCurrentUserLocation(list[0])
                     }
                 }
             } else {

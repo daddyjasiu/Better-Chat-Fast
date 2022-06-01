@@ -42,9 +42,9 @@ class Onboarding4Fragment : Fragment() {
             val lastName = lastNameField.text?.trim().toString()
 
             if (nickname.isNotEmpty() && firstName.isNotEmpty() && lastName.isNotEmpty()) {
-                FirestoreHelper.updateCurrentUserNicknameInFirebase(nickname)
-                FirestoreHelper.updateCurrentUserFirstNameInFirebase(firstName)
-                FirestoreHelper.updateCurrentUserLastNameInFirebase(lastName)
+                FirestoreHelper.updateCurrentUserNickname(nickname)
+                FirestoreHelper.updateCurrentUserFirstName(firstName)
+                FirestoreHelper.updateCurrentUserLastName(lastName)
                 FirestoreHelper.updateCurrentUserIsAfterOnboarding(true)
 
                 val mail = auth.currentUser?.email

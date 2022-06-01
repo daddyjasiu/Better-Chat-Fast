@@ -4,14 +4,14 @@ import pl.edu.uj.ii.skwarczek.betterchatfast.util.FirestoreHelper
 
 class Settings : ISettings {
     override fun setUserNickname(nickname: String) {
-        FirestoreHelper.updateCurrentUserNicknameInFirebase(nickname)
+        FirestoreHelper.updateCurrentUserNickname(nickname)
     }
 
     override fun setUserFirstName(firstName: String) {
-        FirestoreHelper.updateCurrentUserFirstNameInFirebase(firstName)
+        FirestoreHelper.updateCurrentUserFirstName(firstName)
     }
 
     override fun setUserLastName(lastName: String) {
-        FirestoreHelper.updateCurrentUserLastNameInFirebase(lastName)
+        FirestoreHelper.updateCurrentUserLastName(lastName)
     }
 }
