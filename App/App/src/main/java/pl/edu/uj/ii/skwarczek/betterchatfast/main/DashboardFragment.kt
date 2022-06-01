@@ -1,7 +1,6 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.main
 
 import android.content.Intent
-import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -97,7 +96,6 @@ class DashboardFragment : Fragment(), CoroutineScope {
                             currentUser["lastName"].toString(),
                             currentUser["email"].toString(),
                             currentUser["profilePicture"].toString(),
-                            Location(""),
                             EMatchmakingStates.IN_QUEUE
                         )
                     }
@@ -110,7 +108,6 @@ class DashboardFragment : Fragment(), CoroutineScope {
                             currentUser["lastName"].toString(),
                             currentUser["email"].toString(),
                             currentUser["profilePicture"].toString(),
-                            Location(""),
                             EMatchmakingStates.IN_QUEUE
                         )
                     }

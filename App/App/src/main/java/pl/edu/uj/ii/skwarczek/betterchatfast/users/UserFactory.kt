@@ -1,6 +1,5 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.users
 
-import android.location.Location
 
 object UserFactory {
 
@@ -12,16 +11,15 @@ object UserFactory {
         lastName: String,
         email: String,
         profilePicture: String,
-        location: Location,
         matchmakingStates: EMatchmakingStates = EMatchmakingStates.NOT_MATCHMAKING,
         roomId: String = ""
         ): IUser {
         return when (type) {
             EUserTypes.STANDARD -> {
-                StandardUser(userId, nickname, firstName, lastName, email, profilePicture, location, matchmakingStates,roomId)
+                StandardUser(userId, nickname, firstName, lastName, email, profilePicture, matchmakingStates,roomId)
             }
             EUserTypes.PREMIUM -> {
-                PremiumUser(userId,nickname, firstName, lastName, email, profilePicture, location, matchmakingStates,roomId)
+                PremiumUser(userId,nickname, firstName, lastName, email, profilePicture, matchmakingStates,roomId)
             }
         }
     }

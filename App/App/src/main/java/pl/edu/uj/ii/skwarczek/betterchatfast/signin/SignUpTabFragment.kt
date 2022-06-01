@@ -1,7 +1,6 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.signin
 
 import android.content.Intent
-import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -59,7 +58,6 @@ class SignUpTabFragment : Fragment(){
                                 "",
                                 email,
                                 "",
-                                Location("")
                             )
                             FirestoreHelper.addUserToFirestore(newUser)
 

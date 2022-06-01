@@ -1,6 +1,5 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.users
 
-import android.location.Location
 import com.google.firebase.firestore.PropertyName
 
 data class PremiumUser(
@@ -10,7 +9,6 @@ data class PremiumUser(
     override var lastName: String,
     override var email: String,
     override var profilePicture: String,
-    override var location: Location,
     override var matchmakingState: EMatchmakingStates,
     override var roomId: String,
 

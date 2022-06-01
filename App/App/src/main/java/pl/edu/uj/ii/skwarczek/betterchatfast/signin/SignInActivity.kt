@@ -1,7 +1,6 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.signin
 
 import android.content.Intent
-import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -150,7 +149,6 @@ class SignInActivity : AppCompatActivity(), CoroutineScope {
                             "",
                             auth.currentUser?.email!!,
                             "",
-                            Location("")
                         )
                         FirestoreHelper.addUserToFirestore(newUser)
                         startActivity(Intent(baseContext, OnboardingActivity::class.java))
