@@ -94,4 +94,32 @@ function functionTimer (seconds, call) {
     });
 }
 
+exports.countdownTimerTest = functions.region('europe-central2').firestore.document('timer/{id}')
+    .onCreate( (snapshot, context) => {
+        const docId = context.params.id;
+        const timerRef = database.collection('timer').doc(docId);
+        const timeInMs = snapshot.get("timeInMs")
+        console.log("get "+snapshot.get("timeInMs"))
 
+        try {
+            let timeInSeconds = timeInMs / 1000;
+            console.log('Cloud Timer was Started: ' + timeInSeconds);
+            
+            while(timeInSeconds >= 0){
+                timerRef.update({ timeLeft: timeInSeconds });
+                sleep(1000);
+                timeInSeconds--;
+            }
+
+            console.log('Timer of ' + timeInSeconds + ' has finished.');
+
+        } catch (e) {
+            console.log('Failure:', e);
+        }
+    });
+
+    function sleep(ms) {
+        return new Promise((resolve) => {
+          setTimeout(resolve, ms);
+        });
+      }
