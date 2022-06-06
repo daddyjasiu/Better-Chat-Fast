@@ -1,20 +1,19 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.room
 
-import android.graphics.Color
+import android.content.BroadcastReceiver
+import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
+import pl.edu.uj.ii.skwarczek.betterchatfast.timer.TimerService
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.BaseActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.EXTRA_IS_NEWLY_CREATED
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.EXTRA_ROOM_ID
-import pl.edu.uj.ii.skwarczek.betterchatfast.util.requestPermissions
 
 class RoomActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_room)
     }
-
 
     fun getRoomId(): String {
         return intent.getStringExtra(EXTRA_ROOM_ID) ?: throw IllegalStateException()

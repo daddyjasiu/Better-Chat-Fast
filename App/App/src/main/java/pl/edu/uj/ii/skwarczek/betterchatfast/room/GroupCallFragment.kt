@@ -2,7 +2,11 @@ package pl.edu.uj.ii.skwarczek.betterchatfast.room
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,21 +17,47 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.sendbird.calls.AudioDevice
 import com.sendbird.calls.SendBirdCall
-import pl.edu.uj.ii.skwarczek.betterchatfast.room.GroupCallFragmentDirections
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.FragmentGroupCallBinding
+import pl.edu.uj.ii.skwarczek.betterchatfast.main.DashboardViewModel
 import pl.edu.uj.ii.skwarczek.betterchatfast.main.MainActivity
-import pl.edu.uj.ii.skwarczek.betterchatfast.queue.QueueActivity
-import pl.edu.uj.ii.skwarczek.betterchatfast.users.EMatchmakingStates
+import pl.edu.uj.ii.skwarczek.betterchatfast.timer.TimerService
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.*
-import pl.edu.uj.ii.skwarczek.betterchatfast.util.FirestoreHelper.updateCurrentUserMatchmakingState
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import kotlin.coroutines.CoroutineContext
+import kotlin.math.roundToInt
 
-class GroupCallFragment : Fragment() {
+class GroupCallFragment : Fragment(), CoroutineScope {
     lateinit var binding: FragmentGroupCallBinding
     lateinit var viewModel: GroupCallViewModel
     private var isNewlyCreatedRoomInfoShown = false
+
+    private var auth = Firebase.auth
+
+    private var timerStarted = false
+    private lateinit var serviceIntent: Intent
+    private var time = 0.0
+
+    private var job: Job = Job()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +73,23 @@ class GroupCallFragment : Fragment() {
             viewModel = GroupCallViewModel(it.getRoomId())
             it.getRoomId()
         } ?: throw IllegalStateException()
+
         initView(roomId)
+
+        serviceIntent = Intent(context, TimerService::class.java)
+        activity?.registerReceiver(updateTime, IntentFilter(TimerService.TIMER_UPDATED))
+
+        launch(Dispatchers.Main) {
+            val user = FirestoreHelper.getCurrentUserFromFirestore()
+            when (user["roomId"].toString() != user["userId"].toString()) {
+                true -> {
+                    startTimer()
+                Log.d("NIEPRAWDA_roomId", user["roomId"].toString())
+                Log.d("NIEPRAWDA_userId", user["userId"].toString())
+                }
+            }
+        }
+
         return binding.root
     }
 
@@ -51,7 +97,7 @@ class GroupCallFragment : Fragment() {
         val room = SendBirdCall.getCachedRoomById(roomId)
 
         // views
-        binding.groupCallTextViewRoomId.text = roomId
+//        binding.groupCallTextViewRoomId.text = roomId
         setAudioEnabledImage(room?.localParticipant?.isAudioEnabled ?: false)
         setVideoEnabledImage(room?.localParticipant?.isVideoEnabled ?: false)
 
@@ -98,11 +144,69 @@ class GroupCallFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        binding.groupCallLinearLayoutRoomIdInfo.setOnClickListener {
-            val action = GroupCallFragmentDirections
-                .actionGroupCallFragmentToRoomInfoFragment(roomId)
-            findNavController().navigate(action)
+//        binding.groupCallLinearLayoutRoomIdInfo.setOnClickListener {
+//            val action = GroupCallFragmentDirections
+//                .actionGroupCallFragmentToRoomInfoFragment(roomId)
+//            findNavController().navigate(action)
+//        }
+    }
+
+    private fun resetTimer() {
+        stopTimer()
+        time = 0.0
+        binding.groupCallTimer.text = getTimeStringFromDouble(time)
+    }
+
+    private fun startStopTimer() {
+        if (timerStarted)
+            stopTimer()
+        else
+            startTimer()
+    }
+
+    private fun startTimer() {
+        serviceIntent.putExtra(TimerService.TIME_EXTRA, time)
+        activity?.startService(serviceIntent)
+        timerStarted = true
+    }
+
+    private fun stopTimer() {
+        activity?.stopService(serviceIntent)
+        timerStarted = false
+    }
+
+    private val updateTime: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            time = intent.getDoubleExtra(TimerService.TIME_EXTRA, 0.0)
+            binding.groupCallTimer.text = getTimeStringFromDouble(time)
         }
+    }
+
+    private fun getTimeStringFromDouble(time: Double): String {
+        val resultInt = time.roundToInt()
+        val hours = resultInt % 86400 / 3600
+        val minutes = resultInt % 86400 % 3600 / 60
+        val seconds = resultInt % 86400 % 3600 % 60
+
+        return makeTimeString(hours, minutes, seconds)
+    }
+
+    private fun makeTimeString(hour: Int, min: Int, sec: Int): String =
+        String.format("%02d:%02d:%02d", hour, min, sec)
+
+
+    private fun getRoomTimeCreatedAt(roomId: String): String {
+        val room = SendBirdCall.getCachedRoomById(roomId)
+
+        val formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+        val instant = room?.createdAt?.let {
+            Instant.ofEpochMilli(
+                it
+            )
+        }
+        val date = LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
+        return formatter.format(date)
     }
 
     private fun initRecyclerView() {
@@ -151,6 +255,11 @@ class GroupCallFragment : Fragment() {
                 binding.groupCallImageViewSpeaker.setImageResource(resource)
             }
         }
+
+        viewModel.participantsTimer.observe(viewLifecycleOwner) {
+            startTimer()
+        }
+
     }
 
     private fun setAudioEnabledImage(isEnabled: Boolean) {

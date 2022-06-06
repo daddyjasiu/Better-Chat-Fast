@@ -20,53 +20,21 @@
             android:background="@color/background_500"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                android:id="@+id/group_call_linear_layout_room_id_info"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+
+            <TextView
+                android:id="@+id/group_call_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/group_call_image_view_speaker"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/group_call_image_view_speaker">
+                android:text="QUANTAVIOUS BINGLETON"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                app:layout_constraintHorizontal_bias="0.2"/>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
-                    app:cardBackgroundColor="#bdbdbd"
-                    app:cardCornerRadius="17dp"
-                    app:cardElevation="0dp">
-
-                    <ImageView
-                        android:layout_width="19dp"
-                        android:layout_height="19dp"
-                        android:src="@drawable/ic_group_call"
-                        android:layout_gravity="center" />
-                </androidx.cardview.widget.CardView>
-
-                <TextView
-                    android:id="@+id/group_call_text_view_room_id"
-                    android:layout_width="136dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:fontFamily="sans-serif"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/ondark_01"
-                    android:letterSpacing="-0.01"
-                    android:lineSpacingExtra="4sp"
-                    android:ellipsize="end"
-                    android:maxLines="1" />
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/icon_shevron_right"/>
-
-            </LinearLayout>
 
             <ImageView
                 android:id="@+id/group_call_image_view_camera_flip"

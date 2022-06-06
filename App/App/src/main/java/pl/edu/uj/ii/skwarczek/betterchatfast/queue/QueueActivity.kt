@@ -65,7 +65,6 @@ class QueueActivity: BaseActivity(), CoroutineScope {
 
                 } else {
                     while (room.get("sendbirdId").toString() == "null") {
-
                         room = FirestoreHelper.getRoomById(user.get("roomId").toString())
                         delay(1000)
                     }

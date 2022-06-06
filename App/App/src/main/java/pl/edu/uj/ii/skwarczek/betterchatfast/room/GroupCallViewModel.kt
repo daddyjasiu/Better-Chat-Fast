@@ -7,12 +7,19 @@ import androidx.lifecycle.ViewModel
 import com.sendbird.calls.*
 import com.sendbird.calls.handler.CompletionHandler
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.Resource
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 class GroupCallViewModel(
     roomId: String
 ) : ViewModel() {
     private val _participants: MutableLiveData<List<Participant>> = MutableLiveData()
     val participants: LiveData<List<Participant>> = _participants
+
+    private val _participantsTimer: MutableLiveData<List<Participant>> = MutableLiveData()
+    val participantsTimer: LiveData<List<Participant>> = _participantsTimer
 
     private val _localParticipant: MutableLiveData<LocalParticipant> = MutableLiveData()
     val localParticipant: LiveData<LocalParticipant> = _localParticipant
@@ -144,12 +151,12 @@ class GroupCallViewModel(
             Log.d(TAG, "onRemoteParticipantExited() called with: participant = $participant")
             _participants.postValue(sortedParticipants)
             exit()
-
         }
 
         override fun onRemoteParticipantStreamStarted(participant: RemoteParticipant) {
             Log.d(TAG, "onRemoteParticipantStreamStarted() called with: participant = $participant")
             _participants.postValue(sortedParticipants)
+            _participantsTimer.postValue(sortedParticipants)
         }
 
         override fun onRemoteVideoSettingsChanged(participant: RemoteParticipant) {

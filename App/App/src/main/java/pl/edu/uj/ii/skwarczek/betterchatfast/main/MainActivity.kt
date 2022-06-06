@@ -66,7 +66,6 @@ class MainActivity : BaseActivity() {
         super.onResume()
         FirestoreHelper.updateCurrentUserMatchmakingState(EMatchmakingStates.NOT_MATCHMAKING)
         FirestoreHelper.updateCurrentUserRoomId("")
-
     }
 
     private fun isLocationEnabled(): Boolean {
@@ -91,6 +90,7 @@ class MainActivity : BaseActivity() {
         }
         return false
     }
+
     private fun requestPermissions() {
         ActivityCompat.requestPermissions(
             this,
@@ -101,6 +101,7 @@ class MainActivity : BaseActivity() {
             permissionId
         )
     }
+
     @SuppressLint("MissingSuperCall")
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -121,22 +122,31 @@ class MainActivity : BaseActivity() {
                 mFusedLocationClient.lastLocation.addOnCompleteListener(this) { task ->
                     val location: Location? = task.result
                     if (location != null) {
-                        val geocoder = Geocoder(this, Locale.getDefault())
-                        val list: List<Address> =
-                            geocoder.getFromLocation(location.latitude, location.longitude, 1)
-                        val userAddress = mapOf(
-                            "countryCode" to list[0].countryCode,
-                            "lat" to list[0].latitude.toString(),
-                            "lon" to list[0].longitude.toString(),
-                            "country" to list[0].countryName,
-                            "city" to list[0].locality,
-                            "address" to list[0].getAddressLine(0),
-                            "district" to list[0].subLocality,
-                            "county" to list[0].subAdminArea,
-                            "street" to list[0].thoroughfare,
-                            "state" to list[0].adminArea,
-                        )
-                        FirestoreHelper.updateCurrentUserLocation(userAddress as Map<*, *>)
+                        try {
+                            val geocoder = Geocoder(this, Locale.getDefault())
+                            val list: List<Address> =
+                                geocoder.getFromLocation(
+                                    location.latitude,
+                                    location.longitude,
+                                    1
+                                )
+                            val userAddress = mapOf(
+                                "countryCode" to list[0].countryCode,
+                                "lat" to list[0].latitude.toString(),
+                                "lon" to list[0].longitude.toString(),
+                                "country" to list[0].countryName,
+                                "city" to list[0].locality,
+                                "address" to list[0].getAddressLine(0),
+                                "district" to list[0].subLocality,
+                                "county" to list[0].subAdminArea,
+                                "street" to list[0].thoroughfare,
+                                "state" to list[0].adminArea,
+                            )
+                            FirestoreHelper.updateCurrentUserLocation(userAddress as Map<*, *>)
+                        } catch (e: Exception) {
+                            Log.d("LOCATION ERROR", e.message.toString())
+                        }
+
                     }
                 }
             } else {
