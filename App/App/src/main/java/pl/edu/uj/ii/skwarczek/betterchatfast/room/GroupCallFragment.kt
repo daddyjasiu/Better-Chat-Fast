@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.content.BroadcastReceiver
 import android.content.Context
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,6 +60,7 @@ class GroupCallFragment : Fragment(), CoroutineScope {
         job.cancel()
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -79,11 +81,18 @@ class GroupCallFragment : Fragment(), CoroutineScope {
         serviceIntent = Intent(context, TimerService::class.java)
         activity?.registerReceiver(updateTime, IntentFilter(TimerService.TIMER_UPDATED))
 
+
+        val handler = Handler()
+        val runnable = Runnable {
+            viewModel.exit()
+        }
+
         launch(Dispatchers.Main) {
             val user = FirestoreHelper.getCurrentUserFromFirestore()
             when (user["roomId"].toString() != user["userId"].toString()) {
                 true -> {
                     startTimer()
+                    handler.postDelayed(runnable, 30_000)
                 Log.d("NIEPRAWDA_roomId", user["roomId"].toString())
                 Log.d("NIEPRAWDA_userId", user["userId"].toString())
                 }
