@@ -41,7 +41,7 @@ class QueueActivity: BaseActivity(), CoroutineScope {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val media = listOf(
+        val loadingGifs = listOf(
             "https://cdn.dribbble.com/users/285475/screenshots/2928587/media/4e0475f22ed17d8d9d5036e1174c35ae.gif",
         "https://cdn.dribbble.com/users/285475/screenshots/2288892/media/1ea95fed5d5f092576447bf484182ee2.gif",
             "https://cdn.dribbble.com/users/285475/screenshots/2272756/media/f76c2cf6efa1ca7ed6f8db772fbe4a98.gif",
@@ -60,7 +60,7 @@ class QueueActivity: BaseActivity(), CoroutineScope {
         }
 
         Glide.with(this)
-            .load(media.shuffled()[0])
+            .load(loadingGifs.shuffled()[0])
             .into(imageview)
 
         launch(Dispatchers.Main) {
