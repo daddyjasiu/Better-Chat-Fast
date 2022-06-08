@@ -11,8 +11,6 @@
         android:id="@+id/linear_layout_queue"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clickable="true"
-        android:focusable="true"
         android:orientation="vertical"
         tools:context=".queue.QueueActivity"
         >
@@ -33,7 +31,7 @@
             android:textSize="14sp"
             android:textStyle="bold"
             app:backgroundTint="#742ddd"
-            app:cornerRadius="4dp"
+            app:cornerRadius="8dp"
             app:layout_constraintVertical_bias="0.95"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,16 +41,26 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageview"
             android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.3"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.3"
-            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintHeight_percent="0.6"
             android:src="@drawable/ic_launcher_background"
-            tools:layout_editor_absoluteX="341dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            app:layout_constraintBottom_toTopOf="@+id/queue_cancel_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageview"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Searching..."
+            app:layout_constraintVertical_bias="0"
+            android:textSize="20sp">
+        </TextView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

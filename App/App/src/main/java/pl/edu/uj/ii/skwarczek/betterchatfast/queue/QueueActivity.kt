@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -24,7 +23,6 @@ import kotlin.coroutines.CoroutineContext
 
 class QueueActivity: BaseActivity(), CoroutineScope {
 
-
     private val viewModel: DashboardViewModel = DashboardViewModel()
 
     private lateinit var binding: ActivityQueueBinding
@@ -39,14 +37,19 @@ class QueueActivity: BaseActivity(), CoroutineScope {
 
         job.cancel()
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-        val media = listOf<String>("https://icons8.com/preloaders/preloaders/1480/Fidget-spinner.gif",
-        "https://icons8.com/preloaders/preloaders/1492/Search.gif","https://icons8.com/preloaders/preloaders/1486/Hourglass.gif",
-        "https://icons8.com/preloaders/preloaders/1482/Beating%20hearts.gif","https://icons8.com/preloaders/preloaders/1475/Skateboarding.gif")
-
+        val media = listOf(
+            "https://cdn.dribbble.com/users/285475/screenshots/2928587/media/4e0475f22ed17d8d9d5036e1174c35ae.gif",
+        "https://cdn.dribbble.com/users/285475/screenshots/2288892/media/1ea95fed5d5f092576447bf484182ee2.gif",
+            "https://cdn.dribbble.com/users/285475/screenshots/2272756/media/f76c2cf6efa1ca7ed6f8db772fbe4a98.gif",
+            "https://cdn.dribbble.com/users/285475/screenshots/1418440/media/a9e0fd9a6be22f3b7a0658b78e7d7eaa.gif",
+            "https://cdn.dribbble.com/users/285475/screenshots/2640600/media/a1f63bc5114e8045aa8c30cc7e94cfdb.gif",
+            "https://cdn.dribbble.com/users/285475/screenshots/2332606/media/0f91dfe9494ba29ad10abbebf69a93d4.gif",
+            "https://cdn.dribbble.com/users/285475/screenshots/2083086/media/a683df6fd0b57db02968b6194c88d868.gif",
+        )
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_queue)
         binding.queueCancelButton.setOnClickListener {
@@ -56,13 +59,9 @@ class QueueActivity: BaseActivity(), CoroutineScope {
             startActivity(intent)
         }
 
-        if (media !== null) {
-            Glide.with(this)
-                .load(media.shuffled()[0])
-                .into(imageview)
-        } else {
-            imageview.setImageResource(R.drawable.ic_launcher_background)
-        }
+        Glide.with(this)
+            .load(media.shuffled()[0])
+            .into(imageview)
 
         launch(Dispatchers.Main) {
 
