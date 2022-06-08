@@ -7,10 +7,10 @@
 
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linear_layout_queue"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:clickable="true"
         android:focusable="true"
         android:orientation="vertical"
@@ -19,9 +19,9 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/queue_cancel_button"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.5"
             android:layout_height="48dp"
-            android:layout_marginTop="24dp"
             android:fontFamily="sans-serif"
             android:insetTop="0dp"
             android:insetBottom="0dp"
@@ -33,7 +33,27 @@
             android:textSize="14sp"
             android:textStyle="bold"
             app:backgroundTint="#742ddd"
-            app:cornerRadius="4dp" />
-    </LinearLayout>
+            app:cornerRadius="4dp"
+            app:layout_constraintVertical_bias="0.95"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageview"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.3"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.3"
+            app:layout_constraintVertical_bias="0.5"
+            android:src="@drawable/ic_launcher_background"
+            tools:layout_editor_absoluteX="341dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

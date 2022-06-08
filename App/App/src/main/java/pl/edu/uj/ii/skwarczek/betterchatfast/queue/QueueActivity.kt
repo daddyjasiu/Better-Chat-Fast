@@ -4,10 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.sendbird.calls.SendBirdError
+import kotlinx.android.synthetic.main.activity_queue.*
 import kotlinx.coroutines.*
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.ActivityQueueBinding
@@ -40,6 +43,10 @@ class QueueActivity: BaseActivity(), CoroutineScope {
         super.onCreate(savedInstanceState)
 
 
+        val media = listOf<String>("https://icons8.com/preloaders/preloaders/1480/Fidget-spinner.gif",
+        "https://icons8.com/preloaders/preloaders/1492/Search.gif","https://icons8.com/preloaders/preloaders/1486/Hourglass.gif",
+        "https://icons8.com/preloaders/preloaders/1482/Beating%20hearts.gif","https://icons8.com/preloaders/preloaders/1475/Skateboarding.gif")
+
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_queue)
         binding.queueCancelButton.setOnClickListener {
@@ -47,6 +54,14 @@ class QueueActivity: BaseActivity(), CoroutineScope {
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
+        }
+
+        if (media !== null) {
+            Glide.with(this)
+                .load(media.shuffled()[0])
+                .into(imageview)
+        } else {
+            imageview.setImageResource(R.drawable.ic_launcher_background)
         }
 
         launch(Dispatchers.Main) {
