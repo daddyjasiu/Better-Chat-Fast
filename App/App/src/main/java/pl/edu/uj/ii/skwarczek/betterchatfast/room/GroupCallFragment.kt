@@ -84,6 +84,7 @@ class GroupCallFragment : Fragment(), CoroutineScope {
 
         val handler = Handler()
         val runnable = Runnable {
+            stopTimer()
             viewModel.exit()
         }
 
@@ -187,6 +188,8 @@ class GroupCallFragment : Fragment(), CoroutineScope {
     private val updateTime: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             time = intent.getDoubleExtra(TimerService.TIME_EXTRA, 0.0)
+            if(time>=30.0)
+                time = 30.0
             binding.groupCallTimer.text = getTimeStringFromDouble(time)
         }
     }
