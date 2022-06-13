@@ -86,6 +86,7 @@ class GroupCallFragment : Fragment(), CoroutineScope {
         val runnable = Runnable {
             stopTimer()
             viewModel.exit()
+            resetTimer()
         }
 
         launch(Dispatchers.Main) {

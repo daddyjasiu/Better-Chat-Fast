@@ -43,7 +43,7 @@ class QueueActivity: BaseActivity(), CoroutineScope {
 
         val loadingGifs = listOf(
             "https://cdn.dribbble.com/users/285475/screenshots/2928587/media/4e0475f22ed17d8d9d5036e1174c35ae.gif",
-        "https://cdn.dribbble.com/users/285475/screenshots/2288892/media/1ea95fed5d5f092576447bf484182ee2.gif",
+            "https://cdn.dribbble.com/users/285475/screenshots/2288892/media/1ea95fed5d5f092576447bf484182ee2.gif",
             "https://cdn.dribbble.com/users/285475/screenshots/2272756/media/f76c2cf6efa1ca7ed6f8db772fbe4a98.gif",
             "https://cdn.dribbble.com/users/285475/screenshots/1418440/media/a9e0fd9a6be22f3b7a0658b78e7d7eaa.gif",
             "https://cdn.dribbble.com/users/285475/screenshots/2640600/media/a1f63bc5114e8045aa8c30cc7e94cfdb.gif",
