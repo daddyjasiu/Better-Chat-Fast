@@ -24,12 +24,15 @@ import kotlinx.android.synthetic.main.fragment_signin_tab.*
 import kotlinx.android.synthetic.main.fragment_signin_tab.view.*
 import kotlinx.android.synthetic.main.fragment_signup_tab.view.*
 import kotlinx.coroutines.*
+import org.json.JSONObject
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.main.MainActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.onboarding.OnboardingActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.users.EUserTypes
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.FirestoreHelper
 import pl.edu.uj.ii.skwarczek.betterchatfast.users.UserFactory
+import pl.edu.uj.ii.skwarczek.betterchatfast.util.RequestHandler
+import pl.edu.uj.ii.skwarczek.betterchatfast.util.SENDBIRD_APP_ID
 import kotlin.coroutines.CoroutineContext
 
 

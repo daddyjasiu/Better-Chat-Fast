@@ -1,7 +1,6 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.onboarding
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -33,7 +32,6 @@ class Onboarding4Fragment : Fragment(), CoroutineScope {
     private lateinit var nicknameField: EditText
     private lateinit var firstNameField: EditText
     private lateinit var lastNameField: EditText
-    private lateinit var iconUrlField: EditText
     private var storageReference: StorageReference? = null
 
     private lateinit var finishOnboardingButton: Button
@@ -63,7 +61,6 @@ class Onboarding4Fragment : Fragment(), CoroutineScope {
             val nickname = nicknameField.text?.trim().toString()
             val firstName = firstNameField.text?.trim().toString()
             val lastName = lastNameField.text?.trim().toString()
-            val iconUrl = iconUrlField.text?.trim().toString()
 
             if (nickname.isNotEmpty() && firstName.isNotEmpty() && lastName.isNotEmpty()) {
                 FirestoreHelper.updateCurrentUserNickname(nickname)
@@ -75,22 +72,19 @@ class Onboarding4Fragment : Fragment(), CoroutineScope {
                 val ref = storageReference?.child("myImages/" + auth.currentUser!!.uid)
                 val mail = auth.currentUser?.email
                 //http post user
-                var iconPath: Uri? =null
+                val url = "https://api-$SENDBIRD_APP_ID.sendbird.com/v3/users"
+
                 launch(Dispatchers.Main) {
-                    iconPath = ref?.downloadUrl?.await()
-                    Log.d("XD", iconPath.toString())
+                    val iconPath = ref?.downloadUrl?.await().toString()
 
-
-                    val url = "https://api-$SENDBIRD_APP_ID.sendbird.com/v3/users"
                     val postJSONObject = JSONObject(
                         """{"user_id":"$mail",
-                         "nickname":"$nickname",
-                 "profile_url":"$iconPath"}"""
+                                                "nickname":"$nickname",
+                                                "profile_url":"https://sendbird.com/main/img/profiles/profile_05_512px.png"}"""
                     )
-
-                Thread(kotlinx.coroutines.Runnable {
-                    RequestHandler.requestPOST(url, postJSONObject)
-                }).start()
+                    Thread(kotlinx.coroutines.Runnable {
+                        RequestHandler.requestPOST(url, postJSONObject)
+                    }).start()
                 }
 
                 val intent = Intent(context, MainActivity::class.java)
@@ -111,7 +105,6 @@ class Onboarding4Fragment : Fragment(), CoroutineScope {
         nicknameField = view.findViewById(R.id.onboarding_4_nickname_edit_text)
         firstNameField = view.findViewById(R.id.onboarding_4_first_name_edit_text)
         lastNameField = view.findViewById(R.id.onboarding_4_last_name_edit_text)
-        iconUrlField = view.findViewById(R.id.onboarding_4_icon_edit_text)
         storageReference = FirebaseStorage.getInstance().reference
 
     }

@@ -2,6 +2,7 @@ package pl.edu.uj.ii.skwarczek.betterchatfast.settings
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,20 +19,40 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.sendbird.calls.SendBirdCall
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import org.json.JSONObject
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.FragmentUserPreferencesBinding
+import pl.edu.uj.ii.skwarczek.betterchatfast.signin.AuthenticateViewModel
 import pl.edu.uj.ii.skwarczek.betterchatfast.signin.SignInActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.*
+import kotlin.coroutines.CoroutineContext
 
-class UserPreferencesFragment: Fragment() {
+class UserPreferencesFragment: Fragment(),CoroutineScope {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var currentUser: FirebaseUser
     private lateinit var db: FirebaseFirestore
     private val viewModel: SettingsViewModel = SettingsViewModel()
     lateinit var binding: FragmentUserPreferencesBinding
+    private var storageReference: StorageReference? = null
+
+    private var job: Job = Job()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?
@@ -93,17 +114,22 @@ class UserPreferencesFragment: Fragment() {
                 Toast.makeText(context, "User credentials updated!", Toast.LENGTH_SHORT).show()
 
                 val mail = auth.currentUser?.email
+                val ref = storageReference?.child("myImages/" + auth.currentUser!!.uid)
+
                 //http post user
                 val url = "https://api-$SENDBIRD_APP_ID.sendbird.com/v3/users/$mail"
+                launch(Dispatchers.Main) {
+                    val iconPath = ref?.downloadUrl?.await().toString()
 
-                val postJSONObject = JSONObject(
-                    """{"user_id":"$mail",
+                    val postJSONObject = JSONObject(
+                        """{"user_id":"$mail",
                                                 "nickname":"$nickname",
-                                                "profile_url":"https://sendbird.com/main/img/profiles/profile_05_512px.png"}"""
-                )
-                Thread(kotlinx.coroutines.Runnable {
-                    RequestHandler.requestPUT(url, postJSONObject)
-                }).start()
+                                                "profile_url":"$iconPath"}"""
+                    )
+                    Thread(kotlinx.coroutines.Runnable {
+                        RequestHandler.requestPUT(url, postJSONObject)
+                    }).start()
+                }
 
             }
             else{
@@ -117,5 +143,7 @@ class UserPreferencesFragment: Fragment() {
         auth = Firebase.auth
         currentUser = auth.currentUser!!
         db = Firebase.firestore
+        storageReference = FirebaseStorage.getInstance().reference
+
     }
 }

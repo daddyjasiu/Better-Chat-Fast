@@ -11,13 +11,14 @@
         <entry key="..\:/Users/Sou/Desktop/Desktop/Better-Chat-Fast/App/App/src/main/res/layout/activity_splash.xml" value="0.12364130434782608" />
         <entry key="..\:/Users/Sou/Desktop/Desktop/Better-Chat-Fast/App/App/src/main/res/layout/dialog_room_creation.xml" value="0.12364130434782608" />
         <entry key="..\:/Users/Sou/Desktop/Desktop/Better-Chat-Fast/App/App/src/main/res/layout/fragment_app_info.xml" value="0.12364130434782608" />
-        <entry key="..\:/Users/Sou/Desktop/Desktop/Better-Chat-Fast/App/App/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
+        <entry key="..\:/Users/Sou/Desktop/Desktop/Better-Chat-Fast/App/App/src/main/res/layout/fragment_dashboard.xml" value="0.264" />
         <entry key="..\:/Users/Sou/Desktop/Desktop/Better-Chat-Fast/App/App/src/main/res/layout/fragment_group_call.xml" value="0.1160081053698075" />
         <entry key="..\:/Users/Sou/Desktop/Desktop/Better-Chat-Fast/App/App/src/main/res/layout/fragment_onboarding_3.xml" value="0.23854166666666668" />
-        <entry key="..\:/Users/Sou/Desktop/Desktop/Better-Chat-Fast/App/App/src/main/res/layout/fragment_onboarding_4.xml" value="0.264" />
+        <entry key="..\:/Users/Sou/Desktop/Desktop/Better-Chat-Fast/App/App/src/main/res/layout/fragment_onboarding_4.xml" value="0.176" />
         <entry key="..\:/Users/Sou/Desktop/Desktop/Better-Chat-Fast/App/App/src/main/res/layout/fragment_participant_list.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Sou/Desktop/Desktop/Better-Chat-Fast/App/App/src/main/res/layout/fragment_room_info.xml" value="0.1" />
         <entry key="..\:/Users/Sou/Desktop/Desktop/Better-Chat-Fast/App/App/src/main/res/layout/fragment_settings_container.xml" value="0.1" />
+        <entry key="..\:/Users/Sou/Desktop/Desktop/Better-Chat-Fast/App/App/src/main/res/layout/fragment_user_preferences.xml" value="0.15172101449275363" />
         <entry key="..\:/Users/Sou/Desktop/Desktop/Better-Chat-Fast/App/App/src/main/res/layout/item_participant.xml" value="0.13134057971014493" />
         <entry key="..\:/Users/Sou/Documents/GitHub/Better-Chat-Fast/App/App/src/main/res/layout/activity_main_screen.xml" value="0.1" />
         <entry key="..\:/Users/Sou/Documents/GitHub/Better-Chat-Fast/App/App/src/main/res/layout/activity_onboarding.xml" value="0.12360688956433637" />
@@ -65,7 +66,7 @@
         <entry key="..\:/Users/jansk/OneDrive/Documents/UJ/PZ1/Better-Chat-Fast/App/App/src/main/res/layout/fragment_signin_tab.xml" value="0.264" />
         <entry key="..\:/Users/jansk/OneDrive/Documents/UJ/PZ1/Better-Chat-Fast/App/App/src/main/res/layout/fragment_signup_tab.xml" value="0.2" />
         <entry key="..\:/Users/jansk/OneDrive/Documents/UJ/PZ1/Better-Chat-Fast/App/App/src/main/res/layout/fragment_test.xml" value="0.16197916666666667" />
-        <entry key="..\:/Users/jansk/OneDrive/Documents/UJ/PZ1/Better-Chat-Fast/App/App/src/main/res/layout/fragment_user_preferences.xml" value="0.264" />
+        <entry key="..\:/Users/jansk/OneDrive/Documents/UJ/PZ1/Better-Chat-Fast/App/App/src/main/res/layout/fragment_user_preferences.xml" value="0.25" />
         <entry key="..\:/Users/jansk/OneDrive/Documents/UJ/PZ1/Better-Chat-Fast/App/App/src/main/res/layout/item_participant.xml" value="0.25" />
         <entry key="..\:/Users/jansk/OneDrive/Documents/UJ/PZ1/Better-Chat-Fast/App/App/src/main/res/layout/item_participant_list_share_room_id.xml" value="0.25" />
         <entry key="..\:/Users/jansk/OneDrive/Documents/UJ/PZ1/Better-Chat-Fast/App/App/src/main/res/layout/item_participant_list_user.xml" value="0.25" />

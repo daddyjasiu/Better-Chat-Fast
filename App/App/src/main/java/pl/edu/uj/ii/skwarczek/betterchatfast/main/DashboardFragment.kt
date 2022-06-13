@@ -26,6 +26,7 @@ import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.FragmentDashboardBindin
 import pl.edu.uj.ii.skwarczek.betterchatfast.preview.PreviewActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.queue.QueueActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.room.RoomActivity
+import pl.edu.uj.ii.skwarczek.betterchatfast.signin.AuthenticateViewModel
 import pl.edu.uj.ii.skwarczek.betterchatfast.users.EMatchmakingStates
 import pl.edu.uj.ii.skwarczek.betterchatfast.users.EUserTypes
 import pl.edu.uj.ii.skwarczek.betterchatfast.users.IUser

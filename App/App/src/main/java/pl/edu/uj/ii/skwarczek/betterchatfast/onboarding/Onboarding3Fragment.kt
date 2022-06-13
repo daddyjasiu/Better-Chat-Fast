@@ -2,11 +2,11 @@ package pl.edu.uj.ii.skwarczek.betterchatfast.onboarding
 
 import android.app.Activity
 import android.content.Intent
-import android.content.ContentResolver
+
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,15 +17,10 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
+
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import java.io.IOException
-import java.util.*
-import kotlin.coroutines.CoroutineContext
+
 
 
 class Onboarding3Fragment : Fragment() {

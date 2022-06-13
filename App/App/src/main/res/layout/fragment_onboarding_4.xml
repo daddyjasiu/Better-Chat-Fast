@@ -123,23 +123,7 @@
         app:layout_constraintVertical_bias="0"
         tools:ignore="RtlSymmetry" />
 
-    <EditText
-        android:id="@+id/onboarding_4_icon_edit_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/edit_text_bg"
-        android:hint="icon_url"
-        android:paddingStart="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/onboarding_4_last_name_edit_text"
-        app:layout_constraintWidth_percent=".8"
-        app:layout_constraintVertical_bias="0.075"
-        tools:ignore="RtlSymmetry" />
+
 
     <Button
         android:id="@+id/onboarding_4_finish_button"
@@ -149,6 +133,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/onboarding_4_icon_edit_text" />
+        app:layout_constraintTop_toBottomOf="@+id/onboarding_4_last_name_edit_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

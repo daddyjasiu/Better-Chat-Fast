@@ -1,5 +1,6 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.util
 
+import android.util.Log
 import org.json.JSONObject
 import java.io.*
 import java.net.HttpURLConnection
@@ -43,6 +44,7 @@ object RequestHandler {
                 break
             }
             `in`.close()
+            Log.d("XDok",sb.toString())
             return sb.toString()
         }
         //error
@@ -54,7 +56,7 @@ object RequestHandler {
             break
         }
         `in`.close()
-
+Log.d("XDnieok",sb.toString())
         return sb.toString()
     }
 
