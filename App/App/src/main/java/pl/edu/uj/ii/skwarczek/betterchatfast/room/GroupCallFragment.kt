@@ -1,13 +1,13 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.room
 
 import android.app.AlertDialog
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.util.Log
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +28,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.FragmentGroupCallBinding
-import pl.edu.uj.ii.skwarczek.betterchatfast.main.DashboardViewModel
 import pl.edu.uj.ii.skwarczek.betterchatfast.main.MainActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.timer.TimerService
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.*
@@ -84,9 +83,7 @@ class GroupCallFragment : Fragment(), CoroutineScope {
 
         val handler = Handler()
         val runnable = Runnable {
-            stopTimer()
             viewModel.exit()
-            resetTimer()
         }
 
         launch(Dispatchers.Main) {
@@ -95,8 +92,8 @@ class GroupCallFragment : Fragment(), CoroutineScope {
                 true -> {
                     startTimer()
                     handler.postDelayed(runnable, 30_000)
-                Log.d("NIEPRAWDA_roomId", user["roomId"].toString())
-                Log.d("NIEPRAWDA_userId", user["userId"].toString())
+                    Log.d("NIEPRAWDA_roomId", user["roomId"].toString())
+                    Log.d("NIEPRAWDA_userId", user["userId"].toString())
                 }
             }
         }
@@ -189,9 +186,13 @@ class GroupCallFragment : Fragment(), CoroutineScope {
     private val updateTime: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             time = intent.getDoubleExtra(TimerService.TIME_EXTRA, 0.0)
-            if(time>=30.0)
-                time = 30.0
-            binding.groupCallTimer.text = getTimeStringFromDouble(time)
+            if (time >= 30.0) {
+                binding.groupCallTimer.text = getTimeStringFromDouble(30.0)
+                stopTimer()
+                resetTimer()
+            } else {
+                binding.groupCallTimer.text = getTimeStringFromDouble(time)
+            }
         }
     }
 

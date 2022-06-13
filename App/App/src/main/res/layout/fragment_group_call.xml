@@ -29,7 +29,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/group_call_image_view_speaker"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="QUANTAVIOUS BINGLETON"
+                android:text="Waiting for the other person..."
                 android:textColor="@color/white"
                 android:textAllCaps="false"
                 android:textSize="20sp"
