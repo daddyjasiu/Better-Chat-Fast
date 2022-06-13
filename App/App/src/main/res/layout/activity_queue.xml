@@ -31,7 +31,7 @@
             android:textSize="14sp"
             android:textStyle="bold"
             app:backgroundTint="#742ddd"
-            app:cornerRadius="8dp"
+            app:cornerRadius="50dp"
             app:layout_constraintVertical_bias="0.95"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:text="Searching..."
             app:layout_constraintVertical_bias="0"
-            android:textSize="20sp">
+            android:textSize="24sp">
         </TextView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

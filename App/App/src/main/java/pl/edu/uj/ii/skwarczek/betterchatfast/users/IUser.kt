@@ -10,4 +10,6 @@ interface IUser{
     var profilePicture: String
     var matchmakingState: EMatchmakingStates
     var roomId: String
+    var chattingTime: Double
+
 }

@@ -78,7 +78,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:background="@color/white"
-                app:cardCornerRadius="4dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="12dp">
 
                 <LinearLayout
@@ -90,30 +90,29 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Search room"
+                        android:text="Chatting time"
                         android:fontFamily="sans-serif"
                         android:textStyle="bold"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:textColor="@color/onlight_01"
                         android:lineSpacingExtra="4sp" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/dashboard_search_room_button"
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="24dp"
-                        android:text="@string/dashboard_search_room_button"
-                        android:textAllCaps="false"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Pick an amount of seconds you want to chat for!"
                         android:fontFamily="sans-serif"
                         android:textStyle="bold"
-                        android:textSize="14sp"
-                        android:textColor="@color/ondark_01"
-                        android:letterSpacing="0.03"
-                        android:lineSpacingExtra="2sp"
-                        app:cornerRadius="4dp"
-                        app:backgroundTint="#742ddd" />
+                        android:layout_marginBottom="20dp"
+                        android:textSize="12sp"
+                        android:lineSpacingExtra="4sp" />
+
+                    <Spinner
+                        android:id="@+id/dashboard_time_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </Spinner>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -124,8 +123,9 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
+                android:layout_marginBottom="24dp"
                 android:background="@color/white"
-                app:cardCornerRadius="4dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="12dp">
 
                 <LinearLayout
@@ -134,40 +134,31 @@
                     android:orientation="vertical"
                     android:padding="24dp">
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/icon_room_add" />
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/dashboard_create_room_title"
+                        android:text="Search for a room"
                         android:fontFamily="sans-serif"
                         android:textStyle="bold"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:textColor="@color/onlight_01"
                         android:lineSpacingExtra="4sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/dashboard_create_room_description"
-                        android:fontFamily="sans-serif-medium"
-                        android:textStyle="normal"
-                        android:textSize="14sp"
-                        android:textColor="@color/onlight_02"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="2sp" />
+                        android:text="Find a person to have a quick chat with!"
+                        android:fontFamily="sans-serif"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="30dp"
+                        android:lineSpacingExtra="4sp" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/dashboard_create_room_button"
+                        android:id="@+id/dashboard_search_room_button"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:layout_marginTop="24dp"
-                        android:text="@string/dashboard_create_room_button"
+                        android:text="@string/dashboard_search_room_button"
                         android:textAllCaps="false"
                         android:insetTop="0dp"
                         android:insetBottom="0dp"
@@ -177,108 +168,8 @@
                         android:textColor="@color/ondark_01"
                         android:letterSpacing="0.03"
                         android:lineSpacingExtra="2sp"
-                        app:cornerRadius="4dp"
+                        app:cornerRadius="50dp"
                         app:backgroundTint="#742ddd" />
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="24dp"
-                android:background="@color/white"
-                app:cardCornerRadius="4dp"
-                app:cardElevation="12dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="24dp">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/icon_join" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/dashboard_enter_with_room_id_title"
-                        android:fontFamily="sans-serif"
-                        android:textStyle="bold"
-                        android:textSize="20sp"
-                        android:textColor="@color/onlight_01"
-                        android:lineSpacingExtra="4sp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/dashboard_enter_with_room_id_description"
-                        android:fontFamily="sans-serif-medium"
-                        android:textStyle="normal"
-                        android:textSize="14sp"
-                        android:textColor="@color/onlight_02"
-                        android:letterSpacing="-0.01"
-                        android:lineSpacingExtra="2sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="24dp">
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="0dp"
-                            android:layout_height="56dp"
-                            android:layout_weight="1"
-                            android:textColorHint="@color/onlight_03"
-                            app:errorTextAppearance="@style/ErrorTextAppearance"
-                            app:hintTextColor="#742ddd"
-                            app:boxStrokeColor="#742ddd"
-                            app:boxBackgroundColor="@color/background_200"
-                            app:boxCornerRadiusTopStart="4dp"
-                            app:boxCornerRadiusTopEnd="4dp"
-                            app:boxCornerRadiusBottomStart="4dp"
-                            app:boxCornerRadiusBottomEnd="4dp"
-                            app:boxStrokeWidth="0dp"
-                            app:boxStrokeWidthFocused="2dp">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/edit_text_room_id"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:hint="@string/dashboard_hint_room_id"
-                                android:textColorHint="@color/onlight_03"
-                                android:maxLines="1"
-                                android:inputType="text"/>
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <TextView
-                            android:id="@+id/text_view_enter"
-                            android:layout_width="52dp"
-                            android:layout_height="32dp"
-                            android:layout_marginStart="8dp"
-                            android:text="@string/dashboard_button_enter"
-                            android:fontFamily="sans-serif"
-                            android:textStyle="bold"
-                            android:textSize="14sp"
-                            android:textColor="#742ddd"
-                            android:letterSpacing="0.03"
-                            android:lineSpacingExtra="2sp"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:visibility="gone" />
-
-                    </LinearLayout>
-
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>

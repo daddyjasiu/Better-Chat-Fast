@@ -9,20 +9,21 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.sendbird.calls.SendBirdCall
 import org.json.JSONObject
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.FragmentUserPreferencesBinding
 import pl.edu.uj.ii.skwarczek.betterchatfast.signin.SignInActivity
-import pl.edu.uj.ii.skwarczek.betterchatfast.util.RequestHandler
-import pl.edu.uj.ii.skwarczek.betterchatfast.util.SENDBIRD_APP_ID
-import pl.edu.uj.ii.skwarczek.betterchatfast.util.Status
-import pl.edu.uj.ii.skwarczek.betterchatfast.util.hideKeyboard
+import pl.edu.uj.ii.skwarczek.betterchatfast.util.*
 
 class UserPreferencesFragment: Fragment() {
 
@@ -37,6 +38,7 @@ class UserPreferencesFragment: Fragment() {
     ): View {
         auth= FirebaseAuth.getInstance()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user_preferences, container, false)
+        setUserInfo()
         setViewEventListener()
         observeViewModel()
         initView()
@@ -55,22 +57,36 @@ class UserPreferencesFragment: Fragment() {
             }
         }
     }
+
+    private fun setUserInfo() {
+        val user = SendBirdCall.currentUser
+
+        val radius = activity?.dpToPixel(17) ?: 0
+        Glide.with(this)
+            .load(user?.profileUrl)
+            .apply(
+                RequestOptions()
+                    .transform(RoundedCorners(radius))
+                    .error(R.drawable.icon_avatar)
+            )
+            .into(binding.preferencesImageViewUserProfile)
+    }
     private fun setViewEventListener() {
         binding.userPreferencesImageViewLeftArrow.setOnClickListener{
             findNavController().navigateUp()
         }
 
+        binding.preferencesImageViewUserProfile.setOnClickListener{
+            Toast.makeText(context, "Img Button Clicked!", Toast.LENGTH_SHORT).show()
+        }
+
         binding.settingsSaveChangesButton.setOnClickListener {
 
             val nickname = binding.userPreferencesNicknameEditText.text.trim().toString()
-            val firstName = binding.userPreferencesFirstNameEditText.text.trim().toString()
-            val lastName = binding.userPreferencesLastNameEditText.text.trim().toString()
 
-            if(nickname.isNotEmpty() && firstName.isNotEmpty() && lastName.isNotEmpty()){
+            if(nickname.isNotEmpty()){
                 val settingsHelper: ISettings = Settings()
                 settingsHelper.setUserNickname(nickname)
-                settingsHelper.setUserFirstName(firstName)
-                settingsHelper.setUserLastName(lastName)
 
                 view.let{activity?.hideKeyboard()}
 

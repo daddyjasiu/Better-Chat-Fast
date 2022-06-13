@@ -12,14 +12,35 @@ object UserFactory {
         email: String,
         profilePicture: String,
         matchmakingStates: EMatchmakingStates = EMatchmakingStates.NOT_MATCHMAKING,
-        roomId: String = ""
-        ): IUser {
+        roomId: String = "",
+        chattingTime: Double = 30.0
+    ): IUser {
         return when (type) {
             EUserTypes.STANDARD -> {
-                StandardUser(userId, nickname, firstName, lastName, email, profilePicture, matchmakingStates,roomId)
+                StandardUser(
+                    userId,
+                    nickname,
+                    firstName,
+                    lastName,
+                    email,
+                    profilePicture,
+                    matchmakingStates,
+                    roomId,
+                    chattingTime
+                )
             }
             EUserTypes.PREMIUM -> {
-                PremiumUser(userId,nickname, firstName, lastName, email, profilePicture, matchmakingStates,roomId)
+                PremiumUser(
+                    userId,
+                    nickname,
+                    firstName,
+                    lastName,
+                    email,
+                    profilePicture,
+                    matchmakingStates,
+                    roomId,
+                    chattingTime
+                )
             }
         }
     }

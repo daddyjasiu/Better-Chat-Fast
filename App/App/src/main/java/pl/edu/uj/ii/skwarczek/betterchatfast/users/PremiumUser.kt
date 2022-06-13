@@ -11,6 +11,7 @@ data class PremiumUser(
     override var profilePicture: String,
     override var matchmakingState: EMatchmakingStates,
     override var roomId: String,
+    override var chattingTime: Double,
 
     var isPremium: Boolean = true,
     var isAfterOnboarding: Boolean = false,

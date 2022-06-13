@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -35,6 +37,7 @@ class DashboardFragment : Fragment(), CoroutineScope {
     lateinit var binding: FragmentDashboardBinding
     private val viewModel: DashboardViewModel = DashboardViewModel()
     private lateinit var auth: FirebaseAuth
+    private var chattingTimePicked = 30.0
 
     private var job: Job = Job()
 
@@ -63,24 +66,24 @@ class DashboardFragment : Fragment(), CoroutineScope {
 
         auth = FirebaseAuth.getInstance()
 
-        binding.linearLayoutDashboard.setOnClickListener {
-            activity?.hideKeyboard()
-            binding.editTextRoomId.clearFocus()
-        }
-
-        binding.editTextRoomId.setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                binding.textViewEnter.visibility = View.VISIBLE
-            } else {
-                if (binding.editTextRoomId.text?.toString().isNullOrEmpty()) {
-                    binding.textViewEnter.visibility = View.GONE
-                }
-            }
-        }
-
-        binding.dashboardCreateRoomButton.setOnClickListener {
-            viewModel.createAndEnterRoom()
-        }
+//        binding.linearLayoutDashboard.setOnClickListener {
+//            activity?.hideKeyboard()
+//            binding.editTextRoomId.clearFocus()
+//        }
+//
+//        binding.editTextRoomId.setOnFocusChangeListener { v, hasFocus ->
+//            if (hasFocus) {
+//                binding.textViewEnter.visibility = View.VISIBLE
+//            } else {
+//                if (binding.editTextRoomId.text?.toString().isNullOrEmpty()) {
+//                    binding.textViewEnter.visibility = View.GONE
+//                }
+//            }
+//        }
+//
+//        binding.dashboardCreateRoomButton.setOnClickListener {
+//            viewModel.createAndEnterRoom()
+//        }
 
         binding.dashboardSearchRoomButton.setOnClickListener {
             launch(Dispatchers.Main) {
@@ -96,7 +99,9 @@ class DashboardFragment : Fragment(), CoroutineScope {
                             currentUser["lastName"].toString(),
                             currentUser["email"].toString(),
                             currentUser["profilePicture"].toString(),
-                            EMatchmakingStates.IN_QUEUE
+                            EMatchmakingStates.IN_QUEUE,
+                            "",
+                            chattingTimePicked,
                         )
                     }
                     else -> {
@@ -108,7 +113,9 @@ class DashboardFragment : Fragment(), CoroutineScope {
                             currentUser["lastName"].toString(),
                             currentUser["email"].toString(),
                             currentUser["profilePicture"].toString(),
-                            EMatchmakingStates.IN_QUEUE
+                            EMatchmakingStates.IN_QUEUE,
+                            "",
+                            chattingTimePicked,
                         )
                     }
                 }
@@ -123,14 +130,39 @@ class DashboardFragment : Fragment(), CoroutineScope {
             }
         }
 
+        val chattingTimes = arrayOf(30.0, 60.0, 120.0);
+        val arrayAdapter = context?.let {
+            ArrayAdapter<Double>(
+                it,
+                android.R.layout.simple_spinner_dropdown_item,
+                chattingTimes
+            )
+        }
+        binding.dashboardTimeSpinner.adapter = arrayAdapter
+        binding.dashboardTimeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    chattingTimePicked = chattingTimes[position]
+                }
 
-        binding.textViewEnter.setOnClickListener(this::onEnterButtonClicked)
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    TODO("Not yet implemented")
+                }
+
+            }
+
+//        binding.textViewEnter.setOnClickListener(this::onEnterButtonClicked)
     }
 
-    private fun onEnterButtonClicked(v: View) {
-        val roomId = binding.editTextRoomId.text?.toString() ?: return
-        viewModel.fetchRoomById(roomId)
-    }
+//    private fun onEnterButtonClicked(v: View) {
+//        val roomId = binding.editTextRoomId.text?.toString() ?: return
+//        viewModel.fetchRoomById(roomId)
+//    }
 
     private fun setUserInfo() {
         val user = SendBirdCall.currentUser

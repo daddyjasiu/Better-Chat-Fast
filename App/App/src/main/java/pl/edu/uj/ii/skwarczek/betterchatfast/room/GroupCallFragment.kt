@@ -48,6 +48,7 @@ class GroupCallFragment : Fragment(), CoroutineScope {
     private var timerStarted = false
     private lateinit var serviceIntent: Intent
     private var time = 0.0
+    private var roomTime: Double = 0.0
 
     private var job: Job = Job()
 
@@ -66,10 +67,6 @@ class GroupCallFragment : Fragment(), CoroutineScope {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_group_call, container, false)
         val roomId = (activity as? RoomActivity)?.let {
-//            if (it.isNewlyCreated() && !isNewlyCreatedRoomInfoShown) {
-//                showNewlyCreatedRoomInfo(it.getRoomId())
-//                isNewlyCreatedRoomInfoShown = true
-//            }
 
             viewModel = GroupCallViewModel(it.getRoomId())
             it.getRoomId()
@@ -88,12 +85,15 @@ class GroupCallFragment : Fragment(), CoroutineScope {
 
         launch(Dispatchers.Main) {
             val user = FirestoreHelper.getCurrentUserFromFirestore()
+            val room = FirestoreHelper.getRoomById(user["roomId"] as String)
+
+            roomTime = room["chattingTime"].toString().toDouble()
+
             when (user["roomId"].toString() != user["userId"].toString()) {
                 true -> {
                     startTimer()
-                    handler.postDelayed(runnable, 30_000)
-                    Log.d("NIEPRAWDA_roomId", user["roomId"].toString())
-                    Log.d("NIEPRAWDA_userId", user["userId"].toString())
+                    val handlerTime = (room["chattingTime"].toString().toDouble() * 1000.0).toLong()
+                    handler.postDelayed(runnable, handlerTime)
                 }
             }
         }
@@ -185,8 +185,8 @@ class GroupCallFragment : Fragment(), CoroutineScope {
     private val updateTime: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             time = intent.getDoubleExtra(TimerService.TIME_EXTRA, 0.0)
-            if (time >= 30.0) {
-                binding.groupCallTimer.text = getTimeStringFromDouble(30.0)
+            if (time >= roomTime) {
+                binding.groupCallTimer.text = getTimeStringFromDouble(roomTime)
                 stopTimer()
                 resetTimer()
             } else {

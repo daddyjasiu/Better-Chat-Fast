@@ -11,6 +11,7 @@ data class StandardUser(
     override var profilePicture: String,
     override var matchmakingState: EMatchmakingStates,
     override var roomId: String,
+    override var chattingTime: Double,
 
     var isPremium: Boolean = false,
     var isAfterOnboarding: Boolean = false,
