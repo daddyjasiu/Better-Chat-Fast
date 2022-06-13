@@ -169,7 +169,7 @@
                         android:letterSpacing="0.03"
                         android:lineSpacingExtra="2sp"
                         app:cornerRadius="50dp"
-                        app:backgroundTint="#742ddd" />
+                        app:backgroundTint="#3498db" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>

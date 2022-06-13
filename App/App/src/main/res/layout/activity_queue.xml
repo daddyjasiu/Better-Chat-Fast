@@ -30,7 +30,7 @@
             android:textColor="@color/ondark_01"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:backgroundTint="#742ddd"
+            app:backgroundTint="#3498db"
             app:cornerRadius="50dp"
             app:layout_constraintVertical_bias="0.95"
             app:layout_constraintBottom_toBottomOf="parent"
