@@ -162,7 +162,6 @@ class GroupCallFragment : Fragment(), CoroutineScope {
     private fun resetTimer() {
         stopTimer()
         time = 0.0
-        binding.groupCallTimer.text = getTimeStringFromDouble(time)
     }
 
     private fun startStopTimer() {
