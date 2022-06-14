@@ -10,7 +10,11 @@
     <color name="colorPrimary">#2176ff</color>
     <color name="colorPrimaryVariant">#33a1fd</color>
     <color name="colorAccent">#f79824</color>
-    <color name="colorAccentVariant">#fdca40</color>
+    <color name="colorAccentVariant">#f79824</color>
+    <color name="colorBCFPink">#ffcdcf</color>
+    <color name="colorBCFBlue">#3498db</color>
+    <color name="colorBCFWhite">#ffcdcf</color>
+    <color name="colorBCFBlack">#383838</color>
     <color name="onlight_01">#e1000000</color>
     <color name="background_200">#f0f0f0</color>
     <color name="onlight_03">#61000000</color>
