@@ -29,7 +29,7 @@
         android:layout_marginStart="20dp"
         android:fontFamily="sans-serif-light"
         android:text="We need"
-        android:textSize="44sp"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
@@ -44,7 +44,7 @@
         android:fontFamily="sans-serif-condensed"
         android:text="some more info"
         android:textColor="@color/black"
-        android:textSize="50sp"
+        android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="@string/onboarding_4_text"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent=".1"
@@ -90,9 +90,9 @@
         android:id="@+id/onboarding_4_last_name_edit_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:background="@drawable/edit_text_bg"
         android:hint="Last name"
+        android:layout_marginTop="15dp"
         android:paddingStart="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
@@ -100,7 +100,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/onboarding_4_first_name_edit_text"
-        app:layout_constraintVertical_bias="0.075"
+        app:layout_constraintVertical_bias="0"
         app:layout_constraintWidth_percent=".8"
         tools:ignore="RtlSymmetry" />
 
@@ -123,16 +123,26 @@
         app:layout_constraintVertical_bias="0"
         tools:ignore="RtlSymmetry" />
 
-
-
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/onboarding_4_finish_button"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        app:layout_constraintWidth_percent="0.5"
+        android:letterSpacing="0.03"
+        android:lineSpacingExtra="2sp"
         android:text="Finish"
+        android:textAllCaps="false"
+        android:textColor="@color/ondark_01"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:backgroundTint="#3498db"
+        app:cornerRadius="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/onboarding_4_last_name_edit_text" />
+        app:layout_constraintTop_toBottomOf="@+id/onboarding_4_last_name_edit_text"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
