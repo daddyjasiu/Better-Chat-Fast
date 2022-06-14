@@ -30,6 +30,7 @@ import kotlinx.coroutines.tasks.await
 import org.json.JSONObject
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.FragmentUserPreferencesBinding
+import pl.edu.uj.ii.skwarczek.betterchatfast.main.MainActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.signin.AuthenticateViewModel
 import pl.edu.uj.ii.skwarczek.betterchatfast.signin.SignInActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.*
@@ -41,6 +42,7 @@ class UserPreferencesFragment: Fragment(),CoroutineScope {
     private lateinit var currentUser: FirebaseUser
     private lateinit var db: FirebaseFirestore
     private val viewModel: SettingsViewModel = SettingsViewModel()
+    private val viewModel2: AuthenticateViewModel = AuthenticateViewModel()
     lateinit var binding: FragmentUserPreferencesBinding
     private var storageReference: StorageReference? = null
 
@@ -77,6 +79,15 @@ class UserPreferencesFragment: Fragment(),CoroutineScope {
                 }
             }
         }
+
+        viewModel2.authenticationLiveData.observe(requireActivity()) {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    setUserInfo()
+                }
+            }
+        }
+
     }
 
     private fun setUserInfo() {
@@ -122,13 +133,18 @@ class UserPreferencesFragment: Fragment(),CoroutineScope {
                     val iconPath = ref?.downloadUrl?.await().toString()
 
                     val postJSONObject = JSONObject(
-                        """{"user_id":"$mail",
+                        """{
                                                 "nickname":"$nickname",
                                                 "profile_url":"$iconPath"}"""
                     )
-                    Thread(kotlinx.coroutines.Runnable {
+                    launch (Dispatchers.IO){
                         RequestHandler.requestPUT(url, postJSONObject)
-                    }).start()
+                        val intent = Intent(context, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                    }
+
+
                 }
 
             }
@@ -138,6 +154,7 @@ class UserPreferencesFragment: Fragment(),CoroutineScope {
 
         }
     }
+
 
     private fun initView(){
         auth = Firebase.auth

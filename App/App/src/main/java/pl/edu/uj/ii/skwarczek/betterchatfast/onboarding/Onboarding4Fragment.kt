@@ -13,10 +13,7 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 import org.json.JSONObject
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
@@ -36,7 +33,6 @@ class Onboarding4Fragment : Fragment(), CoroutineScope {
 
     private lateinit var finishOnboardingButton: Button
     private lateinit var auth: FirebaseAuth
-    private val viewModel: AuthenticateViewModel = AuthenticateViewModel()
 
     private var job: Job = Job()
 
@@ -80,16 +76,19 @@ class Onboarding4Fragment : Fragment(), CoroutineScope {
                     val postJSONObject = JSONObject(
                         """{"user_id":"$mail",
                                                 "nickname":"$nickname",
-                                                "profile_url":"https://sendbird.com/main/img/profiles/profile_05_512px.png"}"""
+                                                "profile_url":"$iconPath"}"""
                     )
-                    Thread(kotlinx.coroutines.Runnable {
+                    launch(Dispatchers.IO) {
                         RequestHandler.requestPOST(url, postJSONObject)
-                    }).start()
+                        val intent = Intent(context, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                    }
+
+
                 }
 
-                val intent = Intent(context, MainActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
+
             } else {
                 Toast.makeText(context, "Please fill all required fields", Toast.LENGTH_SHORT)
                     .show()

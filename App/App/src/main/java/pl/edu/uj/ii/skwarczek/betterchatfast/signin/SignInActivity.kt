@@ -24,6 +24,7 @@ import kotlinx.android.synthetic.main.fragment_signin_tab.*
 import kotlinx.android.synthetic.main.fragment_signin_tab.view.*
 import kotlinx.android.synthetic.main.fragment_signup_tab.view.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.tasks.await
 import org.json.JSONObject
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.main.MainActivity
@@ -91,24 +92,24 @@ class SignInActivity : AppCompatActivity(), CoroutineScope {
         updateUI(currentUser)
     }
 
-    //
+
     private fun updateUI(currentUser: FirebaseUser?) {
         if (currentUser == null) {
             Log.w(TAG, "User is null, not going to navigate")
         } else {
-//            launch(Dispatchers.Main){
-//                val user = FirestoreHelper.getCurrentUserFromFirestore()
-//                //If the user is NOT new, but he hasn't finished onboarding, onboard him
-//                if (user.get("afterOnboarding").toString() == "false") {
-//                    startActivity(Intent(baseContext, OnboardingActivity::class.java))
-//                    finish()
-//                }
-//                //If the user is NOT new and has finished onboarding, take him to main screen
-//                else {
-//                    startActivity(Intent(baseContext, MainActivity::class.java))
-//                    finish()
-//                }
-//            }
+            launch(Dispatchers.Main){
+                val user = FirestoreHelper.getCurrentUserFromFirestore()
+               //If the user is NOT new, but he hasn't finished onboarding, onboard him
+                if (user.get("afterOnboarding").toString() == "false") {
+                    startActivity(Intent(baseContext, OnboardingActivity::class.java))
+                    finish()
+                }
+                //If the user is NOT new and has finished onboarding, take him to main screen
+                else {
+                    startActivity(Intent(baseContext, MainActivity::class.java))
+                    finish()
+                }
+            }
             startActivity(Intent(baseContext, MainActivity::class.java))
             finish()
         }
