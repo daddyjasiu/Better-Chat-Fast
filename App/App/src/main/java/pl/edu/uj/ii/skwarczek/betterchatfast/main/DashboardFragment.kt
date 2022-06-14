@@ -170,7 +170,7 @@ class DashboardFragment : Fragment(), CoroutineScope {
         binding.textViewUserId.text = if (user?.userId.isNullOrEmpty()) {
             getString(R.string.no_nickname)
         } else {
-            String.format(getString(R.string.user_id_template), user?.userId)
+            user?.userId
         }
 
         binding.textViewUserName.text = if (user?.nickname.isNullOrEmpty()) {

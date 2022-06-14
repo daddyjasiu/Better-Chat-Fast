@@ -69,24 +69,18 @@ class UserPreferencesFragment: Fragment(),CoroutineScope {
         return binding.root
     }
     private fun observeViewModel() {
-        viewModel.deauthenticateLiveData.observe(requireActivity()) {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    auth.signOut()
-                    val signOutIntent = Intent(activity, SignInActivity::class.java)
-                    signOutIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(signOutIntent)
-                }
-            }
-        }
+//        viewModel.deauthenticateLiveData.observe(requireActivity()) {
+//            when (it.status) {
+//                Status.SUCCESS -> {
+//                    auth.signOut()
+//                    val signOutIntent = Intent(activity, SignInActivity::class.java)
+//                    signOutIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//                    startActivity(signOutIntent)
+//                }
+//            }
+//        }
 
-        viewModel2.authenticationLiveData.observe(requireActivity()) {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    setUserInfo()
-                }
-            }
-        }
+
 
     }
 
@@ -139,6 +133,7 @@ class UserPreferencesFragment: Fragment(),CoroutineScope {
                     )
                     launch (Dispatchers.IO){
                         RequestHandler.requestPUT(url, postJSONObject)
+                        viewModel.deauthenticate()
                         val intent = Intent(context, MainActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)

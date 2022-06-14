@@ -64,6 +64,10 @@ class MainActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
+
+
+        viewModel.authenticate(auth.currentUser?.email!!, null)
+
         FirestoreHelper.updateCurrentUserMatchmakingState(EMatchmakingStates.NOT_MATCHMAKING)
         FirestoreHelper.updateCurrentUserRoomId("")
     }
@@ -167,6 +171,7 @@ class MainActivity : BaseActivity() {
                     // TODO : show loading view
                 }
                 Status.SUCCESS -> {
+                    Log.d("XD","mainactivity on auth")
                     binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
                     val tabLayout = binding.tabLayoutMain
                     tabLayout.addOnTabSelectedListener(onTabSelectedListener)

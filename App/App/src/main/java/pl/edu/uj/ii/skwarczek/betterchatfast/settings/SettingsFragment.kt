@@ -43,7 +43,7 @@ class SettingsFragment : Fragment() {
         binding.settingsTextViewUserId.text = if (user?.userId.isNullOrEmpty()) {
             getString(R.string.no_nickname)
         } else {
-            String.format(getString(R.string.user_id_template), user?.userId)
+             user?.userId
         }
 
         binding.settingsTextViewUserName.text = if (user?.nickname.isNullOrEmpty()) {
