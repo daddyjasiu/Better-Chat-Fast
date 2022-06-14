@@ -43,6 +43,14 @@ object FirestoreHelper {
             .set(user)
     }
 
+    fun updateUserProfilePictureURL(url: String){
+        val db = Firebase.firestore
+        val currentUser = Firebase.auth.currentUser!!
+        db.collection("users")
+            .document(currentUser.uid)
+            .update("profilePicture", url)
+    }
+
     fun deleteCurrentUserFromMatchmaking(){
         val db = Firebase.firestore
         val currentUser = Firebase.auth.currentUser!!

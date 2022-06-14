@@ -73,6 +73,8 @@ class Onboarding4Fragment : Fragment(), CoroutineScope {
                 launch(Dispatchers.Main) {
                     val iconPath = ref?.downloadUrl?.await().toString()
 
+                    FirestoreHelper.updateUserProfilePictureURL(iconPath)
+
                     val postJSONObject = JSONObject(
                         """{"user_id":"$mail",
                                                 "nickname":"$nickname",
@@ -84,10 +86,7 @@ class Onboarding4Fragment : Fragment(), CoroutineScope {
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
                     }
-
-
                 }
-
 
             } else {
                 Toast.makeText(context, "Please fill all required fields", Toast.LENGTH_SHORT)

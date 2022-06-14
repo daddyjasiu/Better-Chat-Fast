@@ -21,16 +21,14 @@ import com.google.firebase.storage.StorageReference
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import java.io.IOException
 
-
-
 class Onboarding3Fragment : Fragment() {
     private val PICK_IMAGE_REQUEST = 71
     private var filePath: Uri? = null
     private var firebaseStore: FirebaseStorage? = null
     private var storageReference: StorageReference? = null
-    lateinit var imagePreview: ImageView
-    lateinit var btn_choose_image: Button
-    lateinit var btn_upload_image: Button
+    private lateinit var imagePreview: ImageView
+    private lateinit var btn_choose_image: Button
+    private lateinit var btn_upload_image: Button
     private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
@@ -39,10 +37,16 @@ class Onboarding3Fragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_onboarding_3, container, false)
         initView(view)
-        btn_choose_image.setOnClickListener { launchGallery() }
-        btn_upload_image.setOnClickListener { uploadImage() }
+        btn_choose_image.setOnClickListener {
+            launchGallery()
+        }
+
+        btn_upload_image.setOnClickListener {
+            uploadImage()
+        }
         return view
     }
+
     private fun initView(view: View) {
         auth = FirebaseAuth.getInstance()
 
@@ -53,10 +57,11 @@ class Onboarding3Fragment : Fragment() {
         firebaseStore = FirebaseStorage.getInstance()
         storageReference = FirebaseStorage.getInstance().reference
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
-            if(data == null || data.data == null){
+            if (data == null || data.data == null) {
                 return
             }
 
@@ -77,13 +82,13 @@ class Onboarding3Fragment : Fragment() {
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
     }
 
-    private fun uploadImage(){
-        if(filePath != null){
+    private fun uploadImage() {
+        if (filePath != null) {
             val ref = storageReference?.child("myImages/" + auth.currentUser!!.uid)
-            val uploadTask = ref?.putFile(filePath!!)
-
-        }else{
-            Toast.makeText(activity, "Please Upload an Image", Toast.LENGTH_SHORT).show()
+            ref?.putFile(filePath!!)
+            Toast.makeText(context, "Profile photo uploaded!", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(activity, "Please choose an image first", Toast.LENGTH_SHORT).show()
         }
     }
 }

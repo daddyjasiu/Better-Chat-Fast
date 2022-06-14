@@ -10,7 +10,7 @@ import pl.edu.uj.ii.skwarczek.betterchatfast.onboarding.Onboarding4Fragment
 
 class OnboardingAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
-    private val NUM_PAGES = 4
+    private val NUM_PAGES = 3
 
     override fun getCount(): Int {
         return NUM_PAGES
@@ -22,12 +22,9 @@ class OnboardingAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
                 return Onboarding1Fragment()
             }
             1 -> {
-                return Onboarding2Fragment()
-            }
-            2 -> {
                 return Onboarding3Fragment()
             }
-            3 -> {
+            2 -> {
                 return Onboarding4Fragment()
             }
         }

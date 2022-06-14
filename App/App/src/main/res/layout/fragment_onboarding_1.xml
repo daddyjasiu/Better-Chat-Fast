@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorPrimaryVariant">
+    android:background="@color/indigo_200">
 
     <TextView
         android:id="@+id/onboarding_1_app_name_text_view"

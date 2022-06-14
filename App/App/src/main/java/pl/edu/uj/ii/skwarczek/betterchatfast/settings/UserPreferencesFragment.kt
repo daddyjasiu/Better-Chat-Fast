@@ -1,11 +1,16 @@
 package pl.edu.uj.ii.skwarczek.betterchatfast.settings
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -34,6 +39,7 @@ import pl.edu.uj.ii.skwarczek.betterchatfast.main.MainActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.signin.AuthenticateViewModel
 import pl.edu.uj.ii.skwarczek.betterchatfast.signin.SignInActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.*
+import java.io.IOException
 import kotlin.coroutines.CoroutineContext
 
 class UserPreferencesFragment: Fragment(),CoroutineScope {
@@ -42,9 +48,14 @@ class UserPreferencesFragment: Fragment(),CoroutineScope {
     private lateinit var currentUser: FirebaseUser
     private lateinit var db: FirebaseFirestore
     private val viewModel: SettingsViewModel = SettingsViewModel()
-    private val viewModel2: AuthenticateViewModel = AuthenticateViewModel()
     lateinit var binding: FragmentUserPreferencesBinding
     private var storageReference: StorageReference? = null
+    private val PICK_IMAGE_REQUEST = 71
+    private var filePath: Uri? = null
+    private var firebaseStore: FirebaseStorage? = null
+    private lateinit var imagePreview: ImageView
+    private lateinit var btn_choose_image: Button
+    private lateinit var btn_upload_image: Button
 
     private var job: Job = Job()
 
@@ -59,29 +70,16 @@ class UserPreferencesFragment: Fragment(),CoroutineScope {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?
     ): View {
-        auth= FirebaseAuth.getInstance()
+        auth = FirebaseAuth.getInstance()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user_preferences, container, false)
         setUserInfo()
-        setViewEventListener()
-        observeViewModel()
+
+        val view = inflater.inflate(R.layout.fragment_user_preferences, container, false)
         initView()
 
+        setViewEventListener()
+
         return binding.root
-    }
-    private fun observeViewModel() {
-//        viewModel.deauthenticateLiveData.observe(requireActivity()) {
-//            when (it.status) {
-//                Status.SUCCESS -> {
-//                    auth.signOut()
-//                    val signOutIntent = Intent(activity, SignInActivity::class.java)
-//                    signOutIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                    startActivity(signOutIntent)
-//                }
-//            }
-//        }
-
-
-
     }
 
     private fun setUserInfo() {
@@ -97,13 +95,50 @@ class UserPreferencesFragment: Fragment(),CoroutineScope {
             )
             .into(binding.preferencesImageViewUserProfile)
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
+
+            if (data == null || data.data == null) {
+                return
+            }
+
+            filePath = data.data
+            try {
+                val bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, filePath)
+                imagePreview.setImageBitmap(bitmap)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun launchGallery() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
+    }
+
+    private fun uploadImage() {
+        if (filePath != null) {
+            val ref = storageReference?.child("myImages/" + auth.currentUser!!.uid)
+            ref?.putFile(filePath!!)
+            Toast.makeText(context, "Profile photo uploaded!", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(activity, "Please choose an image first", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun setViewEventListener() {
         binding.userPreferencesImageViewLeftArrow.setOnClickListener{
             findNavController().navigateUp()
         }
 
         binding.preferencesImageViewUserProfile.setOnClickListener{
-            Toast.makeText(context, "Img Button Clicked!", Toast.LENGTH_SHORT).show()
+            launchGallery()
         }
 
         binding.settingsSaveChangesButton.setOnClickListener {
@@ -153,9 +188,11 @@ class UserPreferencesFragment: Fragment(),CoroutineScope {
 
     private fun initView(){
         auth = Firebase.auth
+        imagePreview = binding.preferencesImageViewUserProfile
         currentUser = auth.currentUser!!
         db = Firebase.firestore
         storageReference = FirebaseStorage.getInstance().reference
+        firebaseStore = FirebaseStorage.getInstance()
 
     }
 }

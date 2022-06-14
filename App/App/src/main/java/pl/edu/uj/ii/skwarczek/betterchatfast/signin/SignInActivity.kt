@@ -36,7 +36,6 @@ import pl.edu.uj.ii.skwarczek.betterchatfast.util.RequestHandler
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.SENDBIRD_APP_ID
 import kotlin.coroutines.CoroutineContext
 
-
 class SignInActivity : AppCompatActivity(), CoroutineScope {
 
     private var job: Job = Job()
@@ -76,7 +75,6 @@ class SignInActivity : AppCompatActivity(), CoroutineScope {
             .build()
 
         val client = GoogleSignIn.getClient(this, gso)
-
 
         googleActionButton.setOnClickListener {
             val signInIntent = client.signInIntent
