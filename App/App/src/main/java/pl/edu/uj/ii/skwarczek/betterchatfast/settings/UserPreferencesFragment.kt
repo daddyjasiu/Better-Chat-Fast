@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,13 +35,11 @@ import org.json.JSONObject
 import pl.edu.uj.ii.skwarczek.betterchatfast.R
 import pl.edu.uj.ii.skwarczek.betterchatfast.databinding.FragmentUserPreferencesBinding
 import pl.edu.uj.ii.skwarczek.betterchatfast.main.MainActivity
-import pl.edu.uj.ii.skwarczek.betterchatfast.signin.AuthenticateViewModel
-import pl.edu.uj.ii.skwarczek.betterchatfast.signin.SignInActivity
 import pl.edu.uj.ii.skwarczek.betterchatfast.util.*
 import java.io.IOException
 import kotlin.coroutines.CoroutineContext
 
-class UserPreferencesFragment: Fragment(),CoroutineScope {
+class UserPreferencesFragment : Fragment(), CoroutineScope {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var currentUser: FirebaseUser
@@ -67,14 +64,15 @@ class UserPreferencesFragment: Fragment(),CoroutineScope {
         job.cancel()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         auth = FirebaseAuth.getInstance()
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user_preferences, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_user_preferences, container, false)
         setUserInfo()
 
-        val view = inflater.inflate(R.layout.fragment_user_preferences, container, false)
         initView()
 
         setViewEventListener()
@@ -108,7 +106,7 @@ class UserPreferencesFragment: Fragment(),CoroutineScope {
             filePath = data.data
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, filePath)
-                imagePreview.setImageBitmap(bitmap)
+                uploadImage()
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -126,6 +124,29 @@ class UserPreferencesFragment: Fragment(),CoroutineScope {
         if (filePath != null) {
             val ref = storageReference?.child("myImages/" + auth.currentUser!!.uid)
             ref?.putFile(filePath!!)
+            val mail = auth.currentUser?.email
+
+            //http post user
+            val url = "https://api-$SENDBIRD_APP_ID.sendbird.com/v3/users/$mail"
+            launch(Dispatchers.Main) {
+                val iconPath = ref?.downloadUrl?.await().toString()
+
+                FirestoreHelper.updateUserProfilePictureURL(iconPath)
+
+                val postJSONObject = JSONObject(
+                    """{
+                                                "profile_url":"$iconPath"}"""
+                )
+                launch(Dispatchers.IO) {
+                    RequestHandler.requestPUT(url, postJSONObject)
+                    viewModel.deauthenticate()
+                    val intent = Intent(context, MainActivity::class.java)
+                    intent.flags =
+                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                }
+            }
+
             Toast.makeText(context, "Profile photo uploaded!", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(activity, "Please choose an image first", Toast.LENGTH_SHORT).show()
@@ -133,11 +154,11 @@ class UserPreferencesFragment: Fragment(),CoroutineScope {
     }
 
     private fun setViewEventListener() {
-        binding.userPreferencesImageViewLeftArrow.setOnClickListener{
+        binding.userPreferencesImageViewLeftArrow.setOnClickListener {
             findNavController().navigateUp()
         }
 
-        binding.preferencesImageViewUserProfile.setOnClickListener{
+        binding.preferencesImageViewUserProfile.setOnClickListener {
             launchGallery()
         }
 
@@ -145,48 +166,42 @@ class UserPreferencesFragment: Fragment(),CoroutineScope {
 
             val nickname = binding.userPreferencesNicknameEditText.text.trim().toString()
 
-            if(nickname.isNotEmpty()){
+            if (nickname.isNotEmpty()) {
                 val settingsHelper: ISettings = Settings()
                 settingsHelper.setUserNickname(nickname)
 
-                view.let{activity?.hideKeyboard()}
+                view.let { activity?.hideKeyboard() }
 
                 Toast.makeText(context, "User credentials updated!", Toast.LENGTH_SHORT).show()
 
                 val mail = auth.currentUser?.email
-                val ref = storageReference?.child("myImages/" + auth.currentUser!!.uid)
 
                 //http post user
                 val url = "https://api-$SENDBIRD_APP_ID.sendbird.com/v3/users/$mail"
                 launch(Dispatchers.Main) {
-                    val iconPath = ref?.downloadUrl?.await().toString()
 
                     val postJSONObject = JSONObject(
                         """{
-                                                "nickname":"$nickname",
-                                                "profile_url":"$iconPath"}"""
+                                                "nickname":"$nickname"}"""
                     )
-                    launch (Dispatchers.IO){
+                    launch(Dispatchers.IO) {
                         RequestHandler.requestPUT(url, postJSONObject)
                         viewModel.deauthenticate()
                         val intent = Intent(context, MainActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
                     }
-
-
                 }
 
+            } else {
+                Toast.makeText(context, "Please fill all required fields", Toast.LENGTH_SHORT)
+                    .show()
             }
-            else{
-                Toast.makeText(context, "Please fill all required fields", Toast.LENGTH_SHORT).show()
-            }
-
         }
     }
 
-
-    private fun initView(){
+    private fun initView() {
         auth = Firebase.auth
         imagePreview = binding.preferencesImageViewUserProfile
         currentUser = auth.currentUser!!

@@ -28,7 +28,6 @@ class Onboarding3Fragment : Fragment() {
     private var storageReference: StorageReference? = null
     private lateinit var imagePreview: ImageView
     private lateinit var btn_choose_image: Button
-    private lateinit var btn_upload_image: Button
     private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
@@ -41,9 +40,6 @@ class Onboarding3Fragment : Fragment() {
             launchGallery()
         }
 
-        btn_upload_image.setOnClickListener {
-            uploadImage()
-        }
         return view
     }
 
@@ -51,7 +47,6 @@ class Onboarding3Fragment : Fragment() {
         auth = FirebaseAuth.getInstance()
 
         btn_choose_image = view.findViewById(R.id.btn_choose_image)
-        btn_upload_image = view.findViewById(R.id.btn_upload_image)
         imagePreview = view.findViewById(R.id.image_preview)
 
         firebaseStore = FirebaseStorage.getInstance()
@@ -69,6 +64,7 @@ class Onboarding3Fragment : Fragment() {
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, filePath)
                 imagePreview.setImageBitmap(bitmap)
+                uploadImage()
             } catch (e: IOException) {
                 e.printStackTrace()
             }

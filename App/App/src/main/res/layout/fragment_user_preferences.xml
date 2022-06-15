@@ -113,38 +113,67 @@
                         app:layout_constraintWidth_percent=".8"
                         tools:ignore="RtlSymmetry" />
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp">
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/settings_save_changes_button"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:fontFamily="sans-serif"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:letterSpacing="0.03"
+                            android:lineSpacingExtra="2sp"
+                            android:text="Save changes"
+                            android:textAllCaps="false"
+                            android:textColor="@color/ondark_01"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:backgroundTint="#3498db"
+                            app:cornerRadius="50dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="1"
+                            app:layout_constraintWidth_percent="0.5" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </LinearLayout>
+
+
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintHeight_percent="0.5"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="30dp"
                 android:background="@color/white"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="12dp"
-                app:layout_constraintBottom_toTopOf="@+id/settings_save_changes_button"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView"
-                app:layout_constraintVertical_bias="0">
+                app:layout_constraintTop_toBottomOf="@+id/cardView">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="24dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="24dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
                         android:fontFamily="sans-serif"
                         android:lineSpacingExtra="4sp"
-                        android:layout_marginBottom="15dp"
                         android:text="Change your profile picture"
                         android:textColor="@color/onlight_01"
                         android:textSize="16sp"
@@ -161,29 +190,6 @@
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/settings_save_changes_button"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:fontFamily="sans-serif"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:letterSpacing="0.03"
-                android:lineSpacingExtra="2sp"
-                android:text="Save changes"
-                android:textAllCaps="false"
-                android:textColor="@color/ondark_01"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:backgroundTint="#3498db"
-                app:cornerRadius="50dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1"
-                app:layout_constraintWidth_percent="0.5" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
