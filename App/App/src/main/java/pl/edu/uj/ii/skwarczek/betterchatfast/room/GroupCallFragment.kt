@@ -60,7 +60,6 @@ class GroupCallFragment : Fragment(), CoroutineScope {
         job.cancel()
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
